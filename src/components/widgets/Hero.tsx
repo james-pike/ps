@@ -64,6 +64,8 @@ export default component$(() => {
       width: 100%;
       min-height: 600px;
       perspective: 1000px;
+      touch-action: pan-y;
+      user-select: none;
     }
     .carousel-card-wrapper {
       position: absolute;
@@ -155,22 +157,28 @@ export default component$(() => {
       {/* Subtle grid overlay */}
       <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem]" aria-hidden="true"></div>
 
-      <div class="relative z-10 container -mt-20 mx-auto px-4 py-8">
+      <div class="relative z-10 container -mt-40 mx-auto px-4 py-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden">
           <div
             class="hero-carousel-container"
             onTouchStart$={(e) => {
               touchStartX.value = e.touches[0].clientX;
+              touchEndX.value = e.touches[0].clientX;
             }}
             onTouchMove$={(e) => {
               touchEndX.value = e.touches[0].clientX;
+              const diff = Math.abs(touchStartX.value - touchEndX.value);
+              if (diff > 10) {
+                e.preventDefault();
+              }
             }}
-            onTouchEnd$={() => {
+            onTouchEnd$={(e) => {
               const swipeThreshold = 50;
               const diff = touchStartX.value - touchEndX.value;
 
               if (Math.abs(diff) > swipeThreshold) {
+                e.preventDefault();
                 if (diff > 0) {
                   // Swipe left - next slide
                   currentSlideIndex.value = (currentSlideIndex.value + 1) % heroCards.length;
@@ -244,9 +252,9 @@ export default component$(() => {
                     </div>
 
                     {/* Progress Bar */}
-                    <div class="progress-bar">
+                    {/* <div class="progress-bar">
                       <div class="progress-fill"></div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               );
@@ -278,15 +286,21 @@ export default component$(() => {
             class="hero-carousel-container"
             onTouchStart$={(e) => {
               touchStartX.value = e.touches[0].clientX;
+              touchEndX.value = e.touches[0].clientX;
             }}
             onTouchMove$={(e) => {
               touchEndX.value = e.touches[0].clientX;
+              const diff = Math.abs(touchStartX.value - touchEndX.value);
+              if (diff > 10) {
+                e.preventDefault();
+              }
             }}
-            onTouchEnd$={() => {
+            onTouchEnd$={(e) => {
               const swipeThreshold = 50;
               const diff = touchStartX.value - touchEndX.value;
 
               if (Math.abs(diff) > swipeThreshold) {
+                e.preventDefault();
                 if (diff > 0) {
                   // Swipe left - next slide
                   currentSlideIndex.value = (currentSlideIndex.value + 1) % heroCards.length;

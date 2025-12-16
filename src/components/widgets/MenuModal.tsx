@@ -23,7 +23,7 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
   const normalizePath = (path: string) => path.replace(/\/$/, "");
 
   return (
-    <div class="border-t border-primary-200">
+    <div class="border-t border-primary-800/30">
       {items.map((item, index) => {
         // Check if the current route matches the item or any subitem
         const currentPath = normalizePath(location.url.pathname);
@@ -37,7 +37,7 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
           <div
             key={index}
             class={cn(
-              index > 0 && "border-t border-primary-200",
+              index > 0 && "border-t border-primary-800/30",
               index === items.length - 1 && "border-b-0"
             )}
           >
@@ -45,17 +45,17 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
               <>
                 <button
                   class={cn(
-                    "!text-xl font-medium text-gray-700 dark:text-gray-200 flex items-center justify-between w-full p-2.5 px-5",
+                    "!text-xl font-medium text-tertiary-200 flex items-center justify-between w-full p-2.5 px-5",
                     isActive &&
-                      "bg-primary-100 dark:bg-primary-100/80 !important text-secondary-800 dark:text-secondary-800 !important font-bold !important",
-                    "hover:bg-primary-100 dark:hover:bg-primary-100/80 transition-all duration-200"
+                      "bg-primary-900/50 text-primary-300 font-bold",
+                    "hover:bg-primary-900/30 transition-all duration-200"
                   )}
                   onClick$={() => (openIndex.value = openIndex.value === index ? null : index)}
                 >
                   <span>{item.title}</span>
                   <LuChevronDown
                     class={cn(
-                      "h-6 w-6 text-gray-500 transition-transform duration-200",
+                      "h-6 w-6 text-tertiary-400 transition-transform duration-200",
                       openIndex.value === index && "rotate-180"
                     )}
                   />
@@ -79,14 +79,14 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
                       };
                       return (
                         <li key={subitem.title} class="flex items-center">
-                          <span class="text-primary-300 !text-2xs mr-3">✦</span>
+                          <span class="text-primary-400 !text-2xs mr-3">✦</span>
                           <a
                             {...linkProps}
                             class={cn(
-                              "block text-gray-700 dark:text-gray-200 !text-xl p-3 pl-1 font-medium transition-all duration-200",
+                              "block text-tertiary-300 !text-xl p-3 pl-1 font-medium transition-all duration-200",
                               isSubitemActive &&
-                                "bg-primary-100 dark:bg-primary-100/80 !important text-secondary-800 dark:text-secondary-800 !important font-bold !important",
-                              "hover:bg-primary-100 dark:hover:bg-primary-100/80"
+                                "bg-primary-900/50 text-primary-300 font-bold",
+                              "hover:bg-primary-900/30"
                             )}
                             onClick$={closeModal}
                           >
@@ -108,10 +108,10 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
                   <a
                     {...itemLinkProps}
                     class={cn(
-                      "block lg text-gray-700 !text-xl dark:text-gray-200 p-3 px-5 font-medium transition-all duration-200",
+                      "block lg text-tertiary-200 !text-xl p-3 px-5 font-medium transition-all duration-200",
                       isActive &&
-                        "bg-primary-100 dark:bg-primary-100/80 !important text-secondary-800 dark:text-secondary-800 !important font-bold !important",
-                      "hover:bg-primary-100 dark:hover:bg-primary-100/80"
+                        "bg-primary-900/50 text-primary-300 font-bold",
+                      "hover:bg-primary-900/30"
                     )}
                     onClick$={closeModal}
                   >
@@ -198,19 +198,19 @@ export default component$(() => {
         <div class="absolute top-2 right-3  md:static">
           <Modal.Trigger
             class={cn(
-              "p-2 py-1  rounded-lg border backdrop-blur-sm transition-all duration-300",
-              "bg-white/35 mb-1 border-primary-200 dark:border-secondary-700 hover:shadow-xl hover:bg-white/45"
+              "p-2 py-1 rounded-lg border backdrop-blur-sm transition-all duration-300",
+              "bg-primary-900/30 mb-1 border-primary-600/30 hover:shadow-xl hover:bg-primary-900/50"
             )}
           >
-            <IconHamburger class="w-6 h-7 text-secondary-800/50 dark:text-secondary-200" />
+            <IconHamburger class="w-6 h-7 text-primary-300" />
           </Modal.Trigger>
         </div>
 
         <Modal.Panel
           position="left"
-          class="dark:bg-gray-950 border-r border-primary-200 overflow-y-auto max-h-[100vh]"
+          class="bg-gradient-to-br from-primary-950 via-black to-tertiary-950 border-r border-primary-600/30 overflow-y-auto max-h-[100vh]"
         >
-          <div class="rounded-t-none border-primary-200 bg-white/50 dark:bg-gray-900 p-2">
+          <div class="rounded-t-none border-b border-primary-800/30 bg-gradient-to-br from-primary-900/20 to-black/40 backdrop-blur-md p-2">
             <Modal.Title class="pt-3 pb-2 pl-2.5">
               <a href="/" class="focus:outline-none">
                 <div style="width: 100px; height: 40px;">
@@ -225,11 +225,11 @@ export default component$(() => {
             </Modal.Description> */}
           </div>
 
-          <nav class="mt-0 space-y-4 bg-white/50 dark:bg-gray-800">
+          <nav class="mt-0 space-y-4 bg-gradient-to-br from-black/40 to-tertiary-900/20">
             <CustomAccordion items={menuItems} show={show} />
           </nav>
 
-          <div class="rounded-b-2xl border-t border-primary-200 bg-white/50 dark:bg-gray-900 pb-5">
+          <div class="rounded-b-2xl border-t border-primary-800/30 bg-gradient-to-br from-primary-900/20 to-black/40 backdrop-blur-md pb-5">
             <div class="sm:max-w-md px-5 pt-4 flex flex-row items-center justify-between gap-4 lg:justify-start lg:max-w-7xl">
               <div class="flex-shrink-0">
                 <a
@@ -252,7 +252,7 @@ export default component$(() => {
                   href="https://www.facebook.com/p/earthen-vessels-61562702795370/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-gray-600 dark:text-gray-200 hover:text-secondary-800 dark:hover:text-primary-400 transition-colors"
+                  class="text-tertiary-400 hover:text-primary-400 transition-colors"
                 >
                   <LuFacebook class="h-7 w-7" />
                 </a>
@@ -260,7 +260,7 @@ export default component$(() => {
                   href="https://www.instagram.com/earthenvesselspottery_/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-gray-600 dark:text-gray-200 hover:text-secondary-800 dark:hover:text-primary-400 transition-colors"
+                  class="text-tertiary-400 hover:text-primary-400 transition-colors"
                 >
                   <LuInstagram class="h-7 w-7" />
                 </a>
@@ -274,7 +274,7 @@ export default component$(() => {
           <Modal.Close
             class={cn(
               buttonVariants({ size: "icon", look: "link" }),
-              "absolute right-8 top-5 text-primary-300 hover:text-secondary-800 dark:text-white dark:hover:bg-gray-900"
+              "absolute right-8 top-5 text-tertiary-400 hover:text-primary-300 hover:bg-primary-900/30 transition-all duration-200"
             )}
             type="submit"
           >
