@@ -216,12 +216,10 @@ export default component$(() => {
       <header
         id="header"
         class={`
-          sticky top-0 z-40 flex-none mx-auto max-w-7xl border-primary-200 shadow-sm
+          sticky top-0 z-40 flex-none mx-auto max-w-7xl
           transition-all duration-300 ease-in-out
-          ${store.isScrolling
-            ? "bg-primary-100/95 md:bg-primary-100/80 dark:bg-primary-900/80 md:backdrop-blur-sm"
-            : "bg-primary-100/95"
-          }
+          bg-gradient-to-br from-primary-950 via-black to-tertiary-950
+          ${store.isScrolling ? "md:backdrop-blur-sm" : ""}
         `}
         window:onScroll$={() => {
           const scrollY = window.scrollY;
@@ -286,7 +284,7 @@ export default component$(() => {
             aria-label="Main navigation"
           >
             {menu && menu.items ? (
-              <ul class="flex flex-col md:flex-row text-primary-600 md:self-center w-full md:w-auto text-xl md:text-xl tracking-[0.01rem] font-medium">
+              <ul class="flex flex-col md:flex-row text-white md:self-center w-full md:w-auto text-xl md:text-xl tracking-[0.01rem] font-medium bg-gradient-to-br from-primary-900/50 via-black/60 to-tertiary-900/50 backdrop-blur-md border border-primary-600/30 shadow-xl rounded-full px-2 py-1">
                 {menu.items.map(({ text, href, items,  }, key) => {
                   const isActive = location.url.pathname === href;
                   return (
@@ -296,22 +294,22 @@ export default component$(() => {
                           <a
                             href={href}
                             class={`
-                              hover:text-secondary-800
+                              hover:text-primary-300
                               px-4 py-3
                               flex items-center
                               transition-all duration-200
                               relative
-                              rounded-base
+                              rounded-full
                               after:content-['']
                               after:absolute
                               after:bottom-[6px]
                               after:left-1/2
                               after:h-[2px]
-                              after:bg-secondary-800
+                              after:bg-primary-400
                               after:transition-all
                               after:duration-200
                               ${isActive
-                                ? "text-secondary-800 after:w-1/2 after:left-1/4 md:group-hover:[&:not(:hover)]:after:w-0 md:group-hover:[&:not(:hover)]:after:left-1/2"
+                                ? "text-primary-400 after:w-1/2 after:left-1/4 md:group-hover:[&:not(:hover)]:after:w-0 md:group-hover:[&:not(:hover)]:after:left-1/2"
                                 : "after:w-0 md:hover:after:w-1/2 md:hover:after:left-1/4"
                               }
                             `}
@@ -334,13 +332,13 @@ export default component$(() => {
                             class={`
                               dropdown-menu
                               md:backdrop-blur-md
-                              dark:md:bg-muted
                               rounded-lg
                               md:absolute
                               pl-4 md:pl-0
                               md:hidden
                               font-medium
-                              md:bg-white/80
+                              md:bg-gradient-to-br md:from-primary-900/90 md:via-black/95 md:to-tertiary-900/90
+                              md:border md:border-primary-600/30
                               md:min-w-[200px]
                               drop-shadow-xl
                               py-2
@@ -355,8 +353,9 @@ export default component$(() => {
                                 <li key={key2}>
                                   <a
                                     class={`
-                                      hover:bg-muted
-                                      hover:text-secondary-800
+                                      hover:bg-primary-800/30
+                                      hover:text-primary-300
+                                      text-white
                                       py-2 px-5
                                       flex items-center gap-2
                                       whitespace-no-wrap
@@ -367,15 +366,15 @@ export default component$(() => {
                                       after:bottom-[4px]
                                       after:left-1/2
                                       after:h-[2px]
-                                      after:bg-secondary-800
+                                      after:bg-primary-400
                                       after:transition-all
                                       after:duration-200
                                       ${isDropdownActive
-                                        ? "after:w-1/2 after:left-1/4 md:group-hover:[&:not(:hover)]:after:w-0 md:group-hover:[&:not(:hover)]:after:left-1/2"
+                                        ? "text-primary-400 after:w-1/2 after:left-1/4 md:group-hover:[&:not(:hover)]:after:w-0 md:group-hover:[&:not(:hover)]:after:left-1/2"
                                         : "after:w-0 md:hover:after:w-1/2 md:hover:after:left-1/4"
                                       }
-                                      ${isFirst ? "hover:rounded-t-base" : ""}
-                                      ${isLast ? "hover:rounded-b-base" : ""}
+                                      ${isFirst ? "hover:rounded-t-lg" : ""}
+                                      ${isLast ? "hover:rounded-b-lg" : ""}
                                       ${!isFirst && !isLast ? "hover:rounded-none" : ""}
                                     `}
                                     href={href2}
@@ -405,8 +404,7 @@ export default component$(() => {
                       ) : (
                         <a
                           class={`
-                            hover:bg-muted
-                            hover:text-secondary-800
+                            hover:text-primary-300
                             px-4 py-3
                             flex items-center
                             relative
@@ -416,12 +414,12 @@ export default component$(() => {
                             after:bottom-[6px]
                             after:left-1/2
                             after:h-[2px]
-                            after:bg-secondary-800
+                            after:bg-primary-400
                             after:transition-all
                             after:duration-200
-                            rounded-base
+                            rounded-full
                             ${isActive
-                              ? "text-secondary-800 after:w-1/2 after:left-1/4 md:group-hover:[&:not(:hover)]:after:w-0 md:group-hover:[&:not(:hover)]:after:left-1/2"
+                              ? "text-primary-400 after:w-1/2 after:left-1/4 md:group-hover:[&:not(:hover)]:after:w-0 md:group-hover:[&:not(:hover)]:after:left-1/2"
                               : "after:w-0 md:hover:after:w-1/2 md:hover:after:left-1/4"
                             }
                           `}

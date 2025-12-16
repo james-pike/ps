@@ -38,12 +38,10 @@ export default component$(() => {
 
   return (
     <>
-      <main class="mt-2">
-
+      <main>
         <Slot />
       </main>
       <Footer />
-
     </>
   );
 });

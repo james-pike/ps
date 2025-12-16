@@ -5,12 +5,22 @@ export default component$(() => {
   const carouselIndex = useSignal(0);
   const isAutoPlaying = useSignal(true);
   const currentSlideIndex = useSignal(0);
+  const rightColumnImageIndex = useSignal(0);
 
   const carouselImages = [
     "/images/hero.webp",
     "/images/space.jpeg",
     "/images/a2.webp",
     "/images/a3.jpg"
+  ];
+
+  const rightColumnImages = [
+    "/images/bowls.jpeg",
+    "/images/lanterns.jpg",
+    "/images/summer.jpg",
+    "/images/space.jpeg",
+    "/images/labyrinth.jpeg",
+    "/images/welcome.jpeg"
   ];
 
   const heroCards = [
@@ -60,23 +70,27 @@ export default component$(() => {
       left: 0;
       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       transform-origin: center center;
+      visibility: hidden;
     }
     .carousel-card-wrapper.active {
       z-index: 3;
       transform: translate(0, 0) scale(1) rotate(0deg);
       opacity: 1;
+      visibility: visible;
     }
     .carousel-card-wrapper.next {
       z-index: 2;
       transform: translate(20px, -20px) scale(0.95) rotate(2deg);
-      opacity: 0.7;
+      opacity: 1;
       pointer-events: none;
+      visibility: visible;
     }
     .carousel-card-wrapper.prev {
       z-index: 1;
       transform: translate(40px, -40px) scale(0.9) rotate(4deg);
-      opacity: 0.4;
+      opacity: 1;
       pointer-events: none;
+      visibility: visible;
     }
     .carousel-card-wrapper.hidden {
       display: none;
@@ -118,8 +132,16 @@ export default component$(() => {
     cleanup(() => clearInterval(interval));
   });
 
+  // Auto-advance right column images
+  useVisibleTask$(({ cleanup }) => {
+    const interval = setInterval(() => {
+      rightColumnImageIndex.value = (rightColumnImageIndex.value + 1) % rightColumnImages.length;
+    }, 5000);
+    cleanup(() => clearInterval(interval));
+  });
+
   return (
-    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-black py-12 md:py-0">
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-primary-950 via-black to-tertiary-950 py-12 md:py-0 -mt-1">
       {/* Animated gradient background */}
       <div class="absolute inset-0 bg-gradient-to-br from-primary-950 via-black to-tertiary-950 opacity-80"></div>
 
@@ -223,7 +245,7 @@ export default component$(() => {
         </div>
 
         {/* Desktop Layout - Card Stack */}
-        <div class="hidden lg:block max-w-7xl -mt-40 mx-auto">
+        <div class="hidden lg:block max-w-7xl  mx-auto">
           <div class="hero-carousel-container">
             {heroCards.map((card, index) => {
               const getCardClass = () => {
@@ -245,10 +267,11 @@ export default component$(() => {
               return (
                 <div key={index} class={`carousel-card-wrapper ${getCardClass()}`}>
                   {/* Unified Card - Both Columns */}
-                  <div class="grid grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-2xl" style="transform-style: preserve-3d;">
+                  <div class="grid grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-2xl bg-black" style="transform-style: preserve-3d;">
 
                     {/* Left: Messaging */}
-                    <div class="bg-gradient-to-br from-primary-900/20 via-black/40 to-tertiary-900/20 backdrop-blur-md border-2 border-r-0 border-primary-600/30 rounded-l-2xl p-8 xl:p-12">
+                    <div class="relative bg-gradient-to-br from-primary-900/20 via-black/40 to-tertiary-900/20 backdrop-blur-md border-2 border-r-0 border-primary-600/30 rounded-l-2xl p-8 xl:p-12">
+                      <div class="absolute inset-0 bg-black/70 -z-10 rounded-l-2xl"></div>
                       <div class="inline-block mb-4">
                         <span class="px-4 py-2 rounded-full bg-primary-900/50 border border-primary-600/30 text-primary-300 text-sm font-medium tracking-wider uppercase">
                           {card.badge}
@@ -302,8 +325,28 @@ export default component$(() => {
                       </div>
                     </div>
 
-                    {/* Right: Image */}
-                    <div class="bg-white/50 backdrop-blur-sm border-2 border-l-0 border-secondary-600/30 rounded-r-2xl">
+                    {/* Right: Image Carousel Card */}
+                    <div class="relative bg-gradient-to-br from-primary-900/20 via-black/40 to-tertiary-900/20 backdrop-blur-md border-2 border-l-0 border-secondary-600/30 rounded-r-2xl p-8 flex items-center justify-center">
+                      <div class="absolute inset-0 bg-black/70 -z-10 rounded-r-2xl"></div>
+                      <div class="relative border-2 border-primary-600/30 rounded-xl overflow-hidden w-full aspect-square shadow-2xl">
+                        {rightColumnImages.map((img, idx) => (
+                          <div
+                            key={idx}
+                            class={`absolute inset-0 transition-all duration-700 ${
+                              idx === rightColumnImageIndex.value
+                                ? 'opacity-100 scale-100'
+                                : 'opacity-0 scale-110'
+                            }`}
+                          >
+                            <Image
+                              src={img}
+                              alt={`Gallery ${idx + 1}`}
+                              class="w-full h-full object-cover"
+                            />
+                          </div>
+                        ))}
+                        <div class="absolute inset-0 bg-gradient-to-br from-black/20 via-transparent to-black/40"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
