@@ -157,7 +157,7 @@ export default component$(() => {
       {/* Subtle grid overlay */}
       <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem]" aria-hidden="true"></div>
 
-      <div class="relative z-10 container -mt-40 mx-auto px-4 py-8">
+      <div class="relative z-10 container -mt-28 mx-auto px-4 py-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden">
           <div
