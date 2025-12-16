@@ -230,20 +230,20 @@ export default component$(() => {
   // Show loading or error state
   if (galleryImages.value.length === 0) {
     return (
-      <section class="relative overflow-hidden py-12 md:py-16">
-        <div class="relative max-w-6xl mx-auto px-5 sm:px-6">
+      <section class="relative min-h-screen overflow-hidden py-20 md:py-28 bg-black">
+        <div class="absolute inset-0 bg-gradient-to-br from-primary-950 via-black to-tertiary-950 opacity-80"></div>
+        <div class="relative max-w-7xl mx-auto px-5 md:px-12">
           <div class="text-center mb-12">
-            <h1 class="!text-5xl md:!text-5xl font-bold xdxd mb-6">
-              <span class="bg-gradient-to-r from-primary-600 via-tertiary-600 to-primary-600 bg-clip-text text-transparent">
-                Studio Gallery
+            <h1 class="text-5xl md:text-6xl font-bold mb-6">
+              <span class="bg-gradient-to-r from-primary-400 via-secondary-400 to-primary-500 bg-clip-text text-transparent">
+                Performance Gallery
               </span>
             </h1>
           </div>
           <div class="text-center">
-            <p class="text-xl text-primary-700 dark:text-primary-300">
-              Loading gallery images...
+            <p class="text-xl text-tertiary-300">
+              Loading gallery...
             </p>
-          
           </div>
         </div>
       </section>
@@ -251,79 +251,134 @@ export default component$(() => {
   }
 
   return (
-    <section class="relative overflow-hidden py-12 md:py-16">
-      {/* Background with pottery texture */}
-      <div class="absolute inset-0 bg-pottery-texture opacity-20" aria-hidden="true"></div>
-      <div class="relative max-w-6xl mx-auto px-5 sm:px-6">
+    <section class="relative min-h-screen overflow-hidden py-20 md:py-28 bg-black">
+      {/* Dark gradient background */}
+      <div class="absolute inset-0 bg-gradient-to-br from-primary-950 via-black to-tertiary-950 opacity-80"></div>
+
+      {/* Floating decorative elements */}
+      <div class="absolute top-20 left-10 w-64 h-64 bg-primary-900/10 rounded-full blur-3xl animate-float"></div>
+      <div class="absolute bottom-20 right-10 w-64 h-64 bg-secondary-900/10 rounded-full blur-3xl animate-floatx"></div>
+
+      <div class="relative max-w-7xl mx-auto px-5 md:px-12">
         {/* Section Header */}
-        <div class="text-center mb-12">
-          <h1 class="!text-5xl md:!text-5xl font-bold xdxd mb-6">
-            <span class="bg-gradient-to-r from-primary-600 via-tertiary-600 to-primary-600 bg-clip-text text-transparent">
-              Studio Gallery
+        <div class="text-center mb-16">
+          <h1 class="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
+            <span class="bg-gradient-to-r from-primary-400 via-secondary-400 to-primary-500 bg-clip-text text-transparent">
+              Performance Gallery
             </span>
           </h1>
-          {/* <p class="text-sm text-primary-600 dark:text-primary-400">
-            Showing {galleryImages.value.length} images
-          </p> */}
+          <p class="text-xl md:text-2xl text-tertiary-300 max-w-3xl mx-auto">
+            Explore a collection of performances, recordings, and collaborations
+          </p>
         </div>
 
-        {/* Image Player */}
-        <div class="gallery-player relative w-full max-w-4xl mx-auto">
-          <div class="image-container relative w-full rounded-2xl overflow-hidden shadow-xl">
-            {galleryImages.value[currentIndex.value] && (
-              <>
+        {/* Interactive Gallery Grid */}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mb-16">
+          {galleryImages.value.map((image, index) => (
+            <div
+              key={image.id}
+              class="group relative bg-gradient-to-br from-tertiary-900/50 to-black border border-tertiary-800/50 rounded-2xl overflow-hidden hover:border-primary-600/50 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-primary-900/20 cursor-pointer"
+              onClick$={() => {
+                selectImage(index);
+                selectedImage.value = image;
+              }}
+            >
+              {/* Image */}
+              <div class="aspect-[4/3] relative bg-tertiary-900">
                 <img
-                  src={galleryImages.value[currentIndex.value].src}
-                  alt={galleryImages.value[currentIndex.value].alt}
-                  class="w-full max-h-[60vh] object-contain transition-opacity duration-500"
+                  src={image.src}
+                  alt={image.alt}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                   onError$={(event) => {
-                    console.error('Image failed to load:', galleryImages.value[currentIndex.value].src);
-                    // You could set a fallback image here
+                    console.error('Image failed to load:', image.src);
                     (event.target as HTMLImageElement).src = '/images/placeholder.jpg';
                   }}
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                {/* Image title overlay */}
-                {/* <div class="absolute bottom-4 left-4 text-white">
-                  <h3 class="text-xl font-semibold">
-                    {galleryImages.value[currentIndex.value].title}
-                  </h3>
-                </div> */}
-              </>
-            )}
-          </div>
+                {/* Gradient overlay */}
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
 
-          <div class="flex gap-2 mt-4 justify-end">
-            <button
-              class="px-4 py-2 bg-white/80 dark:bg-secondary-800/80 text-secondary-900 dark:text-secondary-100 rounded-full shadow-sm hover:bg-secondary-100 dark:hover:bg-secondary-700 transition-all duration-200"
-              onClick$={goToPrev}
-              aria-label="Previous slide"
-            >
-              <LuChevronLeft class="w-5 h-5" />
-            </button>
-            <button
-              class="px-4 py-2 bg-white/80 dark:bg-secondary-800/80 text-secondary-900 dark:text-secondary-100 rounded-full shadow-sm hover:bg-secondary-100 dark:hover:bg-secondary-700 transition-all duration-200"
-              onClick$={toggleAutoPlay}
-              aria-label={autoPlay.value ? "Pause carousel" : "Play carousel"}
-            >
-              {autoPlay.value ? <LuPause class="w-5 h-5" /> : <LuPlay class="w-5 h-5" />}
-            </button>
-            <button
-              class="px-4 py-2 bg-white/80 dark:bg-secondary-800/80 text-secondary-900 dark:text-secondary-100 rounded-full shadow-sm hover:bg-secondary-100 dark:hover:bg-secondary-700 transition-all duration-200"
-              onClick$={goToNext}
-              aria-label="Next slide"
-            >
-              <LuChevronRight class="w-5 h-5" />
-            </button>
+                {/* Play button overlay for video items */}
+                <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div class="w-16 h-16 rounded-full bg-white/20 backdrop-blur-sm border-2 border-white flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <svg class="w-6 h-6 text-white ml-1" fill="currentColor" viewBox="0 0 20 20">
+                      <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+                    </svg>
+                  </div>
+                </div>
+
+                {/* Title overlay */}
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <h3 class="text-white font-semibold text-lg truncate">
+                    {image.title}
+                  </h3>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Featured Carousel */}
+        <div class="mb-16">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-8 text-center">
+            Featured Highlight
+          </h2>
+          <div class="gallery-player relative w-full max-w-5xl mx-auto">
+            <div class="image-container relative w-full rounded-2xl overflow-hidden shadow-2xl border border-primary-800/50">
+              {galleryImages.value[currentIndex.value] && (
+                <>
+                  <img
+                    src={galleryImages.value[currentIndex.value].src}
+                    alt={galleryImages.value[currentIndex.value].alt}
+                    class="w-full max-h-[70vh] object-contain bg-tertiary-950 transition-opacity duration-500"
+                    onError$={(event) => {
+                      console.error('Image failed to load:', galleryImages.value[currentIndex.value].src);
+                      (event.target as HTMLImageElement).src = '/images/placeholder.jpg';
+                    }}
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+                  {/* Image title overlay */}
+                  <div class="absolute bottom-6 left-6 right-6">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white">
+                      {galleryImages.value[currentIndex.value].title}
+                    </h3>
+                  </div>
+                </>
+              )}
+            </div>
+
+            {/* Control buttons */}
+            <div class="flex gap-3 mt-6 justify-center">
+              <button
+                class="px-6 py-3 bg-tertiary-800/80 hover:bg-tertiary-700 text-white rounded-full shadow-lg transition-all duration-200 hover:scale-105"
+                onClick$={goToPrev}
+                aria-label="Previous slide"
+              >
+                <LuChevronLeft class="w-6 h-6" />
+              </button>
+              <button
+                class="px-6 py-3 bg-primary-600/80 hover:bg-primary-500 text-white rounded-full shadow-lg transition-all duration-200 hover:scale-105"
+                onClick$={toggleAutoPlay}
+                aria-label={autoPlay.value ? "Pause carousel" : "Play carousel"}
+              >
+                {autoPlay.value ? <LuPause class="w-6 h-6" /> : <LuPlay class="w-6 h-6" />}
+              </button>
+              <button
+                class="px-6 py-3 bg-tertiary-800/80 hover:bg-tertiary-700 text-white rounded-full shadow-lg transition-all duration-200 hover:scale-105"
+                onClick$={goToNext}
+                aria-label="Next slide"
+              >
+                <LuChevronRight class="w-6 h-6" />
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Lightbox/Modal */}
         {selectedImage.value && (
-          <div class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
-            <div class="relative max-w-4xl w-full bg-white dark:bg-secondary-800 rounded-2xl overflow-hidden lightbox-content">
+          <div class="fixed inset-0 bg-black/95 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick$={() => (selectedImage.value = null)}>
+            <div class="relative max-w-6xl w-full bg-gradient-to-br from-tertiary-900/90 to-black/90 rounded-2xl overflow-hidden lightbox-content border border-primary-800/50" onClick$={(e) => e.stopPropagation()}>
               <button
-                class="absolute top-4 right-4 text-white hover:text-primary-300 transition-colors z-10"
+                class="absolute top-6 right-6 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm border border-tertiary-600 text-white hover:text-primary-300 hover:border-primary-500 transition-all z-10 flex items-center justify-center"
                 onClick$={() => (selectedImage.value = null)}
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -331,7 +386,7 @@ export default component$(() => {
                 </svg>
               </button>
               <button
-                class="absolute top-4 left-4 text-white hover:text-primary-300 transition-colors z-10"
+                class="absolute top-6 left-6 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm border border-tertiary-600 text-white hover:text-primary-300 hover:border-primary-500 transition-all z-10 flex items-center justify-center"
                 onClick$={toggleFullscreen}
               >
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -341,10 +396,10 @@ export default component$(() => {
               <img
                 src={selectedImage.value.src}
                 alt={selectedImage.value.alt}
-                class="w-full h-auto max-h-[80vh] object-contain"
+                class="w-full h-auto max-h-[85vh] object-contain bg-black"
               />
-              <div class="p-6 text-center">
-                <h3 class="text-xl font-semibold text-secondary-900 dark:text-secondary-100">
+              <div class="p-8 text-center bg-gradient-to-t from-black to-transparent">
+                <h3 class="text-2xl md:text-3xl font-bold text-white">
                   {selectedImage.value.title}
                 </h3>
               </div>
@@ -352,10 +407,11 @@ export default component$(() => {
           </div>
         )}
 
-        {/* Image Carousel - Hidden on mobile */}
+        {/* Thumbnail Carousel - Hidden on mobile */}
         {galleryImages.value.length > 0 && (
-          <div class="mt-8 hidden md:block">
-            <div class="relative w-full max-w-4xl mx-auto overflow-hidden">
+          <div class="mt-12 hidden md:block">
+            <h3 class="text-2xl font-bold text-white mb-6 text-center">Browse All</h3>
+            <div class="relative w-full max-w-5xl mx-auto overflow-hidden">
               <div
                 class="flex space-x-4 pb-4"
                 style={{ transform: `translateX(-${currentIndex.value * 144}px)`, transition: 'transform 0.3s ease' }}
@@ -363,10 +419,10 @@ export default component$(() => {
                 {galleryImages.value.map((image, index) => (
                   <div
                     key={image.id}
-                    class={`flex-shrink-0 w-32 h-32 rounded-lg overflow-hidden cursor-pointer transition-all duration-300 ${
+                    class={`flex-shrink-0 w-36 h-36 rounded-xl overflow-hidden cursor-pointer transition-all duration-300 ${
                       index === currentIndex.value
-                        ? "border-4 border-primary-500 shadow-lg scale-105"
-                        : "border-2 border-transparent hover:border-primary-300"
+                        ? "ring-4 ring-primary-500 shadow-lg shadow-primary-900/50 scale-105"
+                        : "ring-2 ring-tertiary-700 hover:ring-primary-400"
                     }`}
                     onClick$={() => selectImage(index)}
                   >
@@ -374,8 +430,8 @@ export default component$(() => {
                       src={image.src}
                       alt={image.alt}
                       class="w-full h-full object-cover"
-                      width={128}
-                      height={128}
+                      width={144}
+                      height={144}
                       loading="lazy"
                       onError$={(event) => {
                         console.error('Thumbnail failed to load:', image.src);
@@ -389,22 +445,23 @@ export default component$(() => {
           </div>
         )}
 
-        {/* Come Join Us CTA */}
-        <div class="text-center mt-12">
-          <div class="bg-gradient-to-r max-w-xl mx-auto from-secondary-50/40 via-tertiary-50/40 to-primary-50/40 backdrop-blur-md rounded-3xl p-8 md:p-12 border-2 border-primary-200 dark:border-secondary-700 shadow-2xl">
-            <h3 class="!text-3xl md:!text-4xl xdxd font-bold text-secondary-900 dark:text-secondary-100 mb-4">
-              Come Join Us!
+        {/* Book Session CTA */}
+        <div class="text-center mt-20">
+          <div class="bg-gradient-to-r max-w-2xl mx-auto from-primary-900/30 via-tertiary-900/30 to-primary-900/30 backdrop-blur-md rounded-3xl p-10 md:p-14 border-2 border-primary-700/50 shadow-2xl">
+            <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">
+              Let's Work Together
             </h3>
+            <p class="text-lg text-tertiary-300 mb-8">
+              Ready to add violin to your next project? Book a session today.
+            </p>
             <a
               ref={bookButtonRef}
-              href="https://bookeo.com/earthenvessels"
-              target="_blank"
-              rel="noopener noreferrer"
+              href="/contact"
               onClick$={handleBookClick}
-              class="group relative inline-flex items-center justify-center px-8 py-3 text-lg font-semibold text-white bg-gradient-to-r from-secondary-800 via-tertiary-600 to-secondary-700 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
+              class="group relative inline-flex items-center justify-center px-10 py-4 text-lg font-semibold text-white bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-500 hover:to-primary-600 rounded-full shadow-lg shadow-primary-900/50 transition-all duration-300 hover:scale-105 overflow-hidden"
             >
-              <span class="relative z-10">Book a Class</span>
-              <div class="absolute inset-0 bg-gradient-to-r from-primary-600 via-primary-500 to-primary-500 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <span class="relative z-10">Book a Session</span>
+              <span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
             </a>
           </div>
         </div>
