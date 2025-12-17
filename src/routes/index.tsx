@@ -1,15 +1,15 @@
 import { component$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
 import { SITE } from "~/config.mjs";
-import Hero from "~/components/widgets/Hero";
 import LandingCards from "~/components/LandingCards";
 import ClassesCarousel from "~/components/widgets/ClassesCarousel";
+import HeroFull from "~/components/widgets/HeroFull";
 
 export default component$(() => {
   return (
     <>
       <div class="bg-black">
-        <Hero />
+        <HeroFull />
 
         {/* Featured Performances Carousel */}
         <ClassesCarousel />
