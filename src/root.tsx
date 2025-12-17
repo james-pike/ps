@@ -2,7 +2,6 @@ import { component$, useStyles$ } from "@builder.io/qwik";
 import { QwikCityProvider, RouterOutlet, ServiceWorkerRegister } from "@builder.io/qwik-city";
 import { RouterHead } from "~/components/common/RouterHead";
 import styles from "~/assets/styles/global.css?inline";
-import Header from "./components/widgets/Header";
 
 export default component$(() => {
   useStyles$(styles);
@@ -50,7 +49,7 @@ export default component$(() => {
         <link rel="preload" href="/images/logo2-cropped.svg" as="image" type="image/svg+xml" />
       </head>
       <body class=" antialiased ">
-        <Header />
+        {/* <Header /> */}
         <div class="relative md:border-x mx-auto max-w-7xl overflow-x-hidden">
 
         
