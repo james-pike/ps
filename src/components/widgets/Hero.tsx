@@ -19,11 +19,7 @@ export default component$(() => {
 
   const rightColumnImages = [
     "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80",
-    "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=80",
-    "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&q=80",
-    "https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80",
-    "https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800&q=80",
-    "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+    "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=80"
   ];
 
   const heroCards = [
@@ -156,7 +152,7 @@ export default component$(() => {
       {/* Subtle grid overlay */}
       <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem]" aria-hidden="true"></div>
 
-      <div class="relative z-10 container lg:-mt-28 mx-auto px-3 pt-4 pb-2 lg:px-4 lg:py-8">
+      <div class="relative z-10 container lg:-mt-28 mx-auto px-2 pt-2 pb-2 lg:px-4 lg:py-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden relative">
           {/* Mobile Menu Button - positioned above card stack */}
@@ -345,22 +341,21 @@ export default component$(() => {
                           </button>
                         </div>
                         {/* Gradient overlay */}
-                        <div class={`absolute inset-0 bg-gradient-to-t ${style.innerBg.replace('bg-', 'from-')}/40 via-transparent to-transparent pointer-events-none`}></div>
-                      </div>
-
-                      {/* Progress dots */}
-                      <div class={`p-2 ${style.innerBg} flex justify-center gap-1.5`}>
-                        {rightColumnImages.map((_, dotIdx) => (
-                          <button
-                            key={dotIdx}
-                            onClick$={() => { rightColumnImageIndex.value = dotIdx; }}
-                            class={`w-2 h-2 rounded-full transition-all duration-300 ${
-                              dotIdx === rightColumnImageIndex.value
-                                ? `w-6 ${style.statValue.replace('text-', 'bg-')}`
-                                : `${style.divider.replace('border-', 'bg-')}`
-                            }`}
-                          />
-                        ))}
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+                        {/* Progress dots - overlayed at bottom */}
+                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                          {rightColumnImages.map((_, dotIdx) => (
+                            <button
+                              key={dotIdx}
+                              onClick$={() => { rightColumnImageIndex.value = dotIdx; }}
+                              class={`h-2 rounded-full transition-all duration-300 ${
+                                dotIdx === rightColumnImageIndex.value
+                                  ? 'w-6 bg-white'
+                                  : 'w-2 bg-white/50'
+                              }`}
+                            />
+                          ))}
+                        </div>
                       </div>
                     </div>
                     </div>

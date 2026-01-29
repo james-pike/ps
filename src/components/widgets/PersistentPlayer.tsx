@@ -15,9 +15,22 @@ export default component$(() => {
   const isMuted = useSignal(false);
   const currentTrackIndex = useSignal(0);
   const progress = useSignal(0);
+  const hasScrolledPastHero = useSignal(false);
 
   const store = useStore({
     isVisible: true,
+  });
+
+  // Show player only after scrolling past hero section
+  useVisibleTask$(({ cleanup }) => {
+    const handleScroll = () => {
+      const scrollY = window.scrollY;
+      hasScrolledPastHero.value = scrollY > 300;
+    };
+
+    handleScroll(); // Check initial position
+    window.addEventListener('scroll', handleScroll);
+    cleanup(() => window.removeEventListener('scroll', handleScroll));
   });
 
   const tracks: Track[] = [
@@ -94,6 +107,7 @@ export default component$(() => {
         fixed bottom-0 left-0 right-0 z-50
         transition-all duration-500 ease-in-out
         ${isExpanded.value ? "h-80" : "h-14"}
+        ${hasScrolledPastHero.value ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}
       `}
     >
       {/* Background with blur - grayscale theme */}
