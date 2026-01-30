@@ -34,16 +34,17 @@ export default component$(() => {
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Video Card 1 */}
               <div class="group relative bg-gradient-to-br from-white/90 to-stone-100/90 border border-stone-200/80 rounded-2xl overflow-hidden hover:border-amber-400/50 hover:shadow-xl transition-all duration-300">
-                <div class="aspect-video relative bg-stone-200/50">
-                  {/* Placeholder for video - replace with actual video embed */}
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="text-center">
-                      <div class="w-20 h-20 mx-auto rounded-full bg-amber-100/80 border-2 border-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform cursor-pointer">
-                        <svg class="w-8 h-8 text-amber-600 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
-                        </svg>
-                      </div>
-                      <p class="text-stone-500">Studio Session Highlight</p>
+                <div class="aspect-video relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80"
+                    alt="Concert Hall Recording"
+                    class="w-full h-full object-cover"
+                  />
+                  <div class="absolute inset-0 bg-stone-900/30 flex items-center justify-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-amber-100/80 border-2 border-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer">
+                      <svg class="w-8 h-8 text-amber-600 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                      </svg>
                     </div>
                   </div>
                 </div>
@@ -55,15 +56,17 @@ export default component$(() => {
 
               {/* Video Card 2 */}
               <div class="group relative bg-gradient-to-br from-white/90 to-stone-100/90 border border-stone-200/80 rounded-2xl overflow-hidden hover:border-amber-400/50 hover:shadow-xl transition-all duration-300">
-                <div class="aspect-video relative bg-stone-200/50">
-                  <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="text-center">
-                      <div class="w-20 h-20 mx-auto rounded-full bg-amber-100/80 border-2 border-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform cursor-pointer">
-                        <svg class="w-8 h-8 text-amber-600 ml-1" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
-                        </svg>
-                      </div>
-                      <p class="text-stone-500">Live Performance</p>
+                <div class="aspect-video relative">
+                  <img
+                    src="https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&q=80"
+                    alt="Jazz Collaboration"
+                    class="w-full h-full object-cover"
+                  />
+                  <div class="absolute inset-0 bg-stone-900/30 flex items-center justify-center">
+                    <div class="w-20 h-20 mx-auto rounded-full bg-amber-100/80 border-2 border-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform cursor-pointer">
+                      <svg class="w-8 h-8 text-amber-600 ml-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z"/>
+                      </svg>
                     </div>
                   </div>
                 </div>
@@ -72,16 +75,6 @@ export default component$(() => {
                   <p class="text-stone-500">Improvisation session with local jazz quartet</p>
                 </div>
               </div>
-            </div>
-
-            {/* View All Button */}
-            <div class="text-center mt-12">
-              <a
-                href="/gallery"
-                class="inline-block px-8 py-4 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-white font-semibold rounded-lg shadow-lg shadow-amber-500/30 transition-all duration-300 hover:scale-105"
-              >
-                View Full Gallery
-              </a>
             </div>
           </div>
         </section>

@@ -46,7 +46,7 @@ export default component$(() => {
   ];
 
   return (
-    <section class="relative overflow-hidden py-20 md:py-28 bg-gradient-to-b from-gray-50 via-stone-50 to-gray-50">
+    <section class="relative overflow-hidden py-10 md:py-28 bg-gradient-to-b from-gray-50 via-stone-50 to-gray-50">
       {/* Background decorations */}
       <div class="absolute top-1/4 left-10 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl"></div>
       <div class="absolute bottom-1/4 right-10 w-64 h-64 bg-stone-300/20 rounded-full blur-3xl"></div>

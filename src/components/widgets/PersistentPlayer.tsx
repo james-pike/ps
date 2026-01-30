@@ -6,7 +6,7 @@ interface Track {
   title: string;
   artist: string;
   image: string;
-  videoUrl?: string;
+  audioUrl: string;
 }
 
 export default component$(() => {
@@ -15,21 +15,39 @@ export default component$(() => {
   const isMuted = useSignal(false);
   const currentTrackIndex = useSignal(0);
   const progress = useSignal(0);
+  const duration = useSignal(0);
   const hasScrolledPastHero = useSignal(false);
+  const hasAutoStarted = useSignal(false);
+  const audioRef = useSignal<HTMLAudioElement | undefined>(undefined);
 
   const store = useStore({
     isVisible: true,
   });
 
-  // Show player only after scrolling past hero section
-  useVisibleTask$(({ cleanup }) => {
+  // Show player only after scrolling past hero section and auto-start
+  useVisibleTask$(({ cleanup, track }) => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
+      const wasScrolledPast = hasScrolledPastHero.value;
       hasScrolledPastHero.value = scrollY > 300;
+
+      // Auto-start when player first appears
+      if (!wasScrolledPast && hasScrolledPastHero.value && !hasAutoStarted.value && audioRef.value) {
+        hasAutoStarted.value = true;
+        audioRef.value.play().catch(() => {
+          // Browser may block autoplay, that's ok
+          isPlaying.value = false;
+        });
+        isPlaying.value = true;
+      }
     };
 
     handleScroll(); // Check initial position
     window.addEventListener('scroll', handleScroll);
+
+    // Track audio ref changes
+    track(() => audioRef.value);
+
     cleanup(() => window.removeEventListener('scroll', handleScroll));
   });
 
@@ -39,55 +57,84 @@ export default component$(() => {
       title: "Concert Hall Recording",
       artist: "Classical Performance",
       image: "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400&q=80",
+      audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
     },
     {
       id: "2",
       title: "Jazz Collaboration",
       artist: "Live Session",
       image: "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=400&q=80",
+      audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
     },
     {
       id: "3",
       title: "Studio Session",
       artist: "Recording Studio",
       image: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80",
+      audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
     },
     {
       id: "4",
       title: "Orchestral Performance",
       artist: "Symphony Hall",
       image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=400&q=80",
+      audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3",
     },
   ];
 
   const currentTrack = tracks[currentTrackIndex.value];
 
-  // Simulate progress
+  // Update progress from audio element
   useVisibleTask$(({ cleanup }) => {
     const interval = setInterval(() => {
-      if (isPlaying.value) {
-        progress.value = (progress.value + 0.5) % 100;
+      if (audioRef.value && isPlaying.value) {
+        const current = audioRef.value.currentTime;
+        const total = audioRef.value.duration || 1;
+        progress.value = (current / total) * 100;
+        duration.value = total;
       }
     }, 100);
     cleanup(() => clearInterval(interval));
   });
 
   const togglePlay = $(() => {
+    if (audioRef.value) {
+      if (isPlaying.value) {
+        audioRef.value.pause();
+      } else {
+        audioRef.value.play();
+      }
+    }
     isPlaying.value = !isPlaying.value;
   });
 
   const toggleMute = $(() => {
+    if (audioRef.value) {
+      audioRef.value.muted = !isMuted.value;
+    }
     isMuted.value = !isMuted.value;
   });
 
   const nextTrack = $(() => {
     currentTrackIndex.value = (currentTrackIndex.value + 1) % tracks.length;
     progress.value = 0;
+    if (audioRef.value) {
+      audioRef.value.src = tracks[(currentTrackIndex.value) % tracks.length].audioUrl;
+      if (isPlaying.value) {
+        audioRef.value.play();
+      }
+    }
   });
 
   const prevTrack = $(() => {
     currentTrackIndex.value = (currentTrackIndex.value - 1 + tracks.length) % tracks.length;
     progress.value = 0;
+    if (audioRef.value) {
+      audioRef.value.src = tracks[(currentTrackIndex.value - 1 + tracks.length) % tracks.length].audioUrl;
+      if (isPlaying.value) {
+        audioRef.value.play();
+      }
+    }
   });
 
   const toggleExpanded = $(() => {
@@ -97,19 +144,35 @@ export default component$(() => {
   const closePlayer = $(() => {
     store.isVisible = false;
     isPlaying.value = false;
+    if (audioRef.value) {
+      audioRef.value.pause();
+    }
   });
 
   if (!store.isVisible) return null;
 
   return (
-    <div
-      class={`
-        fixed bottom-0 left-0 right-0 z-50
-        transition-all duration-500 ease-in-out
-        ${isExpanded.value ? "h-80" : "h-14"}
-        ${hasScrolledPastHero.value ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}
-      `}
-    >
+    <>
+      {/* Hidden audio element */}
+      <audio
+        ref={audioRef}
+        src={currentTrack.audioUrl}
+        onEnded$={() => {
+          currentTrackIndex.value = (currentTrackIndex.value + 1) % tracks.length;
+          if (audioRef.value) {
+            audioRef.value.src = tracks[(currentTrackIndex.value + 1) % tracks.length].audioUrl;
+            audioRef.value.play();
+          }
+        }}
+      />
+      <div
+        class={`
+          fixed bottom-0 left-0 right-0 z-50
+          transition-all duration-500 ease-in-out
+          ${isExpanded.value ? "h-80" : "h-14"}
+          ${hasScrolledPastHero.value ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}
+        `}
+      >
       {/* Background with blur - grayscale theme */}
       <div class="absolute inset-0 bg-gradient-to-t from-stone-100 via-stone-50/98 to-gray-50/95 backdrop-blur-lg border-t border-stone-300/50"></div>
 
@@ -244,14 +307,18 @@ export default component$(() => {
         <div class="flex items-center gap-1.5 flex-1 justify-end">
           {/* Progress bar - hidden on mobile */}
           <div class="hidden md:flex items-center gap-1.5 flex-1 max-w-xs">
-            <span class="text-[10px] text-stone-500">0:{Math.floor(progress.value * 0.6).toString().padStart(2, '0')}</span>
+            <span class="text-[10px] text-stone-500">
+              {Math.floor((progress.value / 100) * duration.value / 60)}:{Math.floor((progress.value / 100) * duration.value % 60).toString().padStart(2, '0')}
+            </span>
             <div class="flex-1 h-1 bg-stone-300/50 rounded-full overflow-hidden">
               <div
                 class="h-full bg-gradient-to-r from-stone-600 to-stone-500 transition-all duration-100"
                 style={{ width: `${progress.value}%` }}
               ></div>
             </div>
-            <span class="text-[10px] text-stone-500">1:00</span>
+            <span class="text-[10px] text-stone-500">
+              {Math.floor(duration.value / 60)}:{Math.floor(duration.value % 60).toString().padStart(2, '0')}
+            </span>
           </div>
 
           <button
@@ -292,6 +359,7 @@ export default component$(() => {
           style={{ width: `${progress.value}%` }}
         ></div>
       </div>
-    </div>
+      </div>
+    </>
   );
 });

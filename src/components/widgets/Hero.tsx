@@ -158,7 +158,7 @@ export default component$(() => {
   });
 
   return (
-    <section class="relative min-h-[auto] lg:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-stone-100 via-gray-50 to-stone-50 pt-0 pb-4 lg:py-0">
+    <section class="relative min-h-[auto] lg:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-stone-100 via-gray-50 to-stone-50 pt-0 pb-0 lg:py-0">
       {/* Animated gradient background */}
       <div class="absolute inset-0 bg-gradient-to-br from-stone-200/60 via-gray-100/50 to-stone-100/60 opacity-80"></div>
 
@@ -236,7 +236,7 @@ export default component$(() => {
                 {
                   bg: "from-stone-100/95 to-stone-50/95",
                   innerBg: "bg-stone-50/90",
-                  border: "border-stone-200/60",
+                  border: "border-stone-400",
                   badge: "bg-stone-100/70 border-stone-300/50 text-stone-600",
                   title: "from-gray-900 via-gray-800 to-gray-900",
                   titleLast: "text-gray-900",
@@ -251,7 +251,7 @@ export default component$(() => {
                 {
                   bg: "from-amber-50/90 to-stone-50/90",
                   innerBg: "bg-amber-50/80",
-                  border: "border-amber-200/40",
+                  border: "border-amber-400",
                   badge: "bg-amber-100/50 border-amber-200/40 text-amber-600",
                   title: "from-gray-900 via-gray-800 to-gray-900",
                   titleLast: "text-gray-900",
@@ -266,7 +266,7 @@ export default component$(() => {
                 {
                   bg: "from-orange-50/95 to-amber-50/95",
                   innerBg: "bg-orange-50/90",
-                  border: "border-orange-200/60",
+                  border: "border-orange-400",
                   badge: "bg-orange-100/70 border-orange-300/50 text-orange-700",
                   title: "from-gray-900 via-gray-800 to-gray-900",
                   titleLast: "text-gray-900",
@@ -473,11 +473,11 @@ export default component$(() => {
                   cardBg: "bg-stone-50",
                   leftBg: "from-stone-100/95 to-stone-50/95",
                   leftInner: "bg-stone-50/90",
-                  leftBorder: "border-stone-200/60",
+                  leftBorder: "border-stone-400",
                   rightBg: "from-stone-50/95 to-stone-100/95",
                   rightInner: "bg-stone-100/90",
-                  rightBorder: "border-stone-200/60",
-                  imageBorder: "border-stone-300/50",
+                  rightBorder: "border-stone-400",
+                  imageBorder: "border-stone-400",
                   badge: "bg-stone-100/70 border-stone-300/50 text-stone-600",
                   title: "from-gray-900 via-gray-800 to-gray-900",
                   titleMiddle: "text-gray-900",
@@ -494,11 +494,11 @@ export default component$(() => {
                   cardBg: "bg-amber-50/80",
                   leftBg: "from-amber-50/90 to-stone-50/90",
                   leftInner: "bg-amber-50/80",
-                  leftBorder: "border-amber-200/40",
+                  leftBorder: "border-amber-400",
                   rightBg: "from-stone-50/90 to-amber-50/90",
                   rightInner: "bg-amber-50/80",
-                  rightBorder: "border-amber-200/40",
-                  imageBorder: "border-amber-200/40",
+                  rightBorder: "border-amber-400",
+                  imageBorder: "border-amber-400",
                   badge: "bg-amber-100/50 border-amber-200/40 text-amber-600",
                   title: "from-gray-900 via-gray-800 to-gray-900",
                   titleMiddle: "text-gray-900",
@@ -515,11 +515,11 @@ export default component$(() => {
                   cardBg: "bg-orange-50",
                   leftBg: "from-orange-50/95 to-amber-50/95",
                   leftInner: "bg-orange-50/90",
-                  leftBorder: "border-orange-200/60",
+                  leftBorder: "border-orange-400",
                   rightBg: "from-amber-50/95 to-orange-50/95",
                   rightInner: "bg-amber-50/90",
-                  rightBorder: "border-orange-200/60",
-                  imageBorder: "border-orange-300/50",
+                  rightBorder: "border-orange-400",
+                  imageBorder: "border-orange-400",
                   badge: "bg-orange-100/70 border-orange-300/50 text-orange-700",
                   title: "from-gray-900 via-gray-800 to-gray-900",
                   titleMiddle: "text-gray-900",
@@ -628,12 +628,6 @@ export default component$(() => {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-        <svg class="w-6 h-6 text-stone-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
-      </div>
     </section>
   );
 });
