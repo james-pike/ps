@@ -133,6 +133,54 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
 
 // ... CustomAccordion component unchanged ...
 
+// Exported for use in Hero flip cards
+export const menuItems = [
+  {
+    title: "This Is Us",
+    href: "/team",
+    hasSubmenu: true,
+    subitems: [
+      { title: "Facilitators", href: "/team" },
+      { title: "Our Logo", href: "/team#logo", badge: null },
+    ],
+  },
+  {
+    title: "About",
+    href: "/about",
+    hasSubmenu: true,
+    subitems: [
+      { title: "Our Space", href: "/about" },
+      { title: "What To Expect", href: "/about#what-to-expect" },
+      { title: "Benefits Of Clay", href: "/about#benefits-of-clay" },
+      { title: "Newsletter", href: "/newsletter" },
+      { title: "Gallery", href: "/gallery", badge: null },
+      { title: "FAQ", href: "/faq" },
+    ],
+  },
+  {
+    title: "Our Offerings",
+    href: "/offerings",
+    hasSubmenu: true,
+    subitems: [
+      { title: "Classes & Workshops", href: "/offerings" },
+      { title: "Corporate Events", href: "/offerings#events" },
+      { title: "Private Events", href: "/offerings#private-events" },
+      { title: "Gift Cards", href: "https://bookeo.com/earthenvessels/buyvoucher" },
+    ],
+  },
+  {
+    title: "Reviews",
+    href: "/reviews",
+    hasSubmenu: true,
+    subitems: [
+      { title: "Reviews", href: "/reviews" },
+      { title: "In The News", href: "/reviews#news" },
+    ],
+  },
+  { title: "Community", href: "/community/", badge: null },
+  { title: "Contact", href: "/contact/", badge: null },
+];
+
 export default component$(() => {
   const show = useSignal(false);
   const i18n = useI18n();
@@ -142,7 +190,7 @@ export default component$(() => {
     setLang(lang);
   });
 
-  const menuItems = [
+  const localMenuItems = [
       {
       title: "This Is Us",
       href: "/team",
@@ -234,7 +282,7 @@ export default component$(() => {
           </div>
 
           <nav class="mt-0 space-y-4 bg-gradient-to-br from-black/40 to-tertiary-900/20">
-            <CustomAccordion items={menuItems} show={show} />
+            <CustomAccordion items={localMenuItems} show={show} />
           </nav>
 
           <div class="rounded-b-2xl border-t border-primary-800/30 bg-gradient-to-br from-primary-900/20 to-black/40 backdrop-blur-md pb-5">

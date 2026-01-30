@@ -44,7 +44,7 @@ export default component$(() => {
         <link rel="preload" href="/images/logo22.svg" as="image" type="image/svg+xml" />
         <link rel="preload" href="/images/logo2-cropped.svg" as="image" type="image/svg+xml" />
       </head>
-      <body class="antialiased bg-gradient-to-b from-gray-50 via-stone-50 to-gray-50 pb-20">
+      <body class="antialiased bg-gradient-to-b from-gray-50 via-stone-50 to-gray-50">
         <div class="relative md:border-x md:border-stone-200/50 mx-auto max-w-7xl overflow-x-hidden">
           {/* Light mode background layers */}
           <div class="absolute inset-0 z-[-1] bg-gradient-to-br from-stone-50 via-[#F8F6F2] to-gray-50" aria-hidden="true"></div>

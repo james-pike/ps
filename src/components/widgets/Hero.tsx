@@ -1,6 +1,8 @@
-import { component$, useSignal, useVisibleTask$, useStyles$ } from "@builder.io/qwik";
+import { component$, useSignal, useVisibleTask$, useStyles$, $ } from "@builder.io/qwik";
 import { Image } from "@unpic/qwik";
-import MenuModal from "./MenuModal";
+import { menuItems } from "./MenuModal";
+import IconHamburger from "../icons/IconHamburger";
+import { LuX, LuChevronRight, LuMapPin, LuMail, LuClock } from "@qwikest/icons/lucide";
 
 export default component$(() => {
   const carouselIndex = useSignal(0);
@@ -12,6 +14,15 @@ export default component$(() => {
   // Separate touch tracking for video carousel
   const videoTouchStartX = useSignal(0);
   const videoTouchEndX = useSignal(0);
+
+  // 3D Flip card state
+  type FlipTarget = 'none' | 'menu' | 'portfolio' | 'booking';
+  const isFlipped = useSignal<boolean>(false);
+  const flipTarget = useSignal<FlipTarget>('none');
+  const flipTouchStartY = useSignal<number>(0);
+
+  // Menu accordion state for flip card
+  const menuOpenIndex = useSignal<number | null>(null);
 
   const carouselImages = [
     "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80",
@@ -130,21 +141,55 @@ export default component$(() => {
       0% { width: 0%; }
       100% { width: 100%; }
     }
+    /* 3D Flip Card Styles */
+    .flip-card-container {
+      position: relative;
+      width: 100%;
+      perspective: 1200px;
+    }
+    .flip-card-inner {
+      position: relative;
+      width: 100%;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+    }
+    .flip-card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .flip-card-front, .flip-card-back {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .flip-card-front {
+      position: relative;
+    }
+    .flip-card-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      transform: rotateY(180deg);
+      overflow-y: auto;
+    }
   `);
 
-  // Auto-advance carousel for images
+  // Auto-advance carousel for images (paused when flipped)
   useVisibleTask$(({ cleanup }) => {
     const interval = setInterval(() => {
-      if (isAutoPlaying.value) {
+      if (isAutoPlaying.value && !isFlipped.value) {
         carouselIndex.value = (carouselIndex.value + 1) % carouselImages.length;
       }
     }, 3000);
     cleanup(() => clearInterval(interval));
   });
 
-  // Auto-advance right column images, then advance hero card after full cycle
+  // Auto-advance right column images, then advance hero card after full cycle (paused when flipped)
   useVisibleTask$(({ cleanup }) => {
     const interval = setInterval(() => {
+      // Pause auto-advance when card is flipped
+      if (isFlipped.value) return;
+
       const videosPerCard = cardVideos[0].length; // All cards have same number of videos
       const nextImageIndex = (rightColumnImageIndex.value + 1) % videosPerCard;
       rightColumnImageIndex.value = nextImageIndex;
@@ -155,6 +200,35 @@ export default component$(() => {
       }
     }, 3000); // 3 seconds per image, so full cycle = 18 seconds before card changes
     cleanup(() => clearInterval(interval));
+  });
+
+  // Flip card handlers
+  const handleFlip = $((target: FlipTarget) => {
+    isFlipped.value = true;
+    flipTarget.value = target;
+    menuOpenIndex.value = null;
+  });
+
+  const handleFlipBack = $(() => {
+    isFlipped.value = false;
+    flipTarget.value = 'none';
+    menuOpenIndex.value = null;
+  });
+
+  // Swipe down handler for back of card
+  const handleBackTouchStart = $((e: TouchEvent) => {
+    e.stopPropagation();
+    flipTouchStartY.value = e.touches[0].clientY;
+  });
+
+  const handleBackTouchEnd = $((e: TouchEvent) => {
+    e.stopPropagation();
+    const diff = e.changedTouches[0].clientY - flipTouchStartY.value;
+    if (diff > 80) {
+      // Swipe down threshold of 80px
+      handleFlipBack();
+    }
+    flipTouchStartY.value = 0;
   });
 
   return (
@@ -174,22 +248,30 @@ export default component$(() => {
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden relative">
           {/* Mobile Menu Button - positioned above card stack */}
-          <div class={`absolute top-4 right-2 z-50 [&_button]:transition-colors [&_button]:duration-300 ${
-            currentSlideIndex.value === 0
-              ? '[&_button]:border-stone-300'
-              : currentSlideIndex.value === 1
-                ? '[&_button]:border-amber-200'
-                : '[&_button]:border-orange-300'
-          }`}>
-            <MenuModal />
-          </div>
+          {!isFlipped.value && (
+            <button
+              class={`absolute top-4 right-2 z-50 p-2 py-1 rounded-lg border backdrop-blur-sm transition-all duration-300 ${
+                currentSlideIndex.value === 0
+                  ? 'border-stone-300 bg-stone-100/40 hover:bg-stone-200/50'
+                  : currentSlideIndex.value === 1
+                    ? 'border-orange-300 bg-orange-100/40 hover:bg-orange-200/50'
+                    : 'border-amber-300 bg-amber-100/40 hover:bg-amber-200/50'
+              }`}
+              onClick$={() => handleFlip('menu')}
+            >
+              <IconHamburger class="w-6 h-7 stroke-stone-800" />
+            </button>
+          )}
           <div
             class="hero-carousel-container"
             onTouchStart$={(e) => {
+              // Disable carousel swipe when flipped
+              if (isFlipped.value) return;
               touchStartX.value = e.touches[0].clientX;
               touchEndX.value = e.touches[0].clientX;
             }}
             onTouchMove$={(e) => {
+              if (isFlipped.value) return;
               touchEndX.value = e.touches[0].clientX;
               const diff = Math.abs(touchStartX.value - touchEndX.value);
               if (diff > 10) {
@@ -197,6 +279,7 @@ export default component$(() => {
               }
             }}
             onTouchEnd$={(e) => {
+              if (isFlipped.value) return;
               const swipeThreshold = 50;
               const diff = touchStartX.value - touchEndX.value;
 
@@ -280,132 +363,299 @@ export default component$(() => {
               ];
 
               const style = cardStyles[index];
+              const isActiveCard = index === currentSlideIndex.value;
 
               return (
                 <div key={index} class={`carousel-card-wrapper ${getCardClass()}`}>
-                  {/* Mobile Text Panel */}
-                  <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-8 rounded-2xl border ${style.border} shadow-2xl`}>
-                    <div class={`absolute inset-0 ${style.innerBg} -z-10 rounded-2xl`}></div>
-                    <div class="inline-block mb-4">
-                      <span class={`px-3 py-1 rounded-full ${style.badge} text-xs font-medium tracking-wider uppercase`}>
-                        {card.badge}
-                      </span>
-                    </div>
-                    <h1 class="text-[2.625rem] md:text-5xl font-bold tracking-tight leading-tight mb-4">
-                      <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
-                        {card.title[0]}
-                      </span>
-                      <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
-                        {card.title[1]}
-                      </span>
-                      <span class={`${style.titleLast} block`}>{card.title[2]}</span>
-                    </h1>
-                    <p class={`text-lg ${style.description} mb-6 min-h-[3.5rem]`}>
-                      {card.description}
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-3">
-                      <a
-                        href="/gallery"
-                        class={`group px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
-                      >
-                        View Portfolio
-                        <span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
-                      </a>
-                      <a
-                        href="/contact"
-                        class={`px-6 py-3 bg-transparent border-2 ${style.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-center`}
-                      >
-                        Book Session
-                      </a>
-                    </div>
-                    {/* Stats - commented out for now
-                    <div class={`grid grid-cols-3 gap-4 mt-6 pt-4 border-t ${style.divider}`}>
-                      {card.stats.map((stat, idx) => (
-                        <div key={idx} class="text-center">
-                          <div class={`text-2xl font-bold ${style.statValue}`}>{stat.value}</div>
-                          <div class={`text-xs ${style.statLabel} uppercase tracking-wide`}>{stat.label}</div>
-                        </div>
-                      ))}
-                    </div>
-                    */}
-
-                    {/* Video Carousel inside card */}
-                    <div class={`mt-6 pt-4 border-t ${style.divider}`}>
-                    <div
-                      class={`rounded-xl overflow-hidden border ${style.border}`}
-                      onTouchStart$={(e) => {
-                        e.stopPropagation();
-                        videoTouchStartX.value = e.touches[0].clientX;
-                        videoTouchEndX.value = e.touches[0].clientX;
-                      }}
-                      onTouchMove$={(e) => {
-                        e.stopPropagation();
-                        videoTouchEndX.value = e.touches[0].clientX;
-                      }}
-                      onTouchEnd$={(e) => {
-                        e.stopPropagation();
-                        const swipeThreshold = 50;
-                        const diff = videoTouchStartX.value - videoTouchEndX.value;
-                        const videosPerCard = cardVideos[0].length;
-
-                        if (Math.abs(diff) > swipeThreshold) {
-                          if (diff > 0) {
-                            // Swipe left - next video
-                            rightColumnImageIndex.value = (rightColumnImageIndex.value + 1) % videosPerCard;
-                          } else {
-                            // Swipe right - previous video
-                            rightColumnImageIndex.value = (rightColumnImageIndex.value - 1 + videosPerCard) % videosPerCard;
-                          }
-                        }
-
-                        videoTouchStartX.value = 0;
-                        videoTouchEndX.value = 0;
-                      }}
-                    >
-                      {/* Video/Image display */}
-                      <div class="relative aspect-video">
-                        {cardVideos[index].map((img, imgIdx) => (
-                          <div
-                            key={imgIdx}
-                            class={`absolute inset-0 transition-all duration-700 ${
-                              imgIdx === rightColumnImageIndex.value
-                                ? 'opacity-100 scale-100'
-                                : 'opacity-0 scale-110'
-                            }`}
-                          >
-                            <img
-                              src={img}
-                              alt={`Performance ${imgIdx + 1}`}
-                              class="w-full h-full object-cover"
-                            />
+                  {/* 3D Flip Card Container */}
+                  <div class="flip-card-container">
+                    <div class={`flip-card-inner ${isActiveCard && isFlipped.value ? 'flipped' : ''}`}>
+                      {/* FRONT OF CARD */}
+                      <div class="flip-card-front">
+                        <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-8 rounded-2xl border ${style.border} shadow-2xl`}>
+                          <div class={`absolute inset-0 ${style.innerBg} -z-10 rounded-2xl`}></div>
+                          <div class="inline-block mb-4">
+                            <span class={`px-3 py-1 rounded-full ${style.badge} text-xs font-medium tracking-wider uppercase`}>
+                              {card.badge}
+                            </span>
                           </div>
-                        ))}
-                        {/* Play button overlay */}
-                        <div class="absolute inset-0 flex items-center justify-center bg-stone-900/20">
-                          <button class={`w-12 h-12 rounded-full bg-white/70 backdrop-blur-sm border-2 ${style.border} flex items-center justify-center hover:bg-white/90 transition-all duration-300 hover:scale-110`}>
-                            <svg class={`w-5 h-5 ${style.statValue} ml-0.5`} fill="currentColor" viewBox="0 0 24 24">
-                              <path d="M8 5v14l11-7z"/>
-                            </svg>
-                          </button>
-                        </div>
-                        {/* Gradient overlay */}
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
-                        {/* Progress dots - overlayed at bottom */}
-                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-                          {cardVideos[index].map((_, dotIdx) => (
+                          <h1 class="text-[2.625rem] md:text-5xl font-bold tracking-tight leading-tight mb-4">
+                            <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
+                              {card.title[0]}
+                            </span>
+                            <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
+                              {card.title[1]}
+                            </span>
+                            <span class={`${style.titleLast} block`}>{card.title[2]}</span>
+                          </h1>
+                          <p class={`text-lg ${style.description} mb-6 min-h-[3.5rem]`}>
+                            {card.description}
+                          </p>
+                          <div class="flex flex-col sm:flex-row gap-3">
                             <button
-                              key={dotIdx}
-                              onClick$={() => { rightColumnImageIndex.value = dotIdx; }}
-                              class={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                dotIdx === rightColumnImageIndex.value
-                                  ? 'bg-white'
-                                  : 'bg-white/50'
-                              }`}
-                            />
-                          ))}
+                              onClick$={() => handleFlip('portfolio')}
+                              class={`group px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
+                            >
+                              View Portfolio
+                              <span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
+                            </button>
+                            <button
+                              onClick$={() => handleFlip('booking')}
+                              class={`px-6 py-3 bg-transparent border-2 ${style.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-center`}
+                            >
+                              Book Session
+                            </button>
+                          </div>
+
+                          {/* Video Carousel inside card */}
+                          <div class={`mt-6 pt-4 border-t ${style.divider}`}>
+                          <div
+                            class={`rounded-xl overflow-hidden border ${style.border}`}
+                            onTouchStart$={(e) => {
+                              e.stopPropagation();
+                              videoTouchStartX.value = e.touches[0].clientX;
+                              videoTouchEndX.value = e.touches[0].clientX;
+                            }}
+                            onTouchMove$={(e) => {
+                              e.stopPropagation();
+                              videoTouchEndX.value = e.touches[0].clientX;
+                            }}
+                            onTouchEnd$={(e) => {
+                              e.stopPropagation();
+                              const swipeThreshold = 50;
+                              const diff = videoTouchStartX.value - videoTouchEndX.value;
+                              const videosPerCard = cardVideos[0].length;
+
+                              if (Math.abs(diff) > swipeThreshold) {
+                                if (diff > 0) {
+                                  rightColumnImageIndex.value = (rightColumnImageIndex.value + 1) % videosPerCard;
+                                } else {
+                                  rightColumnImageIndex.value = (rightColumnImageIndex.value - 1 + videosPerCard) % videosPerCard;
+                                }
+                              }
+
+                              videoTouchStartX.value = 0;
+                              videoTouchEndX.value = 0;
+                            }}
+                          >
+                            <div class="relative aspect-video">
+                              {cardVideos[index].map((img, imgIdx) => (
+                                <div
+                                  key={imgIdx}
+                                  class={`absolute inset-0 transition-all duration-700 ${
+                                    imgIdx === rightColumnImageIndex.value
+                                      ? 'opacity-100 scale-100'
+                                      : 'opacity-0 scale-110'
+                                  }`}
+                                >
+                                  <img
+                                    src={img}
+                                    alt={`Performance ${imgIdx + 1}`}
+                                    class="w-full h-full object-cover"
+                                  />
+                                </div>
+                              ))}
+                              <div class="absolute inset-0 flex items-center justify-center bg-stone-900/20">
+                                <button class={`w-12 h-12 rounded-full bg-white/70 backdrop-blur-sm border-2 ${style.border} flex items-center justify-center hover:bg-white/90 transition-all duration-300 hover:scale-110`}>
+                                  <svg class={`w-5 h-5 ${style.statValue} ml-0.5`} fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M8 5v14l11-7z"/>
+                                  </svg>
+                                </button>
+                              </div>
+                              <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+                              <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
+                                {cardVideos[index].map((_, dotIdx) => (
+                                  <button
+                                    key={dotIdx}
+                                    onClick$={() => { rightColumnImageIndex.value = dotIdx; }}
+                                    class={`w-2 h-2 rounded-full transition-all duration-300 ${
+                                      dotIdx === rightColumnImageIndex.value
+                                        ? 'bg-white'
+                                        : 'bg-white/50'
+                                    }`}
+                                  />
+                                ))}
+                              </div>
+                            </div>
+                          </div>
+                          </div>
                         </div>
                       </div>
-                    </div>
+
+                      {/* BACK OF CARD */}
+                      <div
+                        class="flip-card-back"
+                        onTouchStart$={handleBackTouchStart}
+                        onTouchEnd$={handleBackTouchEnd}
+                      >
+                        <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-6 rounded-2xl border ${style.border} shadow-2xl h-full`}>
+                          <div class={`absolute inset-0 ${style.innerBg} -z-10 rounded-2xl`}></div>
+
+                          {/* Close button */}
+                          <button
+                            onClick$={handleFlipBack}
+                            class={`absolute top-4 right-4 z-10 p-2 rounded-full ${style.innerBg} border ${style.border} transition-all duration-200 hover:scale-110`}
+                          >
+                            <LuX class={`w-5 h-5 ${style.statValue}`} />
+                          </button>
+
+                          {/* Swipe hint */}
+                          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-50">
+                            <div class={`w-10 h-1 rounded-full ${style.innerBg} border ${style.border}`}></div>
+                            <span class={`text-xs ${style.statLabel}`}>Swipe down to close</span>
+                          </div>
+
+                          {/* Menu Back Content */}
+                          {flipTarget.value === 'menu' && (
+                            <div class="pt-2">
+                              {/* Logo */}
+                              <div class="mb-4">
+                                <a href="/" class="focus:outline-none">
+                                  <img src="/images/logo2.svg" alt="Logo" class="h-10" />
+                                </a>
+                              </div>
+
+                              {/* Navigation */}
+                              <nav class="space-y-1 max-h-[50vh] overflow-y-auto pr-2">
+                                {menuItems.map((item, menuIdx) => (
+                                  <div key={menuIdx}>
+                                    {item.hasSubmenu ? (
+                                      <>
+                                        <button
+                                          onClick$={() => {
+                                            menuOpenIndex.value = menuOpenIndex.value === menuIdx ? null : menuIdx;
+                                          }}
+                                          class={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left font-medium ${style.description} hover:${style.innerBg} transition-colors`}
+                                        >
+                                          <span>{item.title}</span>
+                                          <LuChevronRight class={`w-4 h-4 transition-transform ${menuOpenIndex.value === menuIdx ? 'rotate-90' : ''}`} />
+                                        </button>
+                                        {menuOpenIndex.value === menuIdx && (
+                                          <div class="pl-4 space-y-1 mt-1">
+                                            {item.subitems?.map((subitem: { title: string; href: string }) => (
+                                              <a
+                                                key={subitem.title}
+                                                href={subitem.href}
+                                                class={`block px-3 py-2 rounded-lg text-sm ${style.statLabel} hover:${style.innerBg} transition-colors`}
+                                              >
+                                                {subitem.title}
+                                              </a>
+                                            ))}
+                                          </div>
+                                        )}
+                                      </>
+                                    ) : (
+                                      <a
+                                        href={item.href}
+                                        class={`block px-3 py-2.5 rounded-lg font-medium ${style.description} hover:${style.innerBg} transition-colors`}
+                                      >
+                                        {item.title}
+                                      </a>
+                                    )}
+                                  </div>
+                                ))}
+                              </nav>
+
+                              {/* Book CTA */}
+                              <div class={`mt-4 pt-4 border-t ${style.divider}`}>
+                                <a
+                                  href="https://www.bookeo.com/earthenvessels"
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  class={`block w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
+                                >
+                                  Book A Class
+                                </a>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Portfolio Back Content */}
+                          {flipTarget.value === 'portfolio' && (
+                            <div class="pt-2">
+                              <h3 class={`text-xl font-bold ${style.description} mb-4`}>Gallery Preview</h3>
+
+                              {/* 2x2 Grid of images */}
+                              <div class="grid grid-cols-2 gap-2 mb-4">
+                                {cardVideos[index].map((img, imgIdx) => (
+                                  <div key={imgIdx} class={`aspect-square rounded-lg overflow-hidden border ${style.border}`}>
+                                    <img
+                                      src={img}
+                                      alt={`Gallery ${imgIdx + 1}`}
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+
+                              {/* View Full Gallery Link */}
+                              <a
+                                href="/gallery"
+                                class={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
+                              >
+                                View Full Gallery
+                                <LuChevronRight class="w-5 h-5" />
+                              </a>
+                            </div>
+                          )}
+
+                          {/* Booking Back Content */}
+                          {flipTarget.value === 'booking' && (
+                            <div class="pt-2">
+                              <h3 class={`text-xl font-bold ${style.description} mb-4`}>Contact Us</h3>
+
+                              {/* Contact Info Cards */}
+                              <div class="space-y-3 mb-4">
+                                <div class={`flex items-start gap-3 p-3 rounded-lg ${style.innerBg} border ${style.border}`}>
+                                  <LuMapPin class={`w-5 h-5 ${style.statValue} flex-shrink-0 mt-0.5`} />
+                                  <div>
+                                    <p class={`font-medium ${style.description}`}>Address</p>
+                                    <p class={`text-sm ${style.statLabel}`}>2567 Yonge St, Toronto, ON M4P 2J1</p>
+                                  </div>
+                                </div>
+
+                                <div class={`flex items-start gap-3 p-3 rounded-lg ${style.innerBg} border ${style.border}`}>
+                                  <LuMail class={`w-5 h-5 ${style.statValue} flex-shrink-0 mt-0.5`} />
+                                  <div>
+                                    <p class={`font-medium ${style.description}`}>Email</p>
+                                    <a href="mailto:hello@earthenvessels.ca" class={`text-sm ${style.statLabel} hover:underline`}>
+                                      hello@earthenvessels.ca
+                                    </a>
+                                  </div>
+                                </div>
+
+                                <div class={`flex items-start gap-3 p-3 rounded-lg ${style.innerBg} border ${style.border}`}>
+                                  <LuClock class={`w-5 h-5 ${style.statValue} flex-shrink-0 mt-0.5`} />
+                                  <div>
+                                    <p class={`font-medium ${style.description}`}>Hours</p>
+                                    <p class={`text-sm ${style.statLabel}`}>Mon-Fri: 10am-8pm</p>
+                                    <p class={`text-sm ${style.statLabel}`}>Sat-Sun: 10am-6pm</p>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Book CTA */}
+                              <a
+                                href="https://www.bookeo.com/earthenvessels"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class={`block w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
+                              >
+                                Book A Class
+                              </a>
+
+                              {/* Contact Page Link */}
+                              <a
+                                href="/contact"
+                                class={`flex items-center justify-center gap-2 w-full mt-3 px-6 py-3 bg-transparent border-2 ${style.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105`}
+                              >
+                                View Contact Page
+                                <LuChevronRight class="w-5 h-5" />
+                              </a>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
