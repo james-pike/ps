@@ -147,19 +147,26 @@ export default component$(() => {
       position: relative;
       width: 100%;
       perspective: 1200px;
+      -webkit-perspective: 1200px;
     }
     .flip-card-inner {
       position: relative;
       width: 100%;
-      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
       transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
     }
     .flip-card-inner.flipped {
       transform: rotateY(180deg);
     }
+    .flip-card-inner.flipped .flip-card-front {
+      visibility: hidden;
+    }
     .flip-card-front, .flip-card-back {
       backface-visibility: hidden;
       -webkit-backface-visibility: hidden;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
     .flip-card-front {
       position: relative;
@@ -170,7 +177,8 @@ export default component$(() => {
       left: 0;
       width: 100%;
       height: 100%;
-      transform: rotateY(180deg);
+      transform: rotateY(180deg) translateZ(0);
+      -webkit-transform: rotateY(180deg) translateZ(0);
       overflow-y: auto;
     }
   `);
