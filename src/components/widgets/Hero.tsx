@@ -29,8 +29,8 @@ export default component$(() => {
     ],
     // Card 2: Session Violinist (Crafting Musical Moments)
     [
-      "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=80",
-      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&q=80"
+      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&q=80",
+      "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=80"
     ],
     // Card 3: Live Performances
     [
