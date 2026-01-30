@@ -2,7 +2,6 @@ import { component$, type JSXOutput, type JSXNode } from "@builder.io/qwik";
 import { Link } from "@builder.io/qwik-city";
 import {
   LuMail,
-  LuClock,
   LuMapPin,
   LuFacebook,
   LuInstagram,
