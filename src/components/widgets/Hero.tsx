@@ -4,6 +4,8 @@ import { menuItems } from "./MenuModal";
 import IconHamburger from "../icons/IconHamburger";
 import { LuX, LuChevronRight, LuMapPin, LuMail, LuClock } from "@qwikest/icons/lucide";
 
+type FlipTarget = 'none' | 'menu' | 'portfolio' | 'booking';
+
 export default component$(() => {
   const carouselIndex = useSignal(0);
   const isAutoPlaying = useSignal(true);
@@ -16,7 +18,6 @@ export default component$(() => {
   const videoTouchEndX = useSignal(0);
 
   // 3D Flip card state
-  type FlipTarget = 'none' | 'menu' | 'portfolio' | 'booking';
   const isFlipped = useSignal<boolean>(false);
   const flipTarget = useSignal<FlipTarget>('none');
   const flipTouchStartY = useSignal<number>(0);
