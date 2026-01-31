@@ -1,8 +1,11 @@
 import { component$, useSignal, useVisibleTask$, useStyles$, $ } from "@builder.io/qwik";
 import { Image } from "@unpic/qwik";
+import { useLocation } from "@builder.io/qwik-city";
 import { menuItems } from "./MenuModal";
 import IconHamburger from "../icons/IconHamburger";
-import { LuX, LuChevronRight, LuMapPin, LuMail, LuClock, LuFacebook, LuInstagram } from "@qwikest/icons/lucide";
+import IconChevronDown from "../icons/IconChevronDown";
+import { LuX, LuChevronRight, LuMapPin, LuMail, LuClock, LuFacebook, LuInstagram, LuGlobe } from "@qwikest/icons/lucide";
+import { useI18n, setLanguage as setLang, type Language } from "~/context/i18n";
 
 type FlipTarget = 'none' | 'menu' | 'portfolio' | 'booking';
 
@@ -25,6 +28,61 @@ export default component$(() => {
 
   // Menu accordion state for flip card
   const menuOpenIndex = useSignal<number | null>(null);
+
+  // Desktop header state
+  const location = useLocation();
+  const i18n = useI18n();
+  const showLangDropdown = useSignal(false);
+
+  const handleSetLanguage = $((lang: Language) => {
+    i18n.locale.value = lang;
+    setLang(lang);
+    showLangDropdown.value = false;
+  });
+
+  // Desktop menu items (same as Header)
+  const desktopMenu = [
+    {
+      text: "This Is Us",
+      href: "/team",
+      items: [
+        { text: "Facilitators", href: "/team" },
+        { text: "Our Logo", href: "/team#logo" },
+      ]
+    },
+    {
+      text: "About",
+      href: "/about",
+      items: [
+        { text: "Our Space", href: "/about" },
+        { text: "What To Expect", href: "/about#what-to-expect" },
+        { text: "Benefits Of Clay", href: "/about#benefits-of-clay" },
+        { text: "Newsletter", href: "/newsletter" },
+        { text: "Gallery", href: "/gallery" },
+        { text: "FAQ", href: "/faq" },
+      ],
+    },
+    {
+      text: "Our Offerings",
+      href: "/offerings",
+      items: [
+        { text: "Classes & Workshops", href: "/offerings" },
+        { text: "Corporate Events", href: "/offerings#events" },
+        { text: "Private Events", href: "/offerings#events" },
+        { text: "Gift Cards", href: "https://bookeo.com/earthenvessels/buyvoucher" },
+      ],
+    },
+    {
+      text: "Reviews",
+      href: "/reviews/",
+      items: [
+        { text: "Reviews", href: "/reviews" },
+        { text: "In The News", href: "/reviews/#news" },
+      ],
+    },
+    { text: "Community", href: "/community" },
+    { text: "Contact", href: "/contact" },
+  ];
 
   const carouselImages = [
     "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80",
@@ -182,6 +240,20 @@ export default component$(() => {
       -webkit-transform: rotateY(180deg) translateZ(0);
       overflow-y: auto;
     }
+    /* Desktop header dropdown styles */
+    .dropdown:hover .dropdown-menu {
+      display: block !important;
+    }
+    .dropdown .dropdown-menu {
+      display: none;
+      top: 100%;
+      left: 0;
+      z-index: 100;
+    }
+    .hero-header {
+      position: relative;
+      z-index: 50;
+    }
   `);
 
   // Auto-advance carousel for images (paused when flipped)
@@ -258,7 +330,7 @@ export default component$(() => {
       {/* Subtle grid overlay */}
       <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem]" aria-hidden="true"></div>
 
-      <div class="relative z-10 container lg:-mt-28 mx-auto px-3.5 pt-3 pb-2 lg:px-12 lg:py-8">
+      <div class="relative z-10 container mx-auto px-3.5 pt-3 pb-2 lg:px-0 lg:py-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden relative">
           {/* Mobile Menu Button - positioned above card stack */}
@@ -821,12 +893,139 @@ export default component$(() => {
 
               return (
                 <div key={index} class={`carousel-card-wrapper ${getCardClass()}`}>
-                  {/* Unified Card - Both Columns */}
-                  <div class={`grid grid-cols-2 gap-0 rounded-2xl overflow-hidden shadow-2xl ${ds.cardBg}`} style="transform-style: preserve-3d;">
+                  {/* Unified Card - Header + Both Columns */}
+                  <div class={`rounded-2xl overflow-hidden shadow-2xl ${ds.cardBg} border-2 ${ds.leftBorder}`} style="transform-style: preserve-3d;">
 
-                    {/* Left: Messaging */}
-                    <div class={`relative bg-gradient-to-br ${ds.leftBg} backdrop-blur-md border-2 border-r-0 ${ds.leftBorder} rounded-l-2xl p-8 xl:p-12`}>
-                      <div class={`absolute inset-0 ${ds.leftInner} -z-10 rounded-l-2xl`}></div>
+                    {/* Desktop Header - Inside the card */}
+                    <header class={`hero-header relative bg-gradient-to-r ${ds.leftBg} backdrop-blur-md py-2 px-4`}>
+                      <div class="flex items-center justify-between max-w-full">
+                        {/* Logo */}
+                        <a class="flex items-center" href="/">
+                          <img
+                            src="/images/logo22.svg"
+                            alt="Logo"
+                            class="w-[100px] h-[40px] object-contain"
+                          />
+                        </a>
+
+                        {/* Navigation */}
+                        <nav class="flex items-center" aria-label="Main navigation">
+                          <ul class="flex flex-row text-stone-800 text-lg tracking-[0.01rem] font-medium px-2 py-1">
+                            {desktopMenu.map(({ text, href, items }, key) => {
+                              const isActive = location.url.pathname === href;
+                              return (
+                                <li key={key} class={items?.length ? "dropdown relative group" : ""}>
+                                  {items?.length ? (
+                                    <>
+                                      <a
+                                        href={href}
+                                        class={`
+                                          hover:text-amber-600
+                                          px-3 py-2
+                                          flex items-center
+                                          transition-all duration-200
+                                          relative
+                                          rounded-full
+                                          text-sm xl:text-base
+                                          ${isActive ? "text-amber-700" : ""}
+                                        `}
+                                      >
+                                        {text}
+                                        <IconChevronDown class="w-3 h-3 ml-0.5" />
+                                      </a>
+                                      <ul class="dropdown-menu md:backdrop-blur-md rounded-lg md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-gradient-to-br md:from-amber-50/95 md:via-orange-50/95 md:to-yellow-50/95 md:border md:border-amber-300/50 md:min-w-[200px] drop-shadow-xl py-2 z-50">
+                                        {items.map(({ text: text2, href: href2 }, key2) => {
+                                          const isExternalLink = href2?.startsWith('http');
+                                          return (
+                                            <li key={key2}>
+                                              <a
+                                                class="hover:bg-amber-200/50 hover:text-amber-700 text-stone-700 py-2 px-5 flex items-center whitespace-nowrap transition-all duration-200 text-sm"
+                                                href={href2}
+                                                {...(isExternalLink && { target: "_blank", rel: "noopener noreferrer" })}
+                                              >
+                                                {text2}
+                                              </a>
+                                            </li>
+                                          );
+                                        })}
+                                      </ul>
+                                    </>
+                                  ) : (
+                                    <a
+                                      class={`
+                                        hover:text-amber-600
+                                        px-3 py-2
+                                        flex items-center
+                                        transition-all duration-200
+                                        rounded-full
+                                        text-sm xl:text-base
+                                        ${isActive ? "text-amber-700" : ""}
+                                      `}
+                                      href={href}
+                                    >
+                                      {text}
+                                    </a>
+                                  )}
+                                </li>
+                              );
+                            })}
+                          </ul>
+                        </nav>
+
+                        {/* Right side: Language + Book button */}
+                        <div class="flex items-center space-x-2">
+                          {/* Language Dropdown */}
+                          <div class="relative">
+                            <button
+                              class="flex items-center gap-1 px-2 py-1.5 text-stone-700 hover:text-amber-700 rounded-lg hover:bg-amber-100/50 transition-all duration-200"
+                              onClick$={() => showLangDropdown.value = !showLangDropdown.value}
+                              onBlur$={() => setTimeout(() => showLangDropdown.value = false, 150)}
+                            >
+                              <LuGlobe class="w-4 h-4" />
+                              <span class="text-xs font-medium uppercase">{i18n.locale.value}</span>
+                              <IconChevronDown class={`w-2.5 h-2.5 transition-transform duration-200 ${showLangDropdown.value ? 'rotate-180' : ''}`} />
+                            </button>
+                            {showLangDropdown.value && (
+                              <div class="absolute right-0 top-full mt-1 bg-white/95 backdrop-blur-md border border-stone-200 rounded-lg shadow-lg overflow-hidden z-50 min-w-[100px]">
+                                <button
+                                  class={`w-full px-3 py-1.5 text-left text-xs hover:bg-amber-100/50 transition-colors ${i18n.locale.value === 'en' ? 'text-amber-700 font-semibold bg-amber-50' : 'text-stone-700'}`}
+                                  onClick$={() => handleSetLanguage('en')}
+                                >
+                                  English
+                                </button>
+                                <button
+                                  class={`w-full px-3 py-1.5 text-left text-xs hover:bg-amber-100/50 transition-colors ${i18n.locale.value === 'fr' ? 'text-amber-700 font-semibold bg-amber-50' : 'text-stone-700'}`}
+                                  onClick$={() => handleSetLanguage('fr')}
+                                >
+                                  Français
+                                </button>
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Book Button */}
+                          <a
+                            href="https://bookeo.com/earthenvessels"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="bg-gradient-to-r from-amber-600 via-amber-700 to-amber-600 group relative inline-flex items-center justify-center px-3 py-1.5 text-sm font-semibold text-white rounded-lg shadow-lg hover:shadow-[0_0_12px_rgba(217,119,6,0.4)] transition-all duration-300 overflow-hidden"
+                          >
+                            <span class="relative z-10 flex items-center gap-1">
+                              Book a Class
+                              <svg class="w-4 h-4 transform group-hover:translate-x-0.5 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                              </svg>
+                            </span>
+                          </a>
+                        </div>
+                      </div>
+                    </header>
+
+                    {/* Two-column content */}
+                    <div class="grid grid-cols-2 gap-0">
+                      {/* Left: Messaging */}
+                      <div class={`relative bg-gradient-to-br ${ds.leftBg} backdrop-blur-md p-8 xl:p-12`}>
+                        <div class={`absolute inset-0 ${ds.leftInner} -z-10`}></div>
                       <div class="inline-block mb-4">
                         <span class={`px-4 py-2 rounded-full ${ds.badge} text-sm font-medium tracking-wider uppercase`}>
                           {card.badge}
@@ -880,27 +1079,28 @@ export default component$(() => {
                       </div>
                     </div>
 
-                    {/* Right: Image Carousel Card */}
-                    <div class={`relative bg-gradient-to-br ${ds.rightBg} backdrop-blur-md border-2 border-l-0 ${ds.rightBorder} rounded-r-2xl p-8 flex items-center justify-center`}>
-                      <div class={`absolute inset-0 ${ds.rightInner} -z-10 rounded-r-2xl`}></div>
-                      <div class={`relative border-2 ${ds.imageBorder} rounded-xl overflow-hidden w-full aspect-square shadow-2xl`}>
-                        {cardVideos[index].map((img, idx) => (
-                          <div
-                            key={idx}
-                            class={`absolute inset-0 transition-all duration-700 ${
-                              idx === rightColumnImageIndex.value
-                                ? 'opacity-100 scale-100'
-                                : 'opacity-0 scale-110'
-                            }`}
-                          >
-                            <Image
-                              src={img}
-                              alt={`Gallery ${idx + 1}`}
-                              class="w-full h-full object-cover"
-                            />
-                          </div>
-                        ))}
-                        <div class="absolute inset-0 bg-gradient-to-br from-stone-950/20 via-transparent to-stone-950/40"></div>
+                      {/* Right: Image Carousel Card */}
+                      <div class={`relative bg-gradient-to-br ${ds.rightBg} backdrop-blur-md p-8 flex items-center justify-center`}>
+                        <div class={`absolute inset-0 ${ds.rightInner} -z-10`}></div>
+                        <div class={`relative border-2 ${ds.imageBorder} rounded-xl overflow-hidden w-full aspect-square shadow-2xl`}>
+                          {cardVideos[index].map((img, idx) => (
+                            <div
+                              key={idx}
+                              class={`absolute inset-0 transition-all duration-700 ${
+                                idx === rightColumnImageIndex.value
+                                  ? 'opacity-100 scale-100'
+                                  : 'opacity-0 scale-110'
+                              }`}
+                            >
+                              <Image
+                                src={img}
+                                alt={`Gallery ${idx + 1}`}
+                                class="w-full h-full object-cover"
+                              />
+                            </div>
+                          ))}
+                          <div class="absolute inset-0 bg-gradient-to-br from-stone-950/20 via-transparent to-stone-950/40"></div>
+                        </div>
                       </div>
                     </div>
                   </div>

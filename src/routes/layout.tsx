@@ -15,6 +15,7 @@ export const useBannerLoader = routeLoader$(async (event) => { try { const clien
 
 export default component$(() => {
   const location = useLocation();
+  const isHomeRoute = location.url.pathname === "/";
 
   useVisibleTask$(() => {
     inject(); // Runs only on client sides
@@ -38,7 +39,10 @@ export default component$(() => {
 
   return (
     <>
-      <Header />
+      {/* On home page, header is embedded in Hero for desktop, so hide the standalone header on lg+ */}
+      <div class={isHomeRoute ? "lg:hidden" : ""}>
+        <Header />
+      </div>
       <main>
         <Slot />
       </main>
