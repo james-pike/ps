@@ -5,7 +5,7 @@ import { menuItems } from "./MenuModal";
 import IconHamburger from "../icons/IconHamburger";
 import IconChevronDown from "../icons/IconChevronDown";
 import { LuX, LuChevronRight, LuMapPin, LuMail, LuClock, LuFacebook, LuInstagram, LuGlobe, LuYoutube, LuCalendar } from "@qwikest/icons/lucide";
-import { useI18n, setLanguage as setLang, type Language } from "~/context/i18n";
+import { useI18n, setLanguage as setLang, type Language, t } from "~/context/i18n";
 
 type FlipTarget = 'none' | 'menu' | 'portfolio' | 'booking';
 
@@ -110,35 +110,37 @@ export default component$(() => {
     ]
   ];
 
+  const locale = i18n.locale.value;
+
   const heroCards = [
     {
-      badge: "Studio Sessions",
-      title: ["Polishing", "Every", "Recording"],
-      description: "Professional recording services with attention to detail and musical excellence.",
+      badge: t(locale, "hero.studioSessions"),
+      title: [t(locale, "hero.polishing"), t(locale, "hero.every"), t(locale, "hero.recording")],
+      description: t(locale, "hero.studioDescription"),
       stats: [
-        { value: "40+", label: "Tracks" },
-        { value: "20+", label: "Artists" },
-        { value: "10+", label: "Genres" }
+        { value: "40+", label: t(locale, "hero.tracks") },
+        { value: "20+", label: t(locale, "hero.artists") },
+        { value: "10+", label: t(locale, "hero.genres") }
       ]
     },
     {
-      badge: "Live Performances",
-      title: ["Creating", "Unforgettable", "Experiences"],
-      description: "From intimate venues to grand stages, delivering performances that truly resonate.",
+      badge: t(locale, "hero.livePerformances"),
+      title: [t(locale, "hero.creating"), t(locale, "hero.unforgettable"), t(locale, "hero.experiences")],
+      description: t(locale, "hero.liveDescription"),
       stats: [
-        { value: "30+", label: "Concerts" },
-        { value: "10+", label: "Venues" },
-        { value: "5+", label: "Cities" }
+        { value: "30+", label: t(locale, "hero.concerts") },
+        { value: "10+", label: t(locale, "hero.venues") },
+        { value: "5+", label: t(locale, "hero.cities") }
       ]
     },
     {
-      badge: "Session Violinist",
-      title: ["Crafting", "Musical", "Moments"],
-      description: "Bringing soul and precision to every recording session and live performance we create.",
+      badge: t(locale, "hero.sessionViolinist"),
+      title: [t(locale, "hero.crafting"), t(locale, "hero.musical"), t(locale, "hero.moments")],
+      description: t(locale, "hero.sessionDescription"),
       stats: [
-        { value: "50+", label: "Sessions" },
-        { value: "15+", label: "Albums" },
-        { value: "10+", label: "Years" }
+        { value: "50+", label: t(locale, "hero.sessions") },
+        { value: "15+", label: t(locale, "hero.albums") },
+        { value: "10+", label: t(locale, "hero.years") }
       ]
     }
   ];
@@ -512,14 +514,14 @@ export default component$(() => {
                               onClick$={() => handleFlip('portfolio')}
                               class={`group px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
                             >
-                              View Portfolio
+                              {t(locale, "hero.viewPortfolio")}
                               <span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
                             </button>
                             <button
                               onClick$={() => handleFlip('booking')}
                               class={`px-6 py-3 bg-transparent border-2 ${style.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-center`}
                             >
-                              Book Session
+                              {t(locale, "hero.bookSession")}
                             </button>
                           </div>
 
@@ -1096,14 +1098,14 @@ export default component$(() => {
                           href="/gallery"
                           class={`group/btn px-6 py-3 bg-gradient-to-r ${ds.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
                         >
-                          View Portfolio
+                          {t(locale, "hero.viewPortfolio")}
                           <span class="inline-block ml-2 transition-transform group-hover/btn:translate-x-1">→</span>
                         </a>
                         <a
                           href="/contact"
                           class={`px-6 py-3 bg-transparent border-2 ${ds.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-center`}
                         >
-                          Book Session
+                          {t(locale, "hero.bookSession")}
                         </a>
                       </div>
 
