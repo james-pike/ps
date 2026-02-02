@@ -16,7 +16,7 @@ export default component$(() => {
   const currentTrackIndex = useSignal(0);
   const progress = useSignal(0);
   const duration = useSignal(0);
-  const hasScrolledPastHero = useSignal(true);
+  const hasScrolledPastHero = useSignal(false);
   const hasAutoStarted = useSignal(false);
   const audioRef = useSignal<HTMLAudioElement | undefined>(undefined);
 
