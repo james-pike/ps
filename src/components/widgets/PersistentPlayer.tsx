@@ -24,14 +24,12 @@ export default component$(() => {
     isVisible: true,
   });
 
-  // Show player only after scrolling past hero section and auto-start
-  useVisibleTask$(({ cleanup, track }) => {
-    const threshold = window.innerHeight * 0.4; // 40% of viewport height
-
+  // Show player after minimal scroll (20px)
+  useVisibleTask$({ strategy: 'document-ready' }, ({ cleanup }) => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const wasScrolledPast = hasScrolledPastHero.value;
-      hasScrolledPastHero.value = scrollY > threshold;
+      hasScrolledPastHero.value = scrollY > 20;
 
       // Auto-start when player first appears
       if (!wasScrolledPast && hasScrolledPastHero.value && !hasAutoStarted.value && audioRef.value) {
@@ -45,10 +43,7 @@ export default component$(() => {
     };
 
     handleScroll(); // Check initial position
-    window.addEventListener('scroll', handleScroll);
-
-    // Track audio ref changes
-    track(() => audioRef.value);
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     cleanup(() => window.removeEventListener('scroll', handleScroll));
   });
