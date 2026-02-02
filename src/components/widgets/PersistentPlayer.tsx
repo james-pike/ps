@@ -26,10 +26,12 @@ export default component$(() => {
 
   // Show player only after scrolling past hero section and auto-start
   useVisibleTask$(({ cleanup, track }) => {
+    const threshold = window.innerHeight * 0.4; // 40% of viewport height
+
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const wasScrolledPast = hasScrolledPastHero.value;
-      hasScrolledPastHero.value = scrollY > 100;
+      hasScrolledPastHero.value = scrollY > threshold;
 
       // Auto-start when player first appears
       if (!wasScrolledPast && hasScrolledPastHero.value && !hasAutoStarted.value && audioRef.value) {
