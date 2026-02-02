@@ -333,7 +333,7 @@ export default component$(() => {
               {/* Language Dropdown */}
               <div class="relative">
                 <button
-                  class={`flex items-center gap-1 p-2 py-1 rounded-lg border backdrop-blur-sm transition-all duration-300 ${
+                  class={`flex items-center gap-0.5 px-2 py-1 rounded-lg border backdrop-blur-sm transition-all duration-300 ${
                     currentSlideIndex.value === 0
                       ? 'border-stone-300 bg-stone-100/40 hover:bg-stone-200/50'
                       : currentSlideIndex.value === 1
@@ -342,8 +342,8 @@ export default component$(() => {
                   }`}
                   onClick$={() => showLangDropdown.value = !showLangDropdown.value}
                 >
-                  <LuGlobe class="w-5 h-5 text-stone-700" />
-                  <span class="text-xs font-medium text-stone-700 uppercase">{i18n.locale.value}</span>
+                  <span class="text-sm font-medium text-stone-700 uppercase">{i18n.locale.value}</span>
+                  <IconChevronDown class="w-4 h-4 text-stone-700" />
                 </button>
                 {showLangDropdown.value && (
                   <div class="absolute right-0 top-full mt-1 bg-white/95 backdrop-blur-md border border-stone-200 rounded-lg shadow-lg overflow-hidden z-50 min-w-[100px]">
