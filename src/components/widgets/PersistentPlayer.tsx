@@ -25,7 +25,7 @@ export default component$(() => {
   });
 
   // Show player after minimal scroll (20px)
-  useVisibleTask$({ strategy: 'document-ready' }, ({ cleanup }) => {
+  useVisibleTask$(({ cleanup }) => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const wasScrolledPast = hasScrolledPastHero.value;

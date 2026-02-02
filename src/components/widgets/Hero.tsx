@@ -488,9 +488,9 @@ export default component$(() => {
                     <div class={`flip-card-inner ${isActiveCard && isFlipped.value ? 'flipped' : ''}`}>
                       {/* FRONT OF CARD */}
                       <div class="flip-card-front">
-                        <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-8 rounded-2xl border ${style.border} shadow-2xl`}>
+                        <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-6 md:p-8 rounded-2xl border ${style.border} shadow-2xl`}>
                           <div class={`absolute inset-0 ${style.innerBg} -z-10 rounded-2xl`}></div>
-                          <div class="inline-block mb-4">
+                          <div class="inline-block mb-4 mt-1">
                             <span class={`px-3 py-1 rounded-full ${style.badge} text-xs font-medium tracking-wider uppercase`}>
                               {card.badge}
                             </span>
