@@ -16,7 +16,7 @@ export default component$(() => {
   const currentTrackIndex = useSignal(0);
   const progress = useSignal(0);
   const duration = useSignal(0);
-  const hasScrolledPastHero = useSignal(false);
+  const hasScrolledPastHero = useSignal(true);
   const hasAutoStarted = useSignal(false);
   const audioRef = useSignal<HTMLAudioElement | undefined>(undefined);
 
@@ -29,7 +29,7 @@ export default component$(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
       const wasScrolledPast = hasScrolledPastHero.value;
-      hasScrolledPastHero.value = scrollY > 300;
+      hasScrolledPastHero.value = scrollY > 100;
 
       // Auto-start when player first appears
       if (!wasScrolledPast && hasScrolledPastHero.value && !hasAutoStarted.value && audioRef.value) {
@@ -153,6 +153,9 @@ export default component$(() => {
 
   return (
     <>
+      {/* Spacer to prevent content from being hidden behind fixed player */}
+      <div class="h-16 md:h-14" />
+
       {/* Hidden audio element */}
       <audio
         ref={audioRef}

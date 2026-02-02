@@ -1,5 +1,5 @@
 import { component$, useSignal, $, Signal, useVisibleTask$ } from "@builder.io/qwik";
-import { LuX, LuChevronDown, LuFacebook, LuInstagram, LuGlobe } from "@qwikest/icons/lucide";
+import { LuX, LuChevronDown, LuFacebook, LuInstagram, LuGlobe, LuYoutube, LuMusic, LuCalendar } from "@qwikest/icons/lucide";
 import { cn } from "@qwik-ui/utils";
 import { useLocation } from "@builder.io/qwik-city";
 import { Modal } from "../ui/Modal";
@@ -317,46 +317,75 @@ export default component$(() => {
                 </button>
               </div>
             </div>
-            <div class="sm:max-w-md px-5 pt-4 flex flex-row items-center justify-between gap-4 lg:justify-start lg:max-w-7xl">
-              <div class="flex-shrink-0">
-                <a
-                  href="https://www.bookeo.com/earthenvessels"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  class="group relative inline-flex items-center justify-center px-5 py-2.5 !text-lg font-medium text-white bg-gradient-to-r from-primary-600 via-primary-700 to-primary-600 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden focus:outline-none focus:ring-2 focus:ring-primary-300"
-                  role="button"
-                  aria-label="Book a workshop"
-                >
-                  <span class="relative z-10 flex items-center gap-2">
-                    Book A Class
 
-                  </span>
-                  <div class="absolute inset-0 bg-gradient-to-r from-primary-300/40 via-primary-200/30 to-primary-300/40 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </a>
+            {/* Listen On - Streaming Platforms */}
+            <div class="px-5 pt-4 pb-3 border-b border-primary-800/30">
+              <div class="flex items-center gap-2 mb-3">
+                <LuMusic class="w-5 h-5 text-tertiary-400" />
+                <span class="text-sm font-medium text-tertiary-300">Listen On</span>
               </div>
-              <div class="flex-shrink-0 flex gap-6">
+              <div class="flex gap-3">
                 <a
-                  href="https://www.facebook.com/p/earthen-vessels-61562702795370/"
+                  href="https://youtube.com/@yourchannelname"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-tertiary-400 hover:text-primary-400 transition-colors"
+                  class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-600/20 border border-red-500/30 text-red-400 hover:bg-red-600/30 hover:text-red-300 transition-all duration-200"
                 >
-                  <LuFacebook class="h-7 w-7" />
+                  <LuYoutube class="w-5 h-5" />
+                  <span class="text-sm font-medium">YouTube</span>
                 </a>
                 <a
-                  href="https://www.instagram.com/earthenvesselspottery_/"
+                  href="https://open.spotify.com/artist/yourartistid"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="text-tertiary-400 hover:text-primary-400 transition-colors"
+                  class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-green-600/20 border border-green-500/30 text-green-400 hover:bg-green-600/30 hover:text-green-300 transition-all duration-200"
                 >
-                  <LuInstagram class="h-7 w-7" />
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                  </svg>
+                  <span class="text-sm font-medium">Spotify</span>
                 </a>
               </div>
             </div>
-            {/* Banner with Added Border */}
-            {/* Dynamic Open House Banner */}
 
-      </div>
+            {/* Social Links */}
+            <div class="px-5 pt-4 pb-3 border-b border-primary-800/30">
+              <div class="flex items-center justify-center gap-6">
+                <a
+                  href="https://www.instagram.com/yourhandle"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex flex-col items-center gap-1 text-tertiary-400 hover:text-pink-400 transition-colors"
+                >
+                  <LuInstagram class="h-7 w-7" />
+                  <span class="text-xs">Instagram</span>
+                </a>
+                <a
+                  href="https://www.facebook.com/yourpage"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex flex-col items-center gap-1 text-tertiary-400 hover:text-blue-400 transition-colors"
+                >
+                  <LuFacebook class="h-7 w-7" />
+                  <span class="text-xs">Facebook</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Book Performance CTA */}
+            <div class="px-5 pt-4">
+              <a
+                href="/contact"
+                class="group relative flex items-center justify-center gap-3 w-full px-6 py-3.5 text-lg font-semibold text-white bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 rounded-xl shadow-lg hover:shadow-amber-500/25 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] overflow-hidden"
+                role="button"
+                aria-label="Book a performance"
+              >
+                <LuCalendar class="w-5 h-5" />
+                <span class="relative z-10">Book a Performance</span>
+                <div class="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-white/20 to-amber-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+              </a>
+            </div>
+          </div>
 
           <Modal.Close
             class={cn(

@@ -4,7 +4,7 @@ import { useLocation } from "@builder.io/qwik-city";
 import { menuItems } from "./MenuModal";
 import IconHamburger from "../icons/IconHamburger";
 import IconChevronDown from "../icons/IconChevronDown";
-import { LuX, LuChevronRight, LuMapPin, LuMail, LuClock, LuFacebook, LuInstagram, LuGlobe } from "@qwikest/icons/lucide";
+import { LuX, LuChevronRight, LuMapPin, LuMail, LuClock, LuFacebook, LuInstagram, LuGlobe, LuYoutube, LuCalendar } from "@qwikest/icons/lucide";
 import { useI18n, setLanguage as setLang, type Language } from "~/context/i18n";
 
 type FlipTarget = 'none' | 'menu' | 'portfolio' | 'booking';
@@ -318,35 +318,65 @@ export default component$(() => {
   });
 
   return (
-    <section class="relative min-h-[auto] lg:min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-stone-100 via-gray-50 to-stone-50 pt-0 pb-0 lg:py-0">
-      {/* Animated gradient background */}
-      <div class="absolute inset-0 bg-gradient-to-br from-stone-200/60 via-gray-100/50 to-stone-100/60 opacity-80"></div>
-
+    <section class="relative min-h-[auto] lg:min-h-screen flex items-center justify-center overflow-hidden pt-0 pb-0 lg:py-0">
       {/* Floating decorations */}
       <div class="absolute top-20 left-10 w-32 h-32 bg-stone-400/15 rounded-full blur-2xl animate-float" aria-hidden="true"></div>
       <div class="absolute top-40 right-20 w-48 h-48 bg-gray-300/15 rounded-full blur-3xl animate-floatx" aria-hidden="true"></div>
       <div class="absolute bottom-20 left-1/3 w-40 h-40 bg-stone-300/15 rounded-full blur-2xl animate-float" aria-hidden="true"></div>
 
-      {/* Subtle grid overlay */}
-      <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem]" aria-hidden="true"></div>
-
-      <div class="relative z-10 container mx-auto px-3.5 pt-3 pb-2 lg:px-0 lg:py-8">
+      <div class="relative z-10 w-full mx-auto px-3.5 pt-3 pb-2 lg:px-4 lg:py-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden relative">
-          {/* Mobile Menu Button - positioned above card stack */}
+          {/* Mobile Menu Button + Language Dropdown - positioned above card stack */}
           {!isFlipped.value && (
-            <button
-              class={`absolute top-4 right-2 z-50 p-2 py-1 rounded-lg border backdrop-blur-sm transition-all duration-300 ${
-                currentSlideIndex.value === 0
-                  ? 'border-stone-300 bg-stone-100/40 hover:bg-stone-200/50'
-                  : currentSlideIndex.value === 1
-                    ? 'border-orange-300 bg-orange-100/40 hover:bg-orange-200/50'
-                    : 'border-amber-300 bg-amber-100/40 hover:bg-amber-200/50'
-              }`}
-              onClick$={() => handleFlip('menu')}
-            >
-              <IconHamburger class="w-6 h-7 stroke-stone-800" />
-            </button>
+            <div class="absolute top-4 right-2 z-50 flex items-center gap-2">
+              {/* Language Dropdown */}
+              <div class="relative">
+                <button
+                  class={`flex items-center gap-1 p-2 py-1 rounded-lg border backdrop-blur-sm transition-all duration-300 ${
+                    currentSlideIndex.value === 0
+                      ? 'border-stone-300 bg-stone-100/40 hover:bg-stone-200/50'
+                      : currentSlideIndex.value === 1
+                        ? 'border-orange-300 bg-orange-100/40 hover:bg-orange-200/50'
+                        : 'border-amber-300 bg-amber-100/40 hover:bg-amber-200/50'
+                  }`}
+                  onClick$={() => showLangDropdown.value = !showLangDropdown.value}
+                >
+                  <LuGlobe class="w-5 h-5 text-stone-700" />
+                  <span class="text-xs font-medium text-stone-700 uppercase">{i18n.locale.value}</span>
+                </button>
+                {showLangDropdown.value && (
+                  <div class="absolute right-0 top-full mt-1 bg-white/95 backdrop-blur-md border border-stone-200 rounded-lg shadow-lg overflow-hidden z-50 min-w-[100px]">
+                    <button
+                      class={`w-full px-3 py-2 text-left text-sm hover:bg-amber-100/50 transition-colors ${i18n.locale.value === 'en' ? 'text-amber-700 font-semibold bg-amber-50' : 'text-stone-700'}`}
+                      onClick$={() => handleSetLanguage('en')}
+                    >
+                      English
+                    </button>
+                    <button
+                      class={`w-full px-3 py-2 text-left text-sm hover:bg-amber-100/50 transition-colors ${i18n.locale.value === 'fr' ? 'text-amber-700 font-semibold bg-amber-50' : 'text-stone-700'}`}
+                      onClick$={() => handleSetLanguage('fr')}
+                    >
+                      Français
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Hamburger Menu Button */}
+              <button
+                class={`p-2 py-1 rounded-lg border backdrop-blur-sm transition-all duration-300 ${
+                  currentSlideIndex.value === 0
+                    ? 'border-stone-300 bg-stone-100/40 hover:bg-stone-200/50'
+                    : currentSlideIndex.value === 1
+                      ? 'border-orange-300 bg-orange-100/40 hover:bg-orange-200/50'
+                      : 'border-amber-300 bg-amber-100/40 hover:bg-amber-200/50'
+                }`}
+                onClick$={() => handleFlip('menu')}
+              >
+                <IconHamburger class="w-6 h-7 stroke-stone-800" />
+              </button>
+            </div>
           )}
           <div
             class="hero-carousel-container"
@@ -568,28 +598,23 @@ export default component$(() => {
                         </div>
                       </div>
 
-                      {/* BACK OF CARD */}
+                      {/* BACK OF CARD - Always stone/grey theme */}
                       <div
                         class="flip-card-back"
                         onTouchStart$={handleBackTouchStart}
                         onTouchEnd$={handleBackTouchEnd}
                       >
-                        <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-6 rounded-2xl border ${style.border} shadow-2xl h-full`}>
-                          <div class={`absolute inset-0 ${style.innerBg} -z-10 rounded-2xl`}></div>
+                        <div class="relative bg-gradient-to-br from-stone-100/95 to-stone-50/95 backdrop-blur-sm p-6 rounded-2xl border border-stone-400/60 shadow-2xl h-full">
+                          <div class="absolute inset-0 bg-stone-50/90 -z-10 rounded-2xl"></div>
 
                           {/* Close button */}
                           <button
                             onClick$={handleFlipBack}
-                            class={`absolute top-4 right-4 z-10 p-2 rounded-full ${style.innerBg} border ${style.border} transition-all duration-200 hover:scale-110`}
+                            class="absolute top-4 right-4 z-10 p-2 rounded-full bg-stone-50/90 border border-stone-400/60 transition-all duration-200 hover:scale-110"
                           >
-                            <LuX class={`w-5 h-5 ${style.statValue}`} />
+                            <LuX class="w-5 h-5 text-stone-600" />
                           </button>
 
-                          {/* Swipe hint */}
-                          <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-50">
-                            <div class={`w-10 h-1 rounded-full ${style.innerBg} border ${style.border}`}></div>
-                            <span class={`text-xs ${style.statLabel}`}>Swipe down to close</span>
-                          </div>
 
                           {/* Menu Back Content */}
                           {flipTarget.value === 'menu' && (
@@ -611,7 +636,7 @@ export default component$(() => {
                                           onClick$={() => {
                                             menuOpenIndex.value = menuOpenIndex.value === menuIdx ? null : menuIdx;
                                           }}
-                                          class={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left text-lg font-medium ${style.description} hover:${style.innerBg} transition-colors`}
+                                          class="w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-left text-lg font-medium text-stone-600 hover:bg-stone-100 transition-colors"
                                         >
                                           <span>{item.title}</span>
                                           <LuChevronRight class={`w-5 h-5 transition-transform ${menuOpenIndex.value === menuIdx ? 'rotate-90' : ''}`} />
@@ -622,7 +647,7 @@ export default component$(() => {
                                               <a
                                                 key={subitem.title}
                                                 href={subitem.href}
-                                                class={`block px-3 py-2 rounded-lg text-base ${style.statLabel} hover:${style.innerBg} transition-colors`}
+                                                class="block px-3 py-2 rounded-lg text-base text-stone-500/70 hover:bg-stone-100 transition-colors"
                                               >
                                                 {subitem.title}
                                               </a>
@@ -633,7 +658,7 @@ export default component$(() => {
                                     ) : (
                                       <a
                                         href={item.href}
-                                        class={`block px-3 py-2.5 rounded-lg text-lg font-medium ${style.description} hover:${style.innerBg} transition-colors`}
+                                        class="block px-3 py-2.5 rounded-lg text-lg font-medium text-stone-600 hover:bg-stone-100 transition-colors"
                                       >
                                         {item.title}
                                       </a>
@@ -643,35 +668,54 @@ export default component$(() => {
                               </nav>
 
                               {/* Social Links */}
-                              <div class={`mt-4 pt-4 border-t ${style.divider} flex justify-center gap-6`}>
-                                <a
-                                  href="https://www.facebook.com/p/earthen-vessels-61562702795370/"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  class={`p-3 rounded-full ${style.innerBg} border ${style.border} ${style.statValue} hover:scale-110 transition-transform`}
-                                >
-                                  <LuFacebook class="w-6 h-6" />
-                                </a>
-                                <a
-                                  href="https://www.instagram.com/earthenvesselspottery_/"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  class={`p-3 rounded-full ${style.innerBg} border ${style.border} ${style.statValue} hover:scale-110 transition-transform`}
-                                >
-                                  <LuInstagram class="w-6 h-6" />
-                                </a>
-                              </div>
-
-                              {/* Book CTA */}
-                              <div class={`mt-4 pt-4 border-t ${style.divider}`}>
-                                <a
-                                  href="https://www.bookeo.com/earthenvessels"
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  class={`block w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
-                                >
-                                  Book A Class
-                                </a>
+                              <div class="mt-4 pt-4 border-t border-stone-200/50">
+                                <p class="text-xs text-stone-500/70 text-center mb-3">Follow on</p>
+                                <div class="flex justify-center gap-4">
+                                  <a
+                                    href="https://youtube.com/@yourchannelname"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="p-3 rounded-full bg-stone-50/90 border border-stone-400/60 text-stone-600 hover:scale-110 transition-transform"
+                                  >
+                                    <LuYoutube class="w-6 h-6" />
+                                  </a>
+                                  <a
+                                    href="https://open.spotify.com/artist/yourartistid"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="p-3 rounded-full bg-stone-50/90 border border-stone-400/60 text-stone-600 hover:scale-110 transition-transform"
+                                  >
+                                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                                      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                                    </svg>
+                                  </a>
+                                  <a
+                                    href="https://www.instagram.com/yourhandle"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="p-3 rounded-full bg-stone-50/90 border border-stone-400/60 text-stone-600 hover:scale-110 transition-transform"
+                                  >
+                                    <LuInstagram class="w-6 h-6" />
+                                  </a>
+                                  <a
+                                    href="https://www.tiktok.com/@yourhandle"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="p-3 rounded-full bg-stone-50/90 border border-stone-400/60 text-stone-600 hover:scale-110 transition-transform"
+                                  >
+                                    <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                                      <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                                    </svg>
+                                  </a>
+                                  <a
+                                    href="https://www.facebook.com/yourpage"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="p-3 rounded-full bg-stone-50/90 border border-stone-400/60 text-stone-600 hover:scale-110 transition-transform"
+                                  >
+                                    <LuFacebook class="w-6 h-6" />
+                                  </a>
+                                </div>
                               </div>
                             </div>
                           )}
@@ -679,12 +723,12 @@ export default component$(() => {
                           {/* Portfolio Back Content */}
                           {flipTarget.value === 'portfolio' && (
                             <div class="pt-2">
-                              <h3 class={`text-xl font-bold ${style.description} mb-4`}>Gallery Preview</h3>
+                              <h3 class="text-xl font-bold text-stone-600 mb-4">Gallery Preview</h3>
 
                               {/* 2x2 Grid of images */}
                               <div class="grid grid-cols-2 gap-2 mb-4">
                                 {cardVideos[index].map((img, imgIdx) => (
-                                  <div key={imgIdx} class={`aspect-square rounded-lg overflow-hidden border ${style.border}`}>
+                                  <div key={imgIdx} class="aspect-square rounded-lg overflow-hidden border border-stone-400/60">
                                     <img
                                       src={img}
                                       alt={`Gallery ${imgIdx + 1}`}
@@ -697,7 +741,7 @@ export default component$(() => {
                               {/* View Full Gallery Link */}
                               <a
                                 href="/gallery"
-                                class={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
+                                class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
                               >
                                 View Full Gallery
                                 <LuChevronRight class="w-5 h-5" />
@@ -708,52 +752,51 @@ export default component$(() => {
                           {/* Booking Back Content */}
                           {flipTarget.value === 'booking' && (
                             <div class="pt-2">
-                              <h3 class={`text-xl font-bold ${style.description} mb-4`}>Contact Us</h3>
+                              <h3 class="text-xl font-bold text-stone-600 mb-4">Contact Us</h3>
 
                               {/* Contact Info Cards */}
                               <div class="space-y-3 mb-4">
-                                <div class={`flex items-start gap-3 p-3 rounded-lg ${style.innerBg} border ${style.border}`}>
-                                  <LuMapPin class={`w-5 h-5 ${style.statValue} flex-shrink-0 mt-0.5`} />
+                                <div class="flex items-start gap-3 p-3 rounded-lg bg-stone-50/90 border border-stone-400/60">
+                                  <LuMapPin class="w-5 h-5 text-stone-600 flex-shrink-0 mt-0.5" />
                                   <div>
-                                    <p class={`font-medium ${style.description}`}>Address</p>
-                                    <p class={`text-sm ${style.statLabel}`}>2567 Yonge St, Toronto, ON M4P 2J1</p>
+                                    <p class="font-medium text-stone-600">Address</p>
+                                    <p class="text-sm text-stone-500/70">2567 Yonge St, Toronto, ON M4P 2J1</p>
                                   </div>
                                 </div>
 
-                                <div class={`flex items-start gap-3 p-3 rounded-lg ${style.innerBg} border ${style.border}`}>
-                                  <LuMail class={`w-5 h-5 ${style.statValue} flex-shrink-0 mt-0.5`} />
+                                <div class="flex items-start gap-3 p-3 rounded-lg bg-stone-50/90 border border-stone-400/60">
+                                  <LuMail class="w-5 h-5 text-stone-600 flex-shrink-0 mt-0.5" />
                                   <div>
-                                    <p class={`font-medium ${style.description}`}>Email</p>
-                                    <a href="mailto:hello@earthenvessels.ca" class={`text-sm ${style.statLabel} hover:underline`}>
+                                    <p class="font-medium text-stone-600">Email</p>
+                                    <a href="mailto:hello@earthenvessels.ca" class="text-sm text-stone-500/70 hover:underline">
                                       hello@earthenvessels.ca
                                     </a>
                                   </div>
                                 </div>
 
-                                <div class={`flex items-start gap-3 p-3 rounded-lg ${style.innerBg} border ${style.border}`}>
-                                  <LuClock class={`w-5 h-5 ${style.statValue} flex-shrink-0 mt-0.5`} />
+                                <div class="flex items-start gap-3 p-3 rounded-lg bg-stone-50/90 border border-stone-400/60">
+                                  <LuClock class="w-5 h-5 text-stone-600 flex-shrink-0 mt-0.5" />
                                   <div>
-                                    <p class={`font-medium ${style.description}`}>Hours</p>
-                                    <p class={`text-sm ${style.statLabel}`}>Mon-Fri: 10am-8pm</p>
-                                    <p class={`text-sm ${style.statLabel}`}>Sat-Sun: 10am-6pm</p>
+                                    <p class="font-medium text-stone-600">Hours</p>
+                                    <p class="text-sm text-stone-500/70">Mon-Fri: 10am-8pm</p>
+                                    <p class="text-sm text-stone-500/70">Sat-Sun: 10am-6pm</p>
                                   </div>
                                 </div>
                               </div>
 
                               {/* Book CTA */}
                               <a
-                                href="https://www.bookeo.com/earthenvessels"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                class={`block w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
+                                href="/contact"
+                                class="group flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-white font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105 hover:shadow-amber-500/25"
                               >
-                                Book A Class
+                                <LuCalendar class="w-5 h-5" />
+                                Book a Performance
                               </a>
 
                               {/* Contact Page Link */}
                               <a
                                 href="/contact"
-                                class={`flex items-center justify-center gap-2 w-full mt-3 px-6 py-3 bg-transparent border-2 ${style.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105`}
+                                class="flex items-center justify-center gap-2 w-full mt-3 px-6 py-3 bg-transparent border-2 border-stone-300 text-stone-600 hover:bg-stone-200/30 font-semibold rounded-lg transition-all duration-300 hover:scale-105"
                               >
                                 View Contact Page
                                 <LuChevronRight class="w-5 h-5" />
@@ -772,7 +815,7 @@ export default component$(() => {
         </div>
 
         {/* Desktop Layout - Card Stack */}
-        <div class="hidden lg:block max-w-7xl  mx-auto">
+        <div class="hidden lg:block w-full">
           <div
             class="hero-carousel-container"
             onTouchStart$={(e) => {

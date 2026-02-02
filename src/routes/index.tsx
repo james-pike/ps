@@ -7,17 +7,14 @@ import LandingCards from "~/components/LandingCards";
 export default component$(() => {
   return (
     <>
-      <div class="bg-gradient-to-br from-stone-100 via-gray-50 to-stone-50">
+      <div>
         <Hero />
 
         {/* Services Section */}
         <LandingCards />
 
         {/* Video Showcase Section */}
-        <section class="relative py-20 md:py-28 bg-gradient-to-b from-stone-50 via-gray-50 to-stone-100 overflow-hidden">
-          {/* Subtle grid overlay */}
-          <div class="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:4rem_4rem]" aria-hidden="true"></div>
-
+        <section class="relative py-20 md:py-28 overflow-hidden">
           <div class="relative max-w-7xl mx-auto px-5 md:px-12">
             <div class="text-center mb-16">
               <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
