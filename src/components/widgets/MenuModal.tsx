@@ -135,50 +135,10 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
 
 // Exported for use in Hero flip cards
 export const menuItems = [
-  {
-    title: "This Is Us",
-    href: "/team",
-    hasSubmenu: true,
-    subitems: [
-      { title: "Facilitators", href: "/team" },
-      { title: "Our Logo", href: "/team#logo", badge: null },
-    ],
-  },
-  {
-    title: "About",
-    href: "/about",
-    hasSubmenu: true,
-    subitems: [
-      { title: "Our Space", href: "/about" },
-      { title: "What To Expect", href: "/about#what-to-expect" },
-      { title: "Benefits Of Clay", href: "/about#benefits-of-clay" },
-      { title: "Newsletter", href: "/newsletter" },
-      { title: "Gallery", href: "/gallery", badge: null },
-      { title: "FAQ", href: "/faq" },
-    ],
-  },
-  {
-    title: "Our Offerings",
-    href: "/offerings",
-    hasSubmenu: true,
-    subitems: [
-      { title: "Classes & Workshops", href: "/offerings" },
-      { title: "Corporate Events", href: "/offerings#events" },
-      { title: "Private Events", href: "/offerings#private-events" },
-      { title: "Gift Cards", href: "https://bookeo.com/earthenvessels/buyvoucher" },
-    ],
-  },
-  {
-    title: "Reviews",
-    href: "/reviews",
-    hasSubmenu: true,
-    subitems: [
-      { title: "Reviews", href: "/reviews" },
-      { title: "In The News", href: "/reviews#news" },
-    ],
-  },
-  { title: "Community", href: "/community/", badge: null },
-  { title: "Contact", href: "/contact/", badge: null },
+  { title: "Session Violinist", href: "/", badge: null },
+  { title: "Live Performances", href: "/", badge: null },
+  { title: "My Music", href: "https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn", badge: null },
+  { title: "Updates", href: "/#newsletter", badge: null },
 ];
 
 export default component$(() => {
@@ -191,60 +151,10 @@ export default component$(() => {
   });
 
   const localMenuItems = [
-      {
-      title: "This Is Us",
-      href: "/team",
-      hasSubmenu: true,
-      subitems: [
-        { title: "Facilitators", href: "/team" },
-            { title: "Our Logo", href: "/team#logo", badge: null },
-
-      ],
-    },
-    {
-      title: "About",
-      href: "/about",
-      hasSubmenu: true,
-      subitems: [
-        { title: "Our Space", href: "/about" },
-        { title: "What To Expect", href: "/about#what-to-expect" },
-                { title: "Benefits Of Clay", href: "/about#benefits-of-clay" },
-
-        { title: "Newsletter", href: "/newsletter" },
-            { title: "Gallery", href: "/gallery", badge: null },
-
-        { title: "FAQ", href: "/faq" },
-      ],
-    },
-    {
-      title: "Our Offerings",
-      href: "/offerings",
-      hasSubmenu: true,
-      subitems: [
-        { title: "Classes & Workshops", href: "/offerings" },
-                { title: "Corporate Events", href: "/offerings#events" },
-                                { title: "Private Events", href: "/offerings#private-events" },
-
-                        { title: "Gift Cards", href: "https://bookeo.com/earthenvessels/buyvoucher" },
-
-
-      ],
-    },
-      {
-      title: "Reviews",
-      href: "/reviews",
-      hasSubmenu: true,
-      subitems: [
-        { title: "Reviews", href: "/reviews" },
-                { title: "In The News", href: "/reviews#news" },
-
-
-      ],
-    },
-        { title: "Community", href: "/community/", badge: null },
-
-        { title: "Contact", href: "/contact/", badge: null },
-
+    { title: "Session Violinist", href: "/", badge: null },
+    { title: "Live Performances", href: "/", badge: null },
+    { title: "My Music", href: "https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn", badge: null },
+    { title: "Updates", href: "/#newsletter", badge: null },
   ];
 
   return (

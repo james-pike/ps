@@ -123,7 +123,7 @@ export const translations = {
     "button.subscribe": "Subscribe",
 
     // Footer
-    "footer.joinNewsletter": "Join Our Newsletter",
+    "footer.joinNewsletter": "Stay Updated",
     "footer.copyright": "© 2025 Session Violinist · All rights reserved.",
     "footer.description": "Professional session violinist bringing soul and precision to every recording session and live performance. Collaborating with artists across all genres to create memorable musical experiences.",
 

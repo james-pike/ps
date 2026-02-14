@@ -28,7 +28,6 @@ export default component$(() => {
 
   const isInitialized = useSignal(false);
   const location = useLocation();
-  const isHomeRoute = location.url.pathname === "/";
 
   const bannerMessages = useBannerLoader();
   const hasBannerMessages = useSignal<boolean>(false);
@@ -224,76 +223,41 @@ export default component$(() => {
           }
         `}
       </style>
-      {/* Header - hidden on mobile */}
+      {/* Header - appears on scroll */}
       <header
         id="header"
         class={`
-          hidden lg:block
-          sticky top-0 z-40 flex-none mx-auto max-w-7xl
-          transition-all duration-300 ease-in-out
-          bg-gradient-to-r from-amber-50 via-orange-50 to-yellow-50
-          ${store.isScrolling ? "md:backdrop-blur-sm shadow-lg" : ""}
+          sticky top-0 z-50 flex-none mx-auto w-full
+          transition-all duration-500 ease-in-out
+          ${store.isScrolling
+            ? "bg-gradient-to-r from-amber-50/95 via-orange-50/95 to-yellow-50/95 backdrop-blur-md shadow-lg translate-y-0"
+            : "lg:bg-gradient-to-r lg:from-amber-50 lg:via-orange-50 lg:to-yellow-50 -translate-y-full lg:translate-y-0"}
         `}
         window:onScroll$={() => {
           const scrollY = window.scrollY;
 
-          if (!store.isScrolling && scrollY >= 10) {
+          if (!store.isScrolling && scrollY >= 50) {
             store.isScrolling = true;
             store.showBanner = false;
-          } else if (store.isScrolling && scrollY < 10) {
+          } else if (store.isScrolling && scrollY < 50) {
             store.isScrolling = false;
             store.showBanner = true;
           }
         }}
       >
-        <div class="absolute inset-0" aria-hidden="true"></div>
-        <div class="relative text-default py-1 pb-1.5 md:p-1 px-2 md:px-6 mx-auto w-full md:flex md:justify-between max-w-7xl">
-          <div class="mr-auto rtl:mr-0 rtl:ml-auto flex justify-between">
-            <a class="flex items-center pb-1" href="/">
-              <div style={{ width: "100px", height: "40px", position: "relative" }}>
-                <img
-                  src={isHomeRoute ? "/images/logo2-cropped.svg" : "/images/logo22.svg"}
-                  alt={isHomeRoute ? "Logo Cropped" : "Logo"}
-                  class={{
-                    "absolute top-1 left-1 object-contain": true,
-                    "w-[40px] h-[40px]": isHomeRoute,
-                    "w-[100px] h-[40px]": !isHomeRoute,
-                  }}
-                  style={{ display: isInitialized.value ? "none" : "block" }}
-                />
-                {isInitialized.value && (
-                  <>
-                    {store.isMobile && isHomeRoute && (
-                      <img
-                        src="/images/logo2-cropped.svg"
-                        alt="Logo Cropped"
-                        class={{
-                          "absolute top-1 left-1 w-[40px] h-[40px] object-contain transition-all duration-500 ease-in-out": true,
-                          "opacity-100 translate-x-0": !store.isScrolling,
-                          "opacity-0 translate-x-full": store.isScrolling,
-                        }}
-                      />
-                    )}
-                    <img
-                      src="/images/logo22.svg"
-                      alt="Logo"
-                      class={{
-                        "absolute top-1 -left-1 w-[100px] h-[40px] object-contain": true,
-                        "transition-all duration-500 ease-in-out": store.isMobile && isHomeRoute,
-                        "opacity-0 -translate-x-full": store.isMobile && isHomeRoute && !store.isScrolling,
-                        "opacity-100 translate-x-0": !store.isMobile || !isHomeRoute || store.isScrolling,
-                      }}
-                    />
-                  </>
-                )}
-              </div>
-            </a>
-            <div class="flex items-center md:hidden gap-1">
-              <MenuModal />
-            </div>
+        <div class="relative text-default py-2 px-4 md:px-6 mx-auto w-full flex justify-between items-center max-w-7xl">
+          <a class="flex items-center" href="/">
+            <img
+              src="/images/logo22.svg"
+              alt="Logo"
+              class="w-[100px] h-[40px] object-contain"
+            />
+          </a>
+          <div class="flex items-center lg:hidden gap-1">
+            <MenuModal />
           </div>
           <nav
-            class="items-center w-full md:w-auto hidden md:flex dark:text-white overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:mx-5 group"
+            class="items-center w-full lg:w-auto hidden lg:flex dark:text-white overflow-y-auto overflow-x-hidden lg:overflow-y-visible lg:overflow-x-auto lg:mx-5 group"
             aria-label="Main navigation"
           >
             {menu && menu.items ? (
@@ -448,7 +412,7 @@ export default component$(() => {
             ) : null}
           </nav>
           {/* FIXED: Simplified button container - no more fixed/bottom positioning */}
-          <div class="hidden md:flex items-center justify-end space-x-3">
+          <div class="hidden lg:flex items-center justify-end space-x-3">
             {/* Language Dropdown */}
             <div class="relative">
               <button

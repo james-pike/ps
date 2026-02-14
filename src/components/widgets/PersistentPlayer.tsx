@@ -1,5 +1,5 @@
 import { component$, useSignal, useStore, $, useVisibleTask$ } from "@builder.io/qwik";
-import { LuPlay, LuPause, LuSkipBack, LuSkipForward, LuX, LuChevronUp, LuChevronDown, LuVolume2, LuVolumeX } from "@qwikest/icons/lucide";
+import { LuPlay, LuPause, LuSkipBack, LuSkipForward, LuX, LuChevronUp, LuChevronDown } from "@qwikest/icons/lucide";
 
 interface Track {
   id: string;
@@ -12,7 +12,6 @@ interface Track {
 export default component$(() => {
   const isExpanded = useSignal(false);
   const isPlaying = useSignal(false);
-  const isMuted = useSignal(false);
   const currentTrackIndex = useSignal(0);
   const progress = useSignal(0);
   const duration = useSignal(0);
@@ -103,13 +102,6 @@ export default component$(() => {
       }
     }
     isPlaying.value = !isPlaying.value;
-  });
-
-  const toggleMute = $(() => {
-    if (audioRef.value) {
-      audioRef.value.muted = !isMuted.value;
-    }
-    isMuted.value = !isMuted.value;
   });
 
   const nextTrack = $(() => {
@@ -236,6 +228,32 @@ export default component$(() => {
               <div class="text-center mt-3">
                 <h3 class="text-base font-semibold text-stone-800">{currentTrack.title}</h3>
                 <p class="text-stone-500 text-sm">{currentTrack.artist}</p>
+
+                {/* Streaming Buttons */}
+                <div class="flex justify-center gap-3 mt-4">
+                  <a
+                    href="https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-2 px-6 py-3 rounded-full bg-green-500 hover:bg-green-600 text-white font-semibold text-base shadow-lg transition-all duration-300 hover:scale-105"
+                  >
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                    </svg>
+                    Spotify
+                  </a>
+                  <a
+                    href="https://music.apple.com/artist/phineas-stewart"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="flex items-center gap-2 px-6 py-3 rounded-full bg-pink-500 hover:bg-pink-600 text-white font-semibold text-base shadow-lg transition-all duration-300 hover:scale-105"
+                  >
+                    <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.132c-.317-1.336-1.085-2.477-2.17-3.331A9.064 9.064 0 0 0 19.578.199a9.23 9.23 0 0 0-2.591-.198h-9.974a9.23 9.23 0 0 0-2.591.198A9.064 9.064 0 0 0 2.416.661C1.331 1.515.563 2.656.246 3.992A9.23 9.23 0 0 0 .006 6.124v11.752a9.23 9.23 0 0 0 .24 2.132c.317 1.336 1.085 2.477 2.17 3.331.317.257.652.476 1.006.662a9.23 9.23 0 0 0 2.591.198h9.974a9.23 9.23 0 0 0 2.591-.198c.354-.186.689-.405 1.006-.662 1.085-.854 1.853-1.995 2.17-3.331a9.23 9.23 0 0 0 .24-2.132V6.124zM19.096 15.088c0 .586-.086 1.077-.258 1.474-.172.398-.43.73-.774.997a2.497 2.497 0 0 1-1.2.48 2.855 2.855 0 0 1-1.223-.083 2.497 2.497 0 0 1-1.086-.663 2.855 2.855 0 0 1-.663-1.086 2.497 2.497 0 0 1-.083-1.223v-6.613l-5.098 1.378v6.943c0 .586-.086 1.077-.258 1.474-.172.398-.43.73-.774.997a2.497 2.497 0 0 1-1.2.48 2.855 2.855 0 0 1-1.223-.083 2.497 2.497 0 0 1-1.086-.663 2.855 2.855 0 0 1-.663-1.086 2.497 2.497 0 0 1-.083-1.223c0-.586.086-1.077.258-1.474.172-.398.43-.73.774-.997a2.497 2.497 0 0 1 1.2-.48c.172-.014.344-.014.516 0 .172.014.344.043.516.086v-8.28l8.28-2.24v8.28z"/>
+                    </svg>
+                    Apple Music
+                  </a>
+                </div>
               </div>
 
               {/* Track indicators */}
@@ -281,13 +299,13 @@ export default component$(() => {
         <div class="flex items-center gap-1 md:gap-2">
           <button
             onClick$={prevTrack}
-            class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-stone-200/70 hover:bg-stone-300 flex items-center justify-center text-stone-600 transition-colors"
+            class="p-1.5 md:p-2 rounded-full bg-stone-200/70 border border-stone-300/60 hover:bg-stone-300 hover:border-stone-400/60 hover:scale-110 flex items-center justify-center text-stone-600 transition-all duration-300"
           >
             <LuSkipBack class="w-3.5 h-3.5 md:w-4 md:h-4" />
           </button>
           <button
             onClick$={togglePlay}
-            class="w-9 h-9 md:w-10 md:h-10 rounded-full bg-gradient-to-r from-stone-600 to-stone-700 hover:from-stone-500 hover:to-stone-600 flex items-center justify-center text-white shadow-md shadow-stone-900/20 transition-all duration-300 hover:scale-105"
+            class="p-2 md:p-2.5 rounded-full bg-gradient-to-r from-stone-600 to-stone-700 border border-stone-400/60 hover:from-stone-500 hover:to-stone-600 hover:border-stone-300/60 flex items-center justify-center text-white shadow-md shadow-stone-900/20 transition-all duration-300 hover:scale-110"
           >
             {isPlaying.value ? (
               <LuPause class="w-4 h-4 md:w-5 md:h-5" />
@@ -297,7 +315,7 @@ export default component$(() => {
           </button>
           <button
             onClick$={nextTrack}
-            class="w-7 h-7 md:w-8 md:h-8 rounded-full bg-stone-200/70 hover:bg-stone-300 flex items-center justify-center text-stone-600 transition-colors"
+            class="p-1.5 md:p-2 rounded-full bg-stone-200/70 border border-stone-300/60 hover:bg-stone-300 hover:border-stone-400/60 hover:scale-110 flex items-center justify-center text-stone-600 transition-all duration-300"
           >
             <LuSkipForward class="w-3.5 h-3.5 md:w-4 md:h-4" />
           </button>
@@ -321,20 +339,35 @@ export default component$(() => {
             </span>
           </div>
 
-          <button
-            onClick$={toggleMute}
-            class="w-6 h-6 rounded-full bg-stone-200/70 hover:bg-stone-300 flex items-center justify-center text-stone-600 transition-colors"
+          {/* Spotify Button */}
+          <a
+            href="https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-1.5 md:p-2 rounded-full bg-stone-200/70 border border-stone-300/60 text-green-600 hover:bg-green-50 hover:border-green-300 hover:scale-110 flex items-center justify-center transition-all duration-300"
+            title="Listen on Spotify"
           >
-            {isMuted.value ? (
-              <LuVolumeX class="w-3 h-3" />
-            ) : (
-              <LuVolume2 class="w-3 h-3" />
-            )}
-          </button>
+            <svg class="w-4 h-4 md:w-4.5 md:h-4.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+            </svg>
+          </a>
+
+          {/* Apple Music Button */}
+          <a
+            href="https://music.apple.com/artist/phineas-stewart"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="p-1.5 md:p-2 rounded-full bg-stone-200/70 border border-stone-300/60 text-pink-600 hover:bg-pink-50 hover:border-pink-300 hover:scale-110 flex items-center justify-center transition-all duration-300"
+            title="Listen on Apple Music"
+          >
+            <svg class="w-4 h-4 md:w-4.5 md:h-4.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.132c-.317-1.336-1.085-2.477-2.17-3.331A9.064 9.064 0 0 0 19.578.199a9.23 9.23 0 0 0-2.591-.198h-9.974a9.23 9.23 0 0 0-2.591.198A9.064 9.064 0 0 0 2.416.661C1.331 1.515.563 2.656.246 3.992A9.23 9.23 0 0 0 .006 6.124v11.752a9.23 9.23 0 0 0 .24 2.132c.317 1.336 1.085 2.477 2.17 3.331.317.257.652.476 1.006.662a9.23 9.23 0 0 0 2.591.198h9.974a9.23 9.23 0 0 0 2.591-.198c.354-.186.689-.405 1.006-.662 1.085-.854 1.853-1.995 2.17-3.331a9.23 9.23 0 0 0 .24-2.132V6.124zM19.096 15.088c0 .586-.086 1.077-.258 1.474-.172.398-.43.73-.774.997a2.497 2.497 0 0 1-1.2.48 2.855 2.855 0 0 1-1.223-.083 2.497 2.497 0 0 1-1.086-.663 2.855 2.855 0 0 1-.663-1.086 2.497 2.497 0 0 1-.083-1.223v-6.613l-5.098 1.378v6.943c0 .586-.086 1.077-.258 1.474-.172.398-.43.73-.774.997a2.497 2.497 0 0 1-1.2.48 2.855 2.855 0 0 1-1.223-.083 2.497 2.497 0 0 1-1.086-.663 2.855 2.855 0 0 1-.663-1.086 2.497 2.497 0 0 1-.083-1.223c0-.586.086-1.077.258-1.474.172-.398.43-.73.774-.997a2.497 2.497 0 0 1 1.2-.48c.172-.014.344-.014.516 0 .172.014.344.043.516.086v-8.28l8.28-2.24v8.28z"/>
+            </svg>
+          </a>
 
           <button
             onClick$={toggleExpanded}
-            class="w-6 h-6 rounded-full bg-stone-200/70 hover:bg-stone-300 flex items-center justify-center text-stone-600 transition-colors"
+            class="p-1.5 rounded-full bg-stone-200/70 border border-stone-300/60 hover:bg-stone-300 hover:border-stone-400/60 hover:scale-110 flex items-center justify-center text-stone-600 transition-all duration-300"
           >
             {isExpanded.value ? (
               <LuChevronDown class="w-3 h-3" />
@@ -345,7 +378,7 @@ export default component$(() => {
 
           <button
             onClick$={closePlayer}
-            class="w-6 h-6 rounded-full bg-stone-200/70 hover:bg-stone-300 flex items-center justify-center text-stone-500 hover:text-stone-700 transition-colors"
+            class="p-1.5 rounded-full bg-stone-200/70 border border-stone-300/60 hover:bg-stone-300 hover:border-stone-400/60 hover:scale-110 flex items-center justify-center text-stone-600 transition-all duration-300"
           >
             <LuX class="w-3 h-3" />
           </button>
