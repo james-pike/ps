@@ -126,7 +126,7 @@ export default component$(() => {
               </div>
               {Array.isArray(items) && items.length > 0 && (
                 <ul class="text-sm space-y-2">
-                  {items.map(({ title, titleKey: itemTitleKey, href, icon: Icon }, index2) => {
+                  {items.map(({ title, titleKey: itemTitleKey, icon: Icon }, index2) => {
                     return (
                       <li key={index2} class="flex items-start gap-2 text-stone-600 transition-colors duration-200">
                         {Icon && <Icon class="w-4 h-4 flex-shrink-0 mt-0.5" />}
