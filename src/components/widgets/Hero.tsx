@@ -13,6 +13,7 @@ export default component$(() => {
   const isAutoPlaying = useSignal(true);
   const currentSlideIndex = useSignal(0);
   const hasCycledOnce = useSignal(false);
+  const slideTickCount = useSignal(0);
   const rightColumnImageIndex = useSignal(0);
   const touchStartX = useSignal(0);
   const touchEndX = useSignal(0);
@@ -210,6 +211,7 @@ export default component$(() => {
 
   // Auto-advance right column images, then advance hero card after full cycle (paused when flipped)
   // Only cycles once through all cards, then stays on the first (stone) card
+  // First card and last card stay twice as long
   useVisibleTask$(({ cleanup }) => {
     const interval = setInterval(() => {
       // Pause auto-advance when card is flipped or already cycled once
@@ -219,17 +221,26 @@ export default component$(() => {
       const nextImageIndex = (rightColumnImageIndex.value + 1) % videosPerCard;
       rightColumnImageIndex.value = nextImageIndex;
 
-      // When video carousel completes a full cycle (returns to 0), advance the hero card
+      // When video carousel completes a full cycle (returns to 0), check if we should advance
       if (nextImageIndex === 0) {
-        const nextSlideIndex = (currentSlideIndex.value + 1) % heroCards.length;
-        currentSlideIndex.value = nextSlideIndex;
+        slideTickCount.value += 1;
 
-        // If we've returned to the first card (index 0), mark as cycled once and stop
-        if (nextSlideIndex === 0) {
-          hasCycledOnce.value = true;
+        const isFirstCard = currentSlideIndex.value === 0 && !hasCycledOnce.value;
+        const isLastCard = currentSlideIndex.value === heroCards.length - 1;
+        const ticksNeeded = (isFirstCard || isLastCard) ? 2 : 1;
+
+        if (slideTickCount.value >= ticksNeeded) {
+          slideTickCount.value = 0;
+          const nextSlideIndex = (currentSlideIndex.value + 1) % heroCards.length;
+          currentSlideIndex.value = nextSlideIndex;
+
+          // If we've returned to the first card (index 0), mark as cycled once and stop
+          if (nextSlideIndex === 0) {
+            hasCycledOnce.value = true;
+          }
         }
       }
-    }, 6000); // 6 seconds per card
+    }, 6000); // 6 seconds per tick
     cleanup(() => clearInterval(interval));
   });
 
