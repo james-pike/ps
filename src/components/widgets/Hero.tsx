@@ -408,8 +408,8 @@ export default component$(() => {
               const cardStyles = [
                 // Card 1: Soft stone/taupe - with black headline (Studio Sessions)
                 {
-                  bg: "from-stone-100/95 to-stone-50/95",
-                  innerBg: "bg-stone-50/90",
+                  bg: "from-stone-100 to-stone-50",
+                  innerBg: "bg-stone-50",
                   border: "border-stone-400/60",
                   badge: "bg-stone-100/70 border-stone-300/50 text-stone-600",
                   title: "from-gray-900 via-gray-800 to-gray-900",
@@ -419,12 +419,13 @@ export default component$(() => {
                   statValue: "text-stone-600",
                   statLabel: "text-stone-500/70",
                   divider: "border-stone-200/50",
-                  description: "text-stone-600"
+                  description: "text-stone-600",
+                  textureColor: "#78716c"
                 },
                 // Card 2: Faint notebook yellow - with black headline (Live Performances)
                 {
-                  bg: "from-yellow-50/95 to-amber-50/90",
-                  innerBg: "bg-yellow-50/90",
+                  bg: "from-yellow-50 to-amber-50",
+                  innerBg: "bg-yellow-50",
                   border: "border-yellow-300/60",
                   badge: "bg-yellow-100/70 border-yellow-200/50 text-yellow-700",
                   title: "from-gray-900 via-gray-800 to-gray-900",
@@ -434,12 +435,13 @@ export default component$(() => {
                   statValue: "text-yellow-700",
                   statLabel: "text-yellow-600/70",
                   divider: "border-yellow-200/50",
-                  description: "text-stone-600"
+                  description: "text-stone-600",
+                  textureColor: "#ca8a04"
                 },
                 // Card 3: Soft cream/yellow - with black headline (Session Violinist)
                 {
-                  bg: "from-amber-50/90 to-stone-50/90",
-                  innerBg: "bg-amber-50/80",
+                  bg: "from-amber-50 to-stone-50",
+                  innerBg: "bg-amber-50",
                   border: "border-amber-400/60",
                   badge: "bg-amber-100/50 border-amber-200/40 text-amber-600",
                   title: "from-gray-900 via-gray-800 to-gray-900",
@@ -449,7 +451,8 @@ export default component$(() => {
                   statValue: "text-amber-500",
                   statLabel: "text-amber-400/70",
                   divider: "border-amber-200/40",
-                  description: "text-stone-600"
+                  description: "text-stone-600",
+                  textureColor: "#d97706"
                 }
               ];
 
@@ -464,13 +467,19 @@ export default component$(() => {
                       {/* FRONT OF CARD */}
                       <div class="flip-card-front">
                         <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-7 md:p-8 rounded-2xl border ${style.border} shadow-2xl`}>
-                          <div class={`absolute inset-0 ${style.innerBg} -z-10 rounded-2xl`}></div>
-                          <div class="inline-block mb-4 -mt-3">
+                          {/* Texture overlay */}
+                          <div
+                            class="absolute inset-0 rounded-2xl pointer-events-none z-0"
+                            style={{
+                              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E")`
+                            }}
+                          ></div>
+                          <div class="relative z-10 inline-block mb-4 -mt-3">
                             <span class={`px-3 py-1 rounded-full ${style.badge} text-xs font-medium tracking-wider uppercase`}>
                               {card.badge}
                             </span>
                           </div>
-                          <h1 class="text-[2.625rem] md:text-5xl font-bold tracking-tight leading-tight mb-4">
+                          <h1 class="relative z-10 text-[2.625rem] md:text-5xl font-bold tracking-tight leading-tight mb-4">
                             <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
                               {card.title[0]}
                             </span>
@@ -479,10 +488,10 @@ export default component$(() => {
                             </span>
                             <span class={`${style.titleLast} block`}>{card.title[2]}</span>
                           </h1>
-                          <p class={`text-lg ${style.description} mb-6 min-h-[3.5rem]`}>
+                          <p class={`relative z-10 text-lg ${style.description} mb-6 min-h-[3.5rem]`}>
                             {card.description}
                           </p>
-                          <div class="flex flex-col sm:flex-row gap-3">
+                          <div class="relative z-10 flex flex-col sm:flex-row gap-3">
                             <button
                               onClick$={() => handleFlip(index === 0 ? 'session-violinist' : 'live-performance')}
                               class={`group px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
@@ -499,7 +508,7 @@ export default component$(() => {
                           </div>
 
                           {/* Video Carousel inside card */}
-                          <div class={`mt-6 pt-4 border-t ${style.divider}`}>
+                          <div class={`relative z-10 mt-6 pt-4 border-t ${style.divider}`}>
                           <div
                             class={`rounded-xl overflow-hidden border ${style.border}`}
                             onTouchStart$={(e) => {
@@ -695,8 +704,8 @@ export default component$(() => {
                                   <LuMail class="w-5 h-5 text-stone-600 flex-shrink-0 mt-0.5" />
                                   <div>
                                     <p class="font-medium text-stone-600">Email</p>
-                                    <a href="mailto:hello@earthenvessels.ca" class="text-sm text-stone-500/70 hover:underline">
-                                      hello@earthenvessels.ca
+                                    <a href="mailto:hello@phineasstewart.com" class="text-sm text-stone-500/70 hover:underline">
+                                      hello@phineasstewart.com
                                     </a>
                                   </div>
                                 </div>

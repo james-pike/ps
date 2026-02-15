@@ -141,40 +141,54 @@ export default component$(() => {
 
       {/* Expanded Modal View */}
       {expandedCard.value !== null && (
-        <div class="fixed inset-x-0 top-[8vh] bottom-0 z-[100] bg-stone-50 overflow-y-auto animate-fade-in rounded-t-3xl shadow-2xl">
+        <div
+          class={`fixed inset-x-0 top-[8vh] bottom-0 z-[100] overflow-y-auto animate-fade-in rounded-t-3xl shadow-2xl ${
+            expandedCard.value === 0
+              ? 'bg-yellow-50'
+              : 'bg-stone-50'
+          }`}
+          style={expandedCard.value === 0 ? {
+            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d4a574' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E")`
+          } : undefined}
+        >
           {/* Close Button */}
           <button
             onClick$={handleClose}
-            class="fixed top-[8vh] right-4 z-10 mt-4 p-3 rounded-full bg-stone-200 hover:bg-stone-300 transition-colors shadow-lg"
+            class={`fixed top-[8vh] right-4 z-10 mt-4 p-3 rounded-full transition-colors shadow-lg ${
+              expandedCard.value === 0
+                ? 'bg-yellow-100 hover:bg-yellow-200'
+                : 'bg-stone-200 hover:bg-stone-300'
+            }`}
           >
-            <LuX class="w-6 h-6 text-stone-700" />
+            <LuX class={`w-6 h-6 ${expandedCard.value === 0 ? 'text-yellow-800' : 'text-stone-700'}`} />
           </button>
 
           {/* Content */}
           <div class="max-w-7xl mx-auto px-5 md:px-12 py-12 md:py-20">
             {(() => {
               const service = services[expandedCard.value];
+              const isStudio = expandedCard.value === 0;
               return (
                 <>
                   {/* Header Section */}
                   <div class="mb-12">
-                    <h1 class="text-4xl md:text-6xl font-bold text-stone-800 mb-4">
+                    <h1 class={`text-4xl md:text-6xl font-bold mb-4 ${isStudio ? 'text-yellow-900' : 'text-stone-800'}`}>
                       {t(locale, service.titleKey as any)}
                     </h1>
-                    <p class="text-xl md:text-2xl text-stone-600 mb-6">
+                    <p class={`text-xl md:text-2xl mb-6 ${isStudio ? 'text-yellow-800' : 'text-stone-600'}`}>
                       {t(locale, service.descriptionKey as any)}
                     </p>
-                    <p class="text-lg text-stone-600 leading-relaxed max-w-3xl">
+                    <p class={`text-lg leading-relaxed max-w-3xl ${isStudio ? 'text-yellow-800/80' : 'text-stone-600'}`}>
                       {t(locale, service.fullDescriptionKey as any)}
                     </p>
                   </div>
 
                   {/* Portfolio Grid */}
                   <div class="mb-12">
-                    <h2 class="text-3xl font-bold text-stone-800 mb-6">{t(locale, "service.portfolio")}</h2>
+                    <h2 class={`text-3xl font-bold mb-6 ${isStudio ? 'text-yellow-900' : 'text-stone-800'}`}>{t(locale, "service.portfolio")}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {service.portfolioImages.map((img, idx) => (
-                        <div key={idx} class="aspect-video rounded-xl overflow-hidden border-2 border-stone-300 shadow-lg">
+                        <div key={idx} class={`aspect-video rounded-xl overflow-hidden border-2 shadow-lg ${isStudio ? 'border-yellow-300' : 'border-stone-300'}`}>
                           <img
                             src={img}
                             alt={`${t(locale, service.titleKey as any)} - ${t(locale, "service.portfolio")} ${idx + 1}`}
@@ -186,16 +200,24 @@ export default component$(() => {
                   </div>
 
                   {/* CTA Section */}
-                  <div class="bg-gradient-to-br from-stone-100 to-stone-200 rounded-2xl p-8 md:p-12 text-center">
-                    <h3 class="text-2xl md:text-3xl font-bold text-stone-800 mb-4">
+                  <div class={`rounded-2xl p-8 md:p-12 text-center ${
+                    isStudio
+                      ? 'bg-gradient-to-br from-yellow-100 to-amber-100'
+                      : 'bg-gradient-to-br from-stone-100 to-stone-200'
+                  }`}>
+                    <h3 class={`text-2xl md:text-3xl font-bold mb-4 ${isStudio ? 'text-yellow-900' : 'text-stone-800'}`}>
                       {t(locale, expandedCard.value === 0 ? "service.readyToElevate" : expandedCard.value === 1 ? "service.readyToBook" : "service.readyToElevate")}
                     </h3>
-                    <p class="text-lg text-stone-600 mb-6 max-w-2xl mx-auto">
+                    <p class={`text-lg mb-6 max-w-2xl mx-auto ${isStudio ? 'text-yellow-800' : 'text-stone-600'}`}>
                       {t(locale, expandedCard.value === 0 ? "service.studioCTA" : expandedCard.value === 1 ? "service.liveCTA" : "service.studioCTA")}
                     </p>
                     <a
                       href="mailto:book@phineasstewart.com"
-                      class="inline-flex items-center gap-2 px-8 py-4 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
+                      class={`inline-flex items-center gap-2 px-8 py-4 font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 ${
+                        isStudio
+                          ? 'bg-yellow-700 hover:bg-yellow-800 text-white'
+                          : 'bg-stone-700 hover:bg-stone-800 text-white'
+                      }`}
                     >
                       {t(locale, expandedCard.value === 0 ? "service.bookStudioSession" : expandedCard.value === 1 ? "service.bookLivePerformance" : "service.bookStudioSession")}
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

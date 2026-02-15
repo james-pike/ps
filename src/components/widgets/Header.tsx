@@ -100,7 +100,7 @@ export default component$(() => {
           { text: "Classes & Workshops", href: "/offerings", icon: LuCalendarDays },
           { text: "Corporate Events", href: "/offerings#events", icon: LuBuilding2 },
           { text: "Private Events", href: "/offerings#events", icon: LuPartyPopper },
-          { text: "Gift Cards", href: "https://bookeo.com/earthenvessels/buyvoucher", icon: LuGift },
+          { text: "Gift Cards", href: "https://bookeo.com/phineasstewart/buyvoucher", icon: LuGift },
         ],
       },
          {
@@ -442,7 +442,7 @@ export default component$(() => {
               )}
             </div>
             <a
-              href="https://bookeo.com/earthenvessels"
+              href="https://bookeo.com/phineasstewart"
               target="_blank"
               rel="noopener noreferrer"
               class="bg-gradient-to-r from-amber-600 via-amber-700 to-amber-600 group relative inline-flex items-center justify-center px-3 pl-5 py-2.5 text-xl font-semibold text-white rounded-xl shadow-lg hover:shadow-[0_0_12px_rgba(217,119,6,0.4)] transition-all duration-300 overflow-hidden focus:outline-none focus:ring-2 focus:ring-amber-400 before:content-[''] before:absolute before:bottom-0 before:left-0 before:h-0.5 before:w-full before:bg-white before:opacity-0 before:transform before:-translate-x-full group-hover:before:opacity-100 group-hover:before:translate-x-0 before:transition-all before:duration-500 hover:scale-102 hover:bg-gradient-to-r hover:from-amber-500 hover:via-amber-600 hover:to-amber-500"

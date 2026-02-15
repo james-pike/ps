@@ -185,7 +185,7 @@ export async function getFaqs() {
       {
         id: 2,
         question: "Who are your facilitators?",
-        answer: "earthen vessels facilitators are skilled professionals. They possess a unique blend of empathy, communication skills, and emotional intelligence. They have a natural ability to create a safe and supportive environment where participants feel comfortable sharing their thoughts, feelings, and experiences.",
+        answer: "Phineas Stewart's facilitators are skilled professionals. They possess a unique blend of empathy, communication skills, and emotional intelligence. They have a natural ability to create a safe and supportive environment where participants feel comfortable sharing their thoughts, feelings, and experiences.",
         category: "General"
       },
       {
@@ -203,7 +203,7 @@ export async function getFaqs() {
       {
         id: 6,
         question: "Do facilitators bring a spirit of reflection and presence?",
-        answer: "At earthen vessels our facilitators bring meaningful experience working with clay. They bring a deep commitment to guiding others in discovering how the clay can awaken within them. Each facilitator holds space with care - for creative exploration, reflection, and personal insight - inviting a journey that is grounding and expansive through the process of clay work.",
+        answer: "At Phineas Stewart our facilitators bring meaningful experience working with clay. They bring a deep commitment to guiding others in discovering how the clay can awaken within them. Each facilitator holds space with care - for creative exploration, reflection, and personal insight - inviting a journey that is grounding and expansive through the process of clay work.",
         category: "General"
       },
       {

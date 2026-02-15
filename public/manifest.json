@@ -1,9 +1,9 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
   "name": "qwik-project-name",
-  "short_name": "earthen vessels",
+  "short_name": "Phineas Stewart",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#fff",
-  "description": "earthen vessels"
+  "description": "Phineas Stewart - Session Violinist"
 }

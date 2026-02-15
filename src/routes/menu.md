@@ -11,7 +11,7 @@
 
 ## Classes
 - [Our Offerings](/classes)
-- [Gift Cards](https://bookeo.com/earthenvessels/buyvoucher)
+- [Gift Cards](https://bookeo.com/phineasstewart/buyvoucher)
 
 
 ## [Reviews](/reviews)

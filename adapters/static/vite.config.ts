@@ -12,7 +12,7 @@ export default extendConfig(baseConfig, () => {
     },
     plugins: [
       staticAdapter({
-        origin: 'https://earthenvessels.ca', // Replace with your actual domain
+        origin: 'https://phineasstewart.com', // Replace with your actual domain
       }),
     ],
   };

@@ -21,8 +21,8 @@ export default component$(() => {
         </svg>
       ),
       title: "Email Us",
-      details: "hello@earthenvessels.ca",
-      link: "mailto:hello@earthenvessels.ca"
+      details: "hello@phineasstewart.com",
+      link: "mailto:hello@phineasstewart.com"
     },
     {
       icon: (

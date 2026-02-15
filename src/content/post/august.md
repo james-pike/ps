@@ -10,7 +10,7 @@ tags:
 
 Hello dear friends of earth and clay,
 
-We are in the fullness of summer now—sun-warmed days, slow evenings, and the grounding rhythm of hands at work. At Earthen Vessels, the clay is soft, the kiln is glowing, and the studio hums with creativity and care. We’re delighted to share what’s unfolding mid-season and what’s beginning to take form for the months ahead.
+We are in the fullness of summer now—sun-warmed days, slow evenings, and the grounding rhythm of hands at work. At Phineas Stewart, the clay is soft, the kiln is glowing, and the studio hums with creativity and care. We’re delighted to share what’s unfolding mid-season and what’s beginning to take form for the months ahead.
 
 - **Lantern Clay Workshops** invite reflection on our journey inward—through pattern, presence, and earth. These are reflective clay experiences that bring together making and meaning. [Book Now](/book/lantern-clay)
 - **Open-like-a-Bowl Workshops** are a poetic vessel-making experience exploring openness, spaciousness, and the quiet beauty of what we hold. [Book Now](/book/open-bowl)
@@ -23,8 +23,8 @@ In addition to these regular workshops, if you're looking for a private group se
 
 May your summer continue to offer light, space, and the sweet feel of clay in your hands. We look forward to seeing you in the studio.
 
-If you have suggestions for hand-building clay workshops you’d like to see us design, please reach out to us at hello@earthenvessels.ca—we’d love to hear from you.
+If you have suggestions for hand-building clay workshops you’d like to see us design, please reach out to us at hello@phineasstewart.com—we'd love to hear from you.
 
-[earthenvessels.ca](https://earthenvessels.ca)
+[phineasstewart.com](https://phineasstewart.com)
 
 [[Top]](#top)

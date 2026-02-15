@@ -1,10 +1,10 @@
 export const SITE = {
-  name: "ps",
+  name: "Phineas Stewart",
 
-  title: "ps",
-  description: "ps - Session Violinist",
+  title: "Phineas Stewart",
+  description: "Phineas Stewart - Session Violinist",
 
-  origin: "https://earthenvessels.ca",
+  origin: "https://phineasstewart.com",
   basePathname: "/",
   trailingSlash: true,
 };
