@@ -221,7 +221,7 @@ export default component$(() => {
       if (nextImageIndex === 0) {
         currentSlideIndex.value = (currentSlideIndex.value + 1) % heroCards.length;
       }
-    }, 3000); // 3 seconds per image, so full cycle = 18 seconds before card changes
+    }, 6000); // 6 seconds per card
     cleanup(() => clearInterval(interval));
   });
 
@@ -468,14 +468,14 @@ export default component$(() => {
                               onClick$={() => handleFlip(index === 0 ? 'session-violinist' : 'live-performance')}
                               class={`group px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
                             >
-                              Learn More
+                              {t(locale, "button.learnMore")}
                               <span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
                             </button>
                             <a
                               href="mailto:book@phineasstewart.com"
                               class={`px-6 py-3 bg-transparent border-2 ${style.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-center`}
                             >
-                              {t(locale, "hero.bookSession")}
+                              {index === 0 ? t(locale, "service.bookStudioSession") : t(locale, "service.bookLivePerformance")}
                             </a>
                           </div>
 
@@ -715,17 +715,17 @@ export default component$(() => {
                           {/* Session Violinist Expanded Content */}
                           {flipTarget.value === 'session-violinist' && (
                             <div class="pt-2">
-                              <h3 class="text-xl font-bold text-stone-600 mb-2">Session Violinist</h3>
-                              <p class="text-sm text-stone-600 mb-3">
+                              <h3 class="text-2xl font-bold text-stone-600 mb-2">Session Violinist</h3>
+                              <p class="text-base text-stone-600 mb-3">
                                 Professional violin recording for albums, singles, and soundtracks.
                               </p>
-                              <p class="text-sm text-stone-600/80 leading-relaxed mb-4">
+                              <p class="text-base text-stone-600/80 leading-relaxed mb-4">
                                 Transform your music with professional violin recordings. From classical to contemporary, I bring soul and precision to every track. Whether you're producing an album, single, or soundtrack, my studio sessions deliver the rich, emotive sound that elevates your project.
                               </p>
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <h4 class="text-base font-bold text-stone-600 mb-3">Portfolio</h4>
+                                <h4 class="text-lg font-bold text-stone-600 mb-3">Portfolio</h4>
                                 <div class="grid grid-cols-2 gap-2">
                                   <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
                                     <img
@@ -772,17 +772,17 @@ export default component$(() => {
                           {/* Live Performance Expanded Content */}
                           {flipTarget.value === 'live-performance' && (
                             <div class="pt-2">
-                              <h3 class="text-xl font-bold text-stone-600 mb-2">Live Performances</h3>
-                              <p class="text-sm text-stone-600 mb-3">
+                              <h3 class="text-2xl font-bold text-stone-600 mb-2">Live Performances</h3>
+                              <p class="text-base text-stone-600 mb-3">
                                 Bringing elegance and emotion to weddings, events, and concerts.
                               </p>
-                              <p class="text-sm text-stone-600/80 leading-relaxed mb-4">
+                              <p class="text-base text-stone-600/80 leading-relaxed mb-4">
                                 Create unforgettable moments with live violin performances. Specializing in weddings, corporate events, and intimate concerts, I craft musical experiences that resonate with your audience. From classical elegance to modern arrangements, each performance is tailored to your vision.
                               </p>
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <h4 class="text-base font-bold text-stone-600 mb-3">Portfolio</h4>
+                                <h4 class="text-lg font-bold text-stone-600 mb-3">Portfolio</h4>
                                 <div class="grid grid-cols-2 gap-2">
                                   <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
                                     <img
@@ -889,7 +889,7 @@ export default component$(() => {
                       href="/gallery"
                       class={`group/btn px-6 py-3 bg-gradient-to-r ${ds.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
                     >
-                      Learn More
+                      {t(locale, "button.learnMore")}
                       <span class="inline-block ml-2 transition-transform group-hover/btn:translate-x-1">→</span>
                     </a>
                     <a
