@@ -763,7 +763,7 @@ export default component$(() => {
                                 href="mailto:hi@phineasstewart.com"
                                 class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
                               >
-                                Contact Me
+                                Book Studio Session
                                 <LuChevronRight class="w-5 h-5" />
                               </a>
                             </div>
@@ -820,7 +820,7 @@ export default component$(() => {
                                 href="mailto:hi@phineasstewart.com"
                                 class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
                               >
-                                Contact Me
+                                Book Live Performance
                                 <LuChevronRight class="w-5 h-5" />
                               </a>
                             </div>
