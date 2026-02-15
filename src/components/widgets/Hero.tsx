@@ -420,7 +420,16 @@ export default component$(() => {
                   statLabel: "text-stone-500/70",
                   divider: "border-stone-200/50",
                   description: "text-stone-600",
-                  textureColor: "#78716c"
+                  textureColor: "#78716c",
+                  // Back of card styles
+                  backBg: "bg-stone-100",
+                  backBorder: "border-stone-400/60",
+                  backCloseBtn: "bg-stone-50/90 border-stone-400/60",
+                  backCloseIcon: "text-stone-600",
+                  backText: "text-stone-600",
+                  backTextMuted: "text-stone-500/70",
+                  backMenuHover: "hover:bg-stone-200/50",
+                  backSocialBg: "bg-stone-200/70 border-stone-300/60"
                 },
                 // Card 2: Faint notebook yellow - with black headline (Live Performances)
                 {
@@ -436,7 +445,16 @@ export default component$(() => {
                   statLabel: "text-yellow-600/70",
                   divider: "border-yellow-200/50",
                   description: "text-stone-600",
-                  textureColor: "#ca8a04"
+                  textureColor: "#ca8a04",
+                  // Back of card styles
+                  backBg: "bg-yellow-50",
+                  backBorder: "border-yellow-300/60",
+                  backCloseBtn: "bg-yellow-100/90 border-yellow-300/60",
+                  backCloseIcon: "text-yellow-700",
+                  backText: "text-yellow-800",
+                  backTextMuted: "text-yellow-600/70",
+                  backMenuHover: "hover:bg-yellow-100/50",
+                  backSocialBg: "bg-yellow-100/70 border-yellow-200/60"
                 },
                 // Card 3: Soft cream/yellow - with black headline (Session Violinist)
                 {
@@ -452,7 +470,16 @@ export default component$(() => {
                   statLabel: "text-amber-400/70",
                   divider: "border-amber-200/40",
                   description: "text-stone-600",
-                  textureColor: "#d97706"
+                  textureColor: "#d97706",
+                  // Back of card styles
+                  backBg: "bg-amber-50",
+                  backBorder: "border-amber-400/60",
+                  backCloseBtn: "bg-amber-100/90 border-amber-300/60",
+                  backCloseIcon: "text-amber-700",
+                  backText: "text-amber-700",
+                  backTextMuted: "text-amber-500/70",
+                  backMenuHover: "hover:bg-amber-100/50",
+                  backSocialBg: "bg-amber-100/70 border-amber-200/60"
                 }
               ];
 
@@ -569,25 +596,25 @@ export default component$(() => {
                         </div>
                       </div>
 
-                      {/* BACK OF CARD - Always stone/grey theme */}
+                      {/* BACK OF CARD - Uses same color theme as front */}
                       <div
                         class="flip-card-back"
                         onTouchStart$={handleBackTouchStart}
                         onTouchEnd$={handleBackTouchEnd}
                       >
                         <div
-                          class="relative bg-stone-100 backdrop-blur-sm p-6 rounded-2xl border border-stone-400/60 shadow-2xl h-full"
+                          class={`relative ${style.backBg} backdrop-blur-sm p-6 rounded-2xl border ${style.backBorder} shadow-2xl h-full`}
                           style={{
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%2378716c' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
                           }}
                         >
 
                           {/* Close button */}
                           <button
                             onClick$={handleFlipBack}
-                            class="absolute top-4 right-4 z-10 p-2 rounded-full bg-stone-50/90 border border-stone-400/60 transition-all duration-200 hover:scale-110"
+                            class={`absolute top-4 right-4 z-10 p-2 rounded-full ${style.backCloseBtn} transition-all duration-200 hover:scale-110`}
                           >
-                            <LuX class="w-5 h-5 text-stone-600" />
+                            <LuX class={`w-5 h-5 ${style.backCloseIcon}`} />
                           </button>
 
 
@@ -612,7 +639,7 @@ export default component$(() => {
                                   <div key={menuIdx}>
                                     <button
                                       onClick$={(e) => handleMenuItemClick(item.title, e)}
-                                      class="w-full text-left block px-3 py-2.5 rounded-lg text-lg font-medium text-stone-600 hover:bg-stone-100 transition-colors"
+                                      class={`w-full text-left block px-3 py-2.5 rounded-lg text-lg font-medium ${style.backText} ${style.backMenuHover} transition-colors`}
                                     >
                                       {item.title}
                                     </button>
@@ -621,14 +648,14 @@ export default component$(() => {
                               </nav>
 
                               {/* Social Links */}
-                              <div class="mt-4 pt-4 border-t border-stone-200/50">
-                                <p class="text-xs text-stone-500/70 text-center mb-3">Follow on</p>
+                              <div class={`mt-4 pt-4 border-t ${style.divider}`}>
+                                <p class={`text-xs ${style.backTextMuted} text-center mb-3`}>Follow on</p>
                                 <div class="flex justify-center gap-4">
                                   <a
                                     href="https://www.youtube.com/channel/UCeX217HOtpviekPVlEO8jJQ"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="p-3 rounded-full bg-stone-200/70 border border-stone-300/60 text-red-600 hover:bg-red-50 hover:border-red-300 hover:scale-110 transition-all duration-300"
+                                    class={`p-3 rounded-full ${style.backSocialBg} text-red-600 hover:bg-red-50 hover:border-red-300 hover:scale-110 transition-all duration-300`}
                                   >
                                     <LuYoutube class="w-6 h-6" />
                                   </a>
@@ -636,7 +663,7 @@ export default component$(() => {
                                     href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="p-3 rounded-full bg-stone-200/70 border border-stone-300/60 text-green-600 hover:bg-green-50 hover:border-green-300 hover:scale-110 transition-all duration-300"
+                                    class={`p-3 rounded-full ${style.backSocialBg} text-green-600 hover:bg-green-50 hover:border-green-300 hover:scale-110 transition-all duration-300`}
                                   >
                                     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                                       <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
@@ -646,7 +673,7 @@ export default component$(() => {
                                     href="https://www.tiktok.com/@phineasstewart"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="p-3 rounded-full bg-stone-200/70 border border-stone-300/60 text-stone-800 hover:bg-stone-100 hover:border-stone-400 hover:scale-110 transition-all duration-300"
+                                    class={`p-3 rounded-full ${style.backSocialBg} text-stone-800 hover:bg-stone-100 hover:border-stone-400 hover:scale-110 transition-all duration-300`}
                                   >
                                     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                                       <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
@@ -656,7 +683,7 @@ export default component$(() => {
                                     href="https://www.instagram.com/phineasstewart"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class="p-3 rounded-full bg-stone-200/70 border border-stone-300/60 text-pink-600 hover:bg-pink-50 hover:border-pink-300 hover:scale-110 transition-all duration-300"
+                                    class={`p-3 rounded-full ${style.backSocialBg} text-pink-600 hover:bg-pink-50 hover:border-pink-300 hover:scale-110 transition-all duration-300`}
                                   >
                                     <LuInstagram class="w-6 h-6" />
                                   </a>
@@ -668,12 +695,12 @@ export default component$(() => {
                           {/* Portfolio Back Content */}
                           {flipTarget.value === 'portfolio' && (
                             <div class="pt-2">
-                              <h3 class="text-xl font-bold text-stone-600 mb-4">Gallery Preview</h3>
+                              <h3 class={`text-xl font-bold ${style.backText} mb-4`}>Gallery Preview</h3>
 
                               {/* 2x2 Grid of images */}
                               <div class="grid grid-cols-2 gap-2 mb-4">
                                 {cardVideos[index].map((img, imgIdx) => (
-                                  <div key={imgIdx} class="aspect-square rounded-lg overflow-hidden border border-stone-400/60">
+                                  <div key={imgIdx} class={`aspect-square rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src={img}
                                       alt={`Gallery ${imgIdx + 1}`}
@@ -686,7 +713,7 @@ export default component$(() => {
                               {/* View Full Gallery Link */}
                               <a
                                 href="/gallery"
-                                class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
+                                class={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
                                 View Full Gallery
                                 <LuChevronRight class="w-5 h-5" />
@@ -697,34 +724,34 @@ export default component$(() => {
                           {/* Booking Back Content */}
                           {flipTarget.value === 'booking' && (
                             <div class="pt-2">
-                              <h3 class="text-xl font-bold text-stone-600 mb-4">Contact Us</h3>
+                              <h3 class={`text-xl font-bold ${style.backText} mb-4`}>Contact Us</h3>
 
                               {/* Contact Info Cards */}
                               <div class="space-y-3 mb-4">
-                                <div class="flex items-start gap-3 p-3 rounded-lg bg-stone-50/90 border border-stone-400/60">
-                                  <LuMapPin class="w-5 h-5 text-stone-600 flex-shrink-0 mt-0.5" />
+                                <div class={`flex items-start gap-3 p-3 rounded-lg ${style.backSocialBg}`}>
+                                  <LuMapPin class={`w-5 h-5 ${style.backText} flex-shrink-0 mt-0.5`} />
                                   <div>
-                                    <p class="font-medium text-stone-600">Address</p>
-                                    <p class="text-sm text-stone-500/70">2567 Yonge St, Toronto, ON M4P 2J1</p>
+                                    <p class={`font-medium ${style.backText}`}>Address</p>
+                                    <p class={`text-sm ${style.backTextMuted}`}>2567 Yonge St, Toronto, ON M4P 2J1</p>
                                   </div>
                                 </div>
 
-                                <div class="flex items-start gap-3 p-3 rounded-lg bg-stone-50/90 border border-stone-400/60">
-                                  <LuMail class="w-5 h-5 text-stone-600 flex-shrink-0 mt-0.5" />
+                                <div class={`flex items-start gap-3 p-3 rounded-lg ${style.backSocialBg}`}>
+                                  <LuMail class={`w-5 h-5 ${style.backText} flex-shrink-0 mt-0.5`} />
                                   <div>
-                                    <p class="font-medium text-stone-600">Email</p>
-                                    <a href="mailto:hello@phineasstewart.com" class="text-sm text-stone-500/70 hover:underline">
+                                    <p class={`font-medium ${style.backText}`}>Email</p>
+                                    <a href="mailto:hello@phineasstewart.com" class={`text-sm ${style.backTextMuted} hover:underline`}>
                                       hello@phineasstewart.com
                                     </a>
                                   </div>
                                 </div>
 
-                                <div class="flex items-start gap-3 p-3 rounded-lg bg-stone-50/90 border border-stone-400/60">
-                                  <LuClock class="w-5 h-5 text-stone-600 flex-shrink-0 mt-0.5" />
+                                <div class={`flex items-start gap-3 p-3 rounded-lg ${style.backSocialBg}`}>
+                                  <LuClock class={`w-5 h-5 ${style.backText} flex-shrink-0 mt-0.5`} />
                                   <div>
-                                    <p class="font-medium text-stone-600">Hours</p>
-                                    <p class="text-sm text-stone-500/70">Mon-Fri: 10am-8pm</p>
-                                    <p class="text-sm text-stone-500/70">Sat-Sun: 10am-6pm</p>
+                                    <p class={`font-medium ${style.backText}`}>Hours</p>
+                                    <p class={`text-sm ${style.backTextMuted}`}>Mon-Fri: 10am-8pm</p>
+                                    <p class={`text-sm ${style.backTextMuted}`}>Sat-Sun: 10am-6pm</p>
                                   </div>
                                 </div>
                               </div>
@@ -741,7 +768,7 @@ export default component$(() => {
                               {/* Contact Page Link */}
                               <a
                                 href="mailto:book@phineasstewart.com"
-                                class="flex items-center justify-center gap-2 w-full mt-3 px-6 py-3 bg-transparent border-2 border-stone-300 text-stone-600 hover:bg-stone-200/30 font-semibold rounded-lg transition-all duration-300 hover:scale-105"
+                                class={`flex items-center justify-center gap-2 w-full mt-3 px-6 py-3 bg-transparent border-2 ${style.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105`}
                               >
                                 View Contact Page
                                 <LuChevronRight class="w-5 h-5" />
@@ -752,40 +779,40 @@ export default component$(() => {
                           {/* Session Violinist Expanded Content */}
                           {flipTarget.value === 'session-violinist' && (
                             <div class="pt-2">
-                              <h3 class="text-2xl font-bold text-stone-600 mb-2">Session Violinist</h3>
-                              <p class="text-base text-stone-600 mb-3">
+                              <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>Session Violinist</h3>
+                              <p class={`text-base ${style.backText} mb-3`}>
                                 Professional violin recording for albums, singles, and soundtracks.
                               </p>
-                              <p class="text-base text-stone-600/80 leading-relaxed mb-4">
+                              <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
                                 Transform your music with professional violin recordings. From classical to contemporary, I bring soul and precision to every track. Whether you're producing an album, single, or soundtrack, my studio sessions deliver the rich, emotive sound that elevates your project.
                               </p>
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <h4 class="text-lg font-bold text-stone-600 mb-3">Portfolio</h4>
+                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>Portfolio</h4>
                                 <div class="grid grid-cols-2 gap-2">
-                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80"
                                       alt="Studio session 1"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
-                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80"
                                       alt="Studio session 2"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
-                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80"
                                       alt="Studio session 3"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
-                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80"
                                       alt="Studio session 4"
@@ -798,7 +825,7 @@ export default component$(() => {
                               {/* CTA */}
                               <a
                                 href="mailto:book@phineasstewart.com"
-                                class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
+                                class={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
                                 Book Studio Session
                                 <LuChevronRight class="w-5 h-5" />
@@ -809,40 +836,40 @@ export default component$(() => {
                           {/* Live Performance Expanded Content */}
                           {flipTarget.value === 'live-performance' && (
                             <div class="pt-2">
-                              <h3 class="text-2xl font-bold text-stone-600 mb-2">Live Performances</h3>
-                              <p class="text-base text-stone-600 mb-3">
+                              <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>Live Performances</h3>
+                              <p class={`text-base ${style.backText} mb-3`}>
                                 Bringing elegance and emotion to weddings, events, and concerts.
                               </p>
-                              <p class="text-base text-stone-600/80 leading-relaxed mb-4">
+                              <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
                                 Create unforgettable moments with live violin performances. Specializing in weddings, corporate events, and intimate concerts, I craft musical experiences that resonate with your audience. From classical elegance to modern arrangements, each performance is tailored to your vision.
                               </p>
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <h4 class="text-lg font-bold text-stone-600 mb-3">Portfolio</h4>
+                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>Portfolio</h4>
                                 <div class="grid grid-cols-2 gap-2">
-                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800&q=80"
                                       alt="Live performance 1"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
-                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
                                       alt="Live performance 2"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
-                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80"
                                       alt="Live performance 3"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
-                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80"
                                       alt="Live performance 4"
@@ -855,7 +882,7 @@ export default component$(() => {
                               {/* CTA */}
                               <a
                                 href="mailto:book@phineasstewart.com"
-                                class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
+                                class={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
                                 Book Live Performance
                                 <LuChevronRight class="w-5 h-5" />
