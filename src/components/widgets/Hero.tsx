@@ -280,7 +280,7 @@ export default component$(() => {
       <div class="absolute top-40 right-20 w-48 h-48 bg-gray-300/15 rounded-full blur-3xl animate-floatx" aria-hidden="true"></div>
       <div class="absolute bottom-20 left-1/3 w-40 h-40 bg-stone-300/15 rounded-full blur-2xl animate-float" aria-hidden="true"></div>
 
-      <div class="relative z-10 w-full mx-auto px-3.5 pt-0 pb-2 lg:px-4 lg:pt-0 lg:pb-8">
+      <div class="relative z-10 w-full mx-auto px-3.5 pt-0 pb-1 lg:px-4 lg:pt-0 lg:pb-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden relative">
           {/* Mobile Menu Button + Language Dropdown - positioned above card stack */}
@@ -694,7 +694,7 @@ export default component$(() => {
 
                               {/* Book CTA */}
                               <a
-                                href="mailto:hi@phineasstewart.com"
+                                href="mailto:book@phineasstewart.com"
                                 class="group flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 text-white font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105 hover:shadow-amber-500/25"
                               >
                                 <LuCalendar class="w-5 h-5" />
@@ -703,7 +703,7 @@ export default component$(() => {
 
                               {/* Contact Page Link */}
                               <a
-                                href="mailto:hi@phineasstewart.com"
+                                href="mailto:book@phineasstewart.com"
                                 class="flex items-center justify-center gap-2 w-full mt-3 px-6 py-3 bg-transparent border-2 border-stone-300 text-stone-600 hover:bg-stone-200/30 font-semibold rounded-lg transition-all duration-300 hover:scale-105"
                               >
                                 View Contact Page
@@ -760,7 +760,7 @@ export default component$(() => {
 
                               {/* CTA */}
                               <a
-                                href="mailto:hi@phineasstewart.com"
+                                href="mailto:book@phineasstewart.com"
                                 class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
                               >
                                 Book Studio Session
@@ -817,7 +817,7 @@ export default component$(() => {
 
                               {/* CTA */}
                               <a
-                                href="mailto:hi@phineasstewart.com"
+                                href="mailto:book@phineasstewart.com"
                                 class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
                               >
                                 Book Live Performance
@@ -893,7 +893,7 @@ export default component$(() => {
                       <span class="inline-block ml-2 transition-transform group-hover/btn:translate-x-1">→</span>
                     </a>
                     <a
-                      href="mailto:hi@phineasstewart.com"
+                      href="mailto:book@phineasstewart.com"
                       class={`px-6 py-3 bg-transparent border-2 ${ds.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-center`}
                     >
                       {t(locale, "hero.bookSession")}

@@ -65,7 +65,7 @@ export default component$(() => {
 
   return (
     <>
-      <section class="relative overflow-hidden pb-7 pt-4 md:pt-6 md:pb-28">
+      <section class="relative overflow-hidden pb-7 pt-2 md:pt-6 md:pb-28">
         {/* Background decorations */}
         <div class="absolute top-1/4 left-10 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl"></div>
         <div class="absolute bottom-1/4 right-10 w-64 h-64 bg-stone-300/20 rounded-full blur-3xl"></div>
@@ -138,7 +138,7 @@ export default component$(() => {
 
       {/* Expanded Modal View */}
       {expandedCard.value !== null && (
-        <div class="fixed inset-x-0 top-[8vh] bottom-[8vh] z-[100] bg-stone-50 overflow-y-auto animate-fade-in rounded-t-3xl shadow-2xl">
+        <div class="fixed inset-x-0 top-[8vh] bottom-0 z-[100] bg-stone-50 overflow-y-auto animate-fade-in rounded-t-3xl shadow-2xl">
           {/* Close Button */}
           <button
             onClick$={handleClose}
@@ -191,7 +191,7 @@ export default component$(() => {
                       Let's create something beautiful. Get in touch to discuss your project.
                     </p>
                     <a
-                      href="mailto:hi@phineasstewart.com"
+                      href="mailto:book@phineasstewart.com"
                       class="inline-flex items-center gap-2 px-8 py-4 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
                     >
                       Contact Me
