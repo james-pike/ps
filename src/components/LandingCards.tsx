@@ -40,7 +40,7 @@ export default component$(() => {
       titleKey: "service.myMusic",
       descriptionKey: "service.myMusicDesc",
       fullDescriptionKey: "service.myMusicFullDesc",
-      link: "https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn",
+      link: "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa",
       image: "https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80",
       accent: "stone",
       portfolioImages: [

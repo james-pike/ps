@@ -1,5 +1,5 @@
 import { component$, useSignal, useStore, $, useVisibleTask$ } from "@builder.io/qwik";
-import { LuPlay, LuPause, LuSkipBack, LuSkipForward, LuX, LuChevronUp, LuChevronDown } from "@qwikest/icons/lucide";
+import { LuPlay, LuPause, LuSkipBack, LuSkipForward, LuX } from "@qwikest/icons/lucide";
 
 interface Track {
   id: string;
@@ -126,10 +126,6 @@ export default component$(() => {
     }
   });
 
-  const toggleExpanded = $(() => {
-    isExpanded.value = !isExpanded.value;
-  });
-
   const closePlayer = $(() => {
     store.isVisible = false;
     isPlaying.value = false;
@@ -232,7 +228,7 @@ export default component$(() => {
                 {/* Streaming Buttons */}
                 <div class="flex justify-center gap-3 mt-4">
                   <a
-                    href="https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn"
+                    href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
                     target="_blank"
                     rel="noopener noreferrer"
                     class="flex items-center gap-2 px-6 py-3 rounded-full bg-green-500 hover:bg-green-600 text-white font-semibold text-base shadow-lg transition-all duration-300 hover:scale-105"
@@ -341,7 +337,7 @@ export default component$(() => {
 
           {/* Spotify Button */}
           <a
-            href="https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn"
+            href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
             target="_blank"
             rel="noopener noreferrer"
             class="p-1.5 md:p-2 rounded-full bg-stone-200/70 border border-stone-300/60 text-green-600 hover:bg-green-50 hover:border-green-300 hover:scale-110 flex items-center justify-center transition-all duration-300"
@@ -364,17 +360,6 @@ export default component$(() => {
               <path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.132c-.317-1.336-1.085-2.477-2.17-3.331A9.064 9.064 0 0 0 19.578.199a9.23 9.23 0 0 0-2.591-.198h-9.974a9.23 9.23 0 0 0-2.591.198A9.064 9.064 0 0 0 2.416.661C1.331 1.515.563 2.656.246 3.992A9.23 9.23 0 0 0 .006 6.124v11.752a9.23 9.23 0 0 0 .24 2.132c.317 1.336 1.085 2.477 2.17 3.331.317.257.652.476 1.006.662a9.23 9.23 0 0 0 2.591.198h9.974a9.23 9.23 0 0 0 2.591-.198c.354-.186.689-.405 1.006-.662 1.085-.854 1.853-1.995 2.17-3.331a9.23 9.23 0 0 0 .24-2.132V6.124zM19.096 15.088c0 .586-.086 1.077-.258 1.474-.172.398-.43.73-.774.997a2.497 2.497 0 0 1-1.2.48 2.855 2.855 0 0 1-1.223-.083 2.497 2.497 0 0 1-1.086-.663 2.855 2.855 0 0 1-.663-1.086 2.497 2.497 0 0 1-.083-1.223v-6.613l-5.098 1.378v6.943c0 .586-.086 1.077-.258 1.474-.172.398-.43.73-.774.997a2.497 2.497 0 0 1-1.2.48 2.855 2.855 0 0 1-1.223-.083 2.497 2.497 0 0 1-1.086-.663 2.855 2.855 0 0 1-.663-1.086 2.497 2.497 0 0 1-.083-1.223c0-.586.086-1.077.258-1.474.172-.398.43-.73.774-.997a2.497 2.497 0 0 1 1.2-.48c.172-.014.344-.014.516 0 .172.014.344.043.516.086v-8.28l8.28-2.24v8.28z"/>
             </svg>
           </a>
-
-          <button
-            onClick$={toggleExpanded}
-            class="p-1.5 rounded-full bg-stone-200/70 border border-stone-300/60 hover:bg-stone-300 hover:border-stone-400/60 hover:scale-110 flex items-center justify-center text-stone-600 transition-all duration-300"
-          >
-            {isExpanded.value ? (
-              <LuChevronDown class="w-3 h-3" />
-            ) : (
-              <LuChevronUp class="w-3 h-3" />
-            )}
-          </button>
 
           <button
             onClick$={closePlayer}

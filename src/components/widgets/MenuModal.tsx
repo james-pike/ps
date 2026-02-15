@@ -137,7 +137,7 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
 export const menuItems = [
   { title: "Session Violinist", href: "/", badge: null },
   { title: "Live Performances", href: "/", badge: null },
-  { title: "My Music", href: "https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn", badge: null },
+  { title: "My Music", href: "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa", badge: null },
   { title: "Updates", href: "/#newsletter", badge: null },
 ];
 
@@ -153,7 +153,7 @@ export default component$(() => {
   const localMenuItems = [
     { title: "Session Violinist", href: "/", badge: null },
     { title: "Live Performances", href: "/", badge: null },
-    { title: "My Music", href: "https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn", badge: null },
+    { title: "My Music", href: "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa", badge: null },
     { title: "Updates", href: "/#newsletter", badge: null },
   ];
 
@@ -236,7 +236,7 @@ export default component$(() => {
               </div>
               <div class="flex gap-3">
                 <a
-                  href="https://youtube.com/@yourchannelname"
+                  href="https://www.youtube.com/channel/UCeX217HOtpviekPVlEO8jJQ"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-red-600/20 border border-red-500/30 text-red-400 hover:bg-red-600/30 hover:text-red-300 transition-all duration-200"
@@ -245,7 +245,7 @@ export default component$(() => {
                   <span class="text-sm font-medium">YouTube</span>
                 </a>
                 <a
-                  href="https://open.spotify.com/artist/yourartistid"
+                  href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-green-600/20 border border-green-500/30 text-green-400 hover:bg-green-600/30 hover:text-green-300 transition-all duration-200"
@@ -262,7 +262,7 @@ export default component$(() => {
             <div class="px-5 pt-4 pb-3 border-b border-primary-800/30">
               <div class="flex items-center justify-center gap-6">
                 <a
-                  href="https://www.instagram.com/yourhandle"
+                  href="https://www.instagram.com/phineasstewart"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex flex-col items-center gap-1 text-tertiary-400 hover:text-pink-400 transition-colors"

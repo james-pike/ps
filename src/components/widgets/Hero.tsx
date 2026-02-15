@@ -246,7 +246,7 @@ export default component$(() => {
     } else if (itemTitle === "Live Performances") {
       flipTarget.value = 'live-performance';
     } else if (itemTitle === "My Music") {
-      window.open("https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn", '_blank');
+      window.open("https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa", '_blank');
       handleFlipBack();
     } else if (itemTitle === "Updates") {
       window.location.href = "/#newsletter";
@@ -588,7 +588,7 @@ export default component$(() => {
                                 <p class="text-xs text-stone-500/70 text-center mb-3">Follow on</p>
                                 <div class="flex justify-center gap-4">
                                   <a
-                                    href="https://youtube.com/@yourchannelname"
+                                    href="https://www.youtube.com/channel/UCeX217HOtpviekPVlEO8jJQ"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     class="p-3 rounded-full bg-stone-200/70 border border-stone-300/60 text-red-600 hover:bg-red-50 hover:border-red-300 hover:scale-110 transition-all duration-300"
@@ -596,7 +596,7 @@ export default component$(() => {
                                     <LuYoutube class="w-6 h-6" />
                                   </a>
                                   <a
-                                    href="https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn"
+                                    href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     class="p-3 rounded-full bg-stone-200/70 border border-stone-300/60 text-green-600 hover:bg-green-50 hover:border-green-300 hover:scale-110 transition-all duration-300"
@@ -606,7 +606,7 @@ export default component$(() => {
                                     </svg>
                                   </a>
                                   <a
-                                    href="https://www.tiktok.com/@yourhandle"
+                                    href="https://www.tiktok.com/@phineasstewart"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     class="p-3 rounded-full bg-stone-200/70 border border-stone-300/60 text-stone-800 hover:bg-stone-100 hover:border-stone-400 hover:scale-110 transition-all duration-300"
@@ -616,7 +616,7 @@ export default component$(() => {
                                     </svg>
                                   </a>
                                   <a
-                                    href="https://www.instagram.com/earthenvesselspottery_/"
+                                    href="https://www.instagram.com/phineasstewart"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     class="p-3 rounded-full bg-stone-200/70 border border-stone-300/60 text-pink-600 hover:bg-pink-50 hover:border-pink-300 hover:scale-110 transition-all duration-300"
