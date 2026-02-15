@@ -14,13 +14,14 @@ export const useBannerLoader = routeLoader$(async (event) => { try { const clien
 
 export default component$(() => {
   const location = useLocation();
-  const isHomeRoute = location.url.pathname === "/";
 
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(() => {
     inject(); // Runs only on client sides
   });
 
   // Handle hash scrolling after navigation
+  // eslint-disable-next-line qwik/no-use-visible-task
   useVisibleTask$(({ track }) => {
     track(() => location.url.href);
 
