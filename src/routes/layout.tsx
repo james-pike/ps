@@ -3,7 +3,6 @@ import { routeLoader$, useLocation } from "@builder.io/qwik-city";
 import { inject } from "@vercel/analytics";
 
 import Footer from "~/components/widgets/Footer";
-import Header from "~/components/widgets/Header";
 import { tursoClient } from "~/lib/turso";
 //
 
@@ -39,10 +38,6 @@ export default component$(() => {
 
   return (
     <>
-      {/* On home page, header is embedded in Hero for desktop, so hide the standalone header on lg+ */}
-      <div class={isHomeRoute ? "lg:hidden" : ""}>
-        <Header />
-      </div>
       <main>
         <Slot />
       </main>

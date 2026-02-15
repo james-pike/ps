@@ -67,7 +67,7 @@ export default component$(() => {
   ];
 
   return (
-    <footer class="relative border-t pl-1 mt-2 pb-4 md:pb-8 border-stone-200/80 overflow-hidden bg-gradient-to-b from-stone-100 to-stone-200">
+    <footer class="relative border-t pl-1 mt-2 pb-8 md:pb-12 border-stone-200/80 overflow-hidden bg-gradient-to-b from-stone-100 to-stone-200">
       <div class="relative max-w-7xl mx-auto px-4 md:mr-4 sm:px-6 md:px-8">
         <div class="grid grid-cols-12 gap-4 gap-y-4 sm:gap-4 py-8 md:pt-12 md:pb-2">
           {/* First Column: Logo, Description, Newsletter */}

@@ -6,7 +6,7 @@ import IconChevronDown from "../icons/IconChevronDown";
 import { LuX, LuChevronRight, LuMapPin, LuMail, LuClock, LuInstagram, LuYoutube, LuCalendar } from "@qwikest/icons/lucide";
 import { useI18n, setLanguage as setLang, type Language, t } from "~/context/i18n";
 
-type FlipTarget = 'none' | 'menu' | 'portfolio' | 'booking';
+type FlipTarget = 'none' | 'menu' | 'portfolio' | 'booking' | 'session-violinist' | 'live-performance';
 
 export default component$(() => {
   const carouselIndex = useSignal(0);
@@ -49,13 +49,11 @@ export default component$(() => {
   const cardVideos = [
     // Card 1: Studio Sessions (Polishing Every Recording)
     [
-      "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80",
-      "https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80"
+      "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80"
     ],
     // Card 2: Session Violinist (Crafting Musical Moments)
     [
-      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&q=80",
-      "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=80"
+      "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&q=80"
     ]
   ];
 
@@ -63,7 +61,7 @@ export default component$(() => {
 
   const heroCards = [
     {
-      badge: t(locale, "hero.studioSessions"),
+      badge: t(locale, "hero.sessionViolinist"),
       title: [t(locale, "hero.polishing"), t(locale, "hero.every"), t(locale, "hero.recording")],
       description: t(locale, "hero.studioDescription"),
       stats: [
@@ -73,7 +71,7 @@ export default component$(() => {
       ]
     },
     {
-      badge: t(locale, "hero.sessionViolinist"),
+      badge: t(locale, "hero.studioSessions"),
       title: [t(locale, "hero.crafting"), t(locale, "hero.musical"), t(locale, "hero.moments")],
       description: t(locale, "hero.sessionDescription"),
       stats: [
@@ -240,6 +238,21 @@ export default component$(() => {
     menuOpenIndex.value = null;
   });
 
+  // Handle menu item clicks - flip to expanded content view
+  const handleMenuItemClick = $((itemTitle: string, e: Event) => {
+    e.preventDefault();
+    if (itemTitle === "Session Violinist") {
+      flipTarget.value = 'session-violinist';
+    } else if (itemTitle === "Live Performances") {
+      flipTarget.value = 'live-performance';
+    } else if (itemTitle === "My Music") {
+      window.open("https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn", '_blank');
+      handleFlipBack();
+    } else if (itemTitle === "Updates") {
+      window.location.href = "/#newsletter";
+    }
+  });
+
   // Swipe handler for back of card (down or horizontal to close)
   const handleBackTouchStart = $((e: TouchEvent) => {
     e.stopPropagation();
@@ -267,7 +280,7 @@ export default component$(() => {
       <div class="absolute top-40 right-20 w-48 h-48 bg-gray-300/15 rounded-full blur-3xl animate-floatx" aria-hidden="true"></div>
       <div class="absolute bottom-20 left-1/3 w-40 h-40 bg-stone-300/15 rounded-full blur-2xl animate-float" aria-hidden="true"></div>
 
-      <div class="relative z-10 w-full mx-auto px-3.5 pt-3 pb-2 lg:px-4 lg:py-8">
+      <div class="relative z-10 w-full mx-auto px-3.5 pt-0 pb-2 lg:px-4 lg:pt-0 lg:pb-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden relative">
           {/* Mobile Menu Button + Language Dropdown - positioned above card stack */}
@@ -522,19 +535,6 @@ export default component$(() => {
                                 </button>
                               </div>
                               <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
-                              <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-                                {cardVideos[index].map((_, dotIdx) => (
-                                  <button
-                                    key={dotIdx}
-                                    onClick$={() => { rightColumnImageIndex.value = dotIdx; }}
-                                    class={`w-2 h-2 rounded-full transition-all duration-300 ${
-                                      dotIdx === rightColumnImageIndex.value
-                                        ? 'bg-white'
-                                        : 'bg-white/50'
-                                    }`}
-                                  />
-                                ))}
-                              </div>
                             </div>
                           </div>
                           </div>
@@ -573,12 +573,12 @@ export default component$(() => {
                               <nav class="space-y-1 max-h-[45vh] overflow-y-auto pr-2">
                                 {menuItems.map((item, menuIdx) => (
                                   <div key={menuIdx}>
-                                    <a
-                                      href={item.href}
-                                      class="block px-3 py-2.5 rounded-lg text-lg font-medium text-stone-600 hover:bg-stone-100 transition-colors"
+                                    <button
+                                      onClick$={(e) => handleMenuItemClick(item.title, e)}
+                                      class="w-full text-left block px-3 py-2.5 rounded-lg text-lg font-medium text-stone-600 hover:bg-stone-100 transition-colors"
                                     >
                                       {item.title}
-                                    </a>
+                                    </button>
                                   </div>
                                 ))}
                               </nav>
@@ -707,6 +707,120 @@ export default component$(() => {
                                 class="flex items-center justify-center gap-2 w-full mt-3 px-6 py-3 bg-transparent border-2 border-stone-300 text-stone-600 hover:bg-stone-200/30 font-semibold rounded-lg transition-all duration-300 hover:scale-105"
                               >
                                 View Contact Page
+                                <LuChevronRight class="w-5 h-5" />
+                              </a>
+                            </div>
+                          )}
+
+                          {/* Session Violinist Expanded Content */}
+                          {flipTarget.value === 'session-violinist' && (
+                            <div class="pt-2">
+                              <h3 class="text-xl font-bold text-stone-600 mb-2">Session Violinist</h3>
+                              <p class="text-sm text-stone-600 mb-3">
+                                Professional violin recording for albums, singles, and soundtracks.
+                              </p>
+                              <p class="text-sm text-stone-600/80 leading-relaxed mb-4">
+                                Transform your music with professional violin recordings. From classical to contemporary, I bring soul and precision to every track. Whether you're producing an album, single, or soundtrack, my studio sessions deliver the rich, emotive sound that elevates your project.
+                              </p>
+
+                              {/* Portfolio Grid */}
+                              <div class="mb-4">
+                                <h4 class="text-base font-bold text-stone-600 mb-3">Portfolio</h4>
+                                <div class="grid grid-cols-2 gap-2">
+                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                    <img
+                                      src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80"
+                                      alt="Studio session 1"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                    <img
+                                      src="https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80"
+                                      alt="Studio session 2"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                    <img
+                                      src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80"
+                                      alt="Studio session 3"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                    <img
+                                      src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80"
+                                      alt="Studio session 4"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* CTA */}
+                              <a
+                                href="mailto:hi@phineasstewart.com"
+                                class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
+                              >
+                                Contact Me
+                                <LuChevronRight class="w-5 h-5" />
+                              </a>
+                            </div>
+                          )}
+
+                          {/* Live Performance Expanded Content */}
+                          {flipTarget.value === 'live-performance' && (
+                            <div class="pt-2">
+                              <h3 class="text-xl font-bold text-stone-600 mb-2">Live Performances</h3>
+                              <p class="text-sm text-stone-600 mb-3">
+                                Bringing elegance and emotion to weddings, events, and concerts.
+                              </p>
+                              <p class="text-sm text-stone-600/80 leading-relaxed mb-4">
+                                Create unforgettable moments with live violin performances. Specializing in weddings, corporate events, and intimate concerts, I craft musical experiences that resonate with your audience. From classical elegance to modern arrangements, each performance is tailored to your vision.
+                              </p>
+
+                              {/* Portfolio Grid */}
+                              <div class="mb-4">
+                                <h4 class="text-base font-bold text-stone-600 mb-3">Portfolio</h4>
+                                <div class="grid grid-cols-2 gap-2">
+                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                    <img
+                                      src="https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800&q=80"
+                                      alt="Live performance 1"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                    <img
+                                      src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+                                      alt="Live performance 2"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                    <img
+                                      src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80"
+                                      alt="Live performance 3"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class="aspect-video rounded-lg overflow-hidden border border-stone-400/60">
+                                    <img
+                                      src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80"
+                                      alt="Live performance 4"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* CTA */}
+                              <a
+                                href="mailto:hi@phineasstewart.com"
+                                class="flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 text-stone-700 font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105"
+                              >
+                                Contact Me
                                 <LuChevronRight class="w-5 h-5" />
                               </a>
                             </div>
