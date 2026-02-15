@@ -12,6 +12,7 @@ export default component$(() => {
   const carouselIndex = useSignal(0);
   const isAutoPlaying = useSignal(true);
   const currentSlideIndex = useSignal(0);
+  const hasCycledOnce = useSignal(false);
   const rightColumnImageIndex = useSignal(0);
   const touchStartX = useSignal(0);
   const touchEndX = useSignal(0);
@@ -208,10 +209,11 @@ export default component$(() => {
   });
 
   // Auto-advance right column images, then advance hero card after full cycle (paused when flipped)
+  // Only cycles once through all cards, then stays on the first (stone) card
   useVisibleTask$(({ cleanup }) => {
     const interval = setInterval(() => {
-      // Pause auto-advance when card is flipped
-      if (isFlipped.value) return;
+      // Pause auto-advance when card is flipped or already cycled once
+      if (isFlipped.value || hasCycledOnce.value) return;
 
       const videosPerCard = cardVideos[0].length; // All cards have same number of videos
       const nextImageIndex = (rightColumnImageIndex.value + 1) % videosPerCard;
@@ -219,7 +221,13 @@ export default component$(() => {
 
       // When video carousel completes a full cycle (returns to 0), advance the hero card
       if (nextImageIndex === 0) {
-        currentSlideIndex.value = (currentSlideIndex.value + 1) % heroCards.length;
+        const nextSlideIndex = (currentSlideIndex.value + 1) % heroCards.length;
+        currentSlideIndex.value = nextSlideIndex;
+
+        // If we've returned to the first card (index 0), mark as cycled once and stop
+        if (nextSlideIndex === 0) {
+          hasCycledOnce.value = true;
+        }
       }
     }, 6000); // 6 seconds per card
     cleanup(() => clearInterval(interval));
