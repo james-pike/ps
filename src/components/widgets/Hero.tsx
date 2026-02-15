@@ -86,7 +86,7 @@ export default component$(() => {
     .hero-carousel-container {
       position: relative;
       width: 100%;
-      min-height: 920px;
+      min-height: 780px;
       perspective: 1000px;
       touch-action: pan-y;
       user-select: none;
