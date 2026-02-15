@@ -16,8 +16,13 @@ export default component$(() => {
         {/* Newsletter Section */}
         <section class="relative py-16 px-5 overflow-hidden bg-stone-100">
           <div class="relative max-w-xl mx-auto">
-            {/* Card container with darker background */}
-            <div class="relative bg-stone-200/90 rounded-2xl p-8 border border-stone-300/60 shadow-lg">
+            {/* Card container with darker background and texture */}
+            <div
+              class="relative bg-stone-200 rounded-2xl p-8 border border-stone-300/60 shadow-lg"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%2378716c' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E")`
+              }}
+            >
               <div class="text-center mb-6">
                 <h2 class="text-2xl font-bold mb-2">
                   <span class="bg-gradient-to-r from-stone-700 via-amber-700 to-stone-700 bg-clip-text text-transparent">

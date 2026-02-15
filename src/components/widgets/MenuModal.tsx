@@ -179,9 +179,12 @@ export default component$(() => {
           <div class="rounded-t-none border-b border-primary-800/30 bg-gradient-to-br from-primary-900/20 to-black/40 backdrop-blur-md p-2">
             <Modal.Title class="pt-3 pb-2 pl-2.5">
               <a href="/" class="focus:outline-none">
-                <div style="width: 100px; height: 40px;">
-                  <img src="/images/logo2.svg" alt="Logo" />
-                </div>
+                <span
+                  class="text-4xl  font-bold bg-gradient-to-r from-primary-400 via-tertiary-400 to-primary-400 bg-clip-text text-transparent"
+                  style={{ fontFamily: "'Dancing Script', cursive" }}
+                >
+                  PS
+                </span>
               </a>
             </Modal.Title>
             {/* <Modal.Description class="!text-md !font-bold px-2.5 py-1 pb-2 dark:text-gray-200">
