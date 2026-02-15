@@ -293,7 +293,7 @@ export default component$(() => {
                     currentSlideIndex.value === 0
                       ? 'border-stone-300 bg-stone-100/40 hover:bg-stone-200/50'
                       : currentSlideIndex.value === 1
-                        ? 'border-orange-300 bg-orange-100/40 hover:bg-orange-200/50'
+                        ? 'border-yellow-200 bg-yellow-50/40 hover:bg-yellow-100/50'
                         : 'border-amber-300 bg-amber-100/40 hover:bg-amber-200/50'
                   }`}
                   onClick$={() => showLangDropdown.value = !showLangDropdown.value}
@@ -325,7 +325,7 @@ export default component$(() => {
                   currentSlideIndex.value === 0
                     ? 'border-stone-300 bg-stone-100/40 hover:bg-stone-200/50'
                     : currentSlideIndex.value === 1
-                      ? 'border-orange-300 bg-orange-100/40 hover:bg-orange-200/50'
+                      ? 'border-yellow-200 bg-yellow-50/40 hover:bg-yellow-100/50'
                       : 'border-amber-300 bg-amber-100/40 hover:bg-amber-200/50'
                 }`}
                 onClick$={() => handleFlip('menu')}
@@ -402,19 +402,19 @@ export default component$(() => {
                   divider: "border-stone-200/50",
                   description: "text-stone-600"
                 },
-                // Card 2: Soft tan/warm beige - with black headline (Live Performances)
+                // Card 2: Faint notebook yellow - with black headline (Live Performances)
                 {
-                  bg: "from-orange-50/95 to-amber-50/95",
-                  innerBg: "bg-orange-50/90",
-                  border: "border-orange-400/60",
-                  badge: "bg-orange-100/70 border-orange-300/50 text-orange-700",
+                  bg: "from-yellow-50/95 to-amber-50/90",
+                  innerBg: "bg-yellow-50/90",
+                  border: "border-yellow-300/60",
+                  badge: "bg-yellow-100/70 border-yellow-200/50 text-yellow-700",
                   title: "from-gray-900 via-gray-800 to-gray-900",
                   titleLast: "text-gray-900",
-                  button: "from-orange-200 to-orange-300 hover:from-orange-300 hover:to-orange-400 shadow-orange-200/20 text-orange-800",
-                  buttonOutline: "border-orange-300 text-orange-600 hover:bg-orange-200/30",
-                  statValue: "text-orange-600",
-                  statLabel: "text-orange-500/70",
-                  divider: "border-orange-200/50",
+                  button: "from-yellow-100 to-yellow-200 hover:from-yellow-200 hover:to-yellow-300 shadow-yellow-100/20 text-yellow-800",
+                  buttonOutline: "border-yellow-300 text-yellow-700 hover:bg-yellow-100/30",
+                  statValue: "text-yellow-700",
+                  statLabel: "text-yellow-600/70",
+                  divider: "border-yellow-200/50",
                   description: "text-stone-600"
                 },
                 // Card 3: Soft cream/yellow - with black headline (Session Violinist)
