@@ -107,13 +107,22 @@ export const translations = {
 
     // Services
     "service.studioSessions": "Studio Sessions",
-    "service.studioSessionsDesc": "Professional violin recording for albums, singles, and soundtracks. Quick turnaround with studio-quality sound.",
+    "service.studioSessionsDesc": "Professional violin recording for albums, singles, and soundtracks.",
+    "service.studioSessionsFullDesc": "Transform your music with professional violin recordings. From classical to contemporary, I bring soul and precision to every track. Whether you're producing an album, single, or soundtrack, my studio sessions deliver the rich, emotive sound that elevates your project.",
     "service.livePerformance": "Live Performance",
-    "service.livePerformanceDesc": "Bringing elegance and emotion to weddings, corporate events, concerts, and private functions.",
-    "service.collaboration": "Collaboration",
-    "service.collaborationDesc": "Creative partnerships with producers, composers, and artists across all genres. Let's create something unique.",
-    "service.sheetMusic": "Sheet Music",
-    "service.sheetMusicDesc": "Custom arrangements and transcriptions for violin. Classical to contemporary, I can help bring your musical vision to life.",
+    "service.livePerformanceDesc": "Bringing elegance and emotion to weddings, events, and concerts.",
+    "service.livePerformanceFullDesc": "Create unforgettable moments with live violin performances. Specializing in weddings, corporate events, and intimate concerts, I craft musical experiences that resonate with your audience. From classical elegance to modern arrangements, each performance is tailored to your vision.",
+    "service.myMusic": "My Music",
+    "service.myMusicDesc": "Listen to my original music and arrangements on Spotify.",
+    "service.myMusicFullDesc": "Discover unique violin arrangements and original compositions. I create custom transcriptions that breathe new life into beloved pieces and compose original works that showcase the violin's versatility. Each arrangement is crafted with musicality and technical excellence in mind.",
+    "service.portfolio": "Portfolio",
+    "service.readyToElevate": "Ready to elevate your recording?",
+    "service.readyToBook": "Ready to book your performance?",
+    "service.studioCTA": "Let's bring your music to life with professional violin recordings. Get in touch to discuss your project and studio session details.",
+    "service.liveCTA": "Whether it's a wedding, corporate event, or intimate concert, let's create an unforgettable musical experience together.",
+    "service.bookStudioSession": "Book Studio Session",
+    "service.bookLivePerformance": "Book Live Performance",
+    "service.learnMore": "Learn more",
 
     // Buttons
     "button.watch": "Watch",
@@ -125,7 +134,13 @@ export const translations = {
     // Footer
     "footer.joinNewsletter": "Stay Updated",
     "footer.copyright": "© 2025 Session Violinist · All rights reserved.",
-    "footer.description": "Professional session violinist bringing soul and precision to every recording session and live performance. Collaborating with artists across all genres to create memorable musical experiences.",
+    "footer.description": "Professional session violinist bringing soul and precision to every recording session and live performance.",
+    "footer.services": "Services",
+    "footer.connect": "Connect",
+    "footer.sessionViolinist": "Session Violinist",
+    "footer.livePerformances": "Live Performances",
+    "footer.myMusic": "My Music",
+    "footer.portfolio": "Portfolio",
 
     // Language
     "language": "Language",
@@ -195,13 +210,22 @@ export const translations = {
 
     // Services
     "service.studioSessions": "Sessions Studio",
-    "service.studioSessionsDesc": "Enregistrement professionnel de violon pour albums, singles et bandes sonores. Délai rapide avec une qualité studio.",
+    "service.studioSessionsDesc": "Enregistrement professionnel de violon pour albums, singles et bandes sonores.",
+    "service.studioSessionsFullDesc": "Transformez votre musique avec des enregistrements professionnels de violon. Du classique au contemporain, j'apporte âme et précision à chaque piste. Que vous produisiez un album, un single ou une bande sonore, mes sessions studio offrent le son riche et émotif qui élève votre projet.",
     "service.livePerformance": "Performance Live",
-    "service.livePerformanceDesc": "Apporter élégance et émotion aux mariages, événements corporatifs, concerts et fonctions privées.",
-    "service.collaboration": "Collaboration",
-    "service.collaborationDesc": "Partenariats créatifs avec producteurs, compositeurs et artistes de tous genres. Créons quelque chose d'unique.",
-    "service.sheetMusic": "Partitions",
-    "service.sheetMusicDesc": "Arrangements et transcriptions personnalisés pour violon. Du classique au contemporain, je peux vous aider à réaliser votre vision musicale.",
+    "service.livePerformanceDesc": "Apporter élégance et émotion aux mariages, événements et concerts.",
+    "service.livePerformanceFullDesc": "Créez des moments inoubliables avec des performances live de violon. Spécialisé dans les mariages, événements corporatifs et concerts intimes, je crée des expériences musicales qui résonnent avec votre public. De l'élégance classique aux arrangements modernes, chaque performance est adaptée à votre vision.",
+    "service.myMusic": "Ma Musique",
+    "service.myMusicDesc": "Écoutez ma musique originale et mes arrangements sur Spotify.",
+    "service.myMusicFullDesc": "Découvrez des arrangements uniques de violon et des compositions originales. Je crée des transcriptions personnalisées qui donnent une nouvelle vie à des pièces bien-aimées et compose des œuvres originales qui mettent en valeur la polyvalence du violon. Chaque arrangement est créé avec musicalité et excellence technique.",
+    "service.portfolio": "Portfolio",
+    "service.readyToElevate": "Prêt à élever votre enregistrement?",
+    "service.readyToBook": "Prêt à réserver votre performance?",
+    "service.studioCTA": "Donnons vie à votre musique avec des enregistrements professionnels de violon. Contactez-moi pour discuter de votre projet et des détails de la session studio.",
+    "service.liveCTA": "Qu'il s'agisse d'un mariage, d'un événement corporatif ou d'un concert intime, créons ensemble une expérience musicale inoubliable.",
+    "service.bookStudioSession": "Réserver Session Studio",
+    "service.bookLivePerformance": "Réserver Performance Live",
+    "service.learnMore": "En savoir plus",
 
     // Buttons
     "button.watch": "Regarder",
@@ -213,7 +237,13 @@ export const translations = {
     // Footer
     "footer.joinNewsletter": "Rejoignez Notre Infolettre",
     "footer.copyright": "© 2025 Session Violinist · Tous droits réservés.",
-    "footer.description": "Violoniste de session professionnel apportant âme et précision à chaque enregistrement et performance live. Collaboration avec des artistes de tous genres pour créer des expériences musicales mémorables.",
+    "footer.description": "Violoniste de session professionnel apportant âme et précision à chaque enregistrement et performance live.",
+    "footer.services": "Services",
+    "footer.connect": "Connecter",
+    "footer.sessionViolinist": "Violoniste de Session",
+    "footer.livePerformances": "Performances Live",
+    "footer.myMusic": "Ma Musique",
+    "footer.portfolio": "Portfolio",
 
     // Language
     "language": "Langue",

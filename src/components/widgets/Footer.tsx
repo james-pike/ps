@@ -4,66 +4,46 @@ import {
   LuInstagram,
   LuYoutube,
 } from "@qwikest/icons/lucide";
-import { TbBrandTiktok } from "@qwikest/icons/tablericons";
 import type { SVGProps } from "@builder.io/qwik";
+import { useI18n, t } from "~/context/i18n";
 
 interface Item {
   title: string | JSXNode | JSXOutput;
+  titleKey?: string;
   href: string | null;
   icon?: (props: SVGProps<SVGSVGElement>) => JSXNode<unknown>;
 }
 
 interface LinkSection {
   title: string;
+  titleKey?: string;
   items: Item[];
 }
 
 export default component$(() => {
+  const i18n = useI18n();
+  const locale = i18n.locale.value;
+
   const links: LinkSection[] = [
     {
-      title: "About",
+      title: "Services",
+      titleKey: "footer.services",
       items: [
-        { title: "Our Space", href: "/about" },
-        { title: "What To Expect", href: "/about#what-to-expect" },
-
-        { title: "Gallery", href: "/gallery" },
-        { title: "FAQs", href: "/faq" },
+        { title: "Session Violinist", titleKey: "footer.sessionViolinist", href: null },
+        { title: "Live Performances", titleKey: "footer.livePerformances", href: null },
+        { title: "My Music", titleKey: "footer.myMusic", href: null },
+        { title: "Portfolio", titleKey: "footer.portfolio", href: null },
       ],
     },
     {
-      title: "Community",
+      title: "Connect",
+      titleKey: "footer.connect",
       items: [
-                { title: "Facilitators", href: "/team" },
-
-                        { title: "Corporate Events", href: "/offerings#events" },
-
-
-        { title: "Reviews", href: "/reviews" },
-        { title: "Contact", href: "/contact" },
+        { title: "Session Violinist", titleKey: "footer.sessionViolinist", href: null },
+        { title: "Live Performances", titleKey: "footer.livePerformances", href: null },
+        { title: "My Music", titleKey: "footer.myMusic", href: null },
       ],
     },
-    // {
-    //   title: "Contact",
-    //   items: [
-    //     {
-    //       title: "hello@earthenvessels.ca",
-    //       href: "mailto:hello@earthenvessels.ca",
-    //       icon: LuMail,
-    //     },
-  
-    //     {
-    //       title: (
-    //         <span class="block leading-tight">
-    //           <span class="block">36 Rosemount Ave</span>
-    //           <span class="block">Ottawa, ON</span>
-    //           <span class="block">K1Y 1P4</span>
-    //         </span>
-    //       ),
-    //       href: "https://www.google.com/maps/search/?api=1&query=36+Rosemount+Ave,+K1Y+1P4,+Ottawa,+ON",
-    //       icon: LuMapPin,
-    //     },
-    //   ],
-    // },
   ];
 
   return (
@@ -108,7 +88,9 @@ export default component$(() => {
                   class="p-3 rounded-full bg-stone-200/70 border border-stone-300/60 text-stone-800 hover:bg-stone-100 hover:border-stone-400 hover:scale-110 transition-all duration-300"
                   title="TikTok"
                 >
-                  <TbBrandTiktok class="w-7 h-7" />
+                  <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                  </svg>
                 </a>
                 <a
                   href="https://www.instagram.com/earthenvesselspottery_/"
@@ -122,11 +104,11 @@ export default component$(() => {
               </div>
             </div>
             <div class="text-sm text-stone-600 leading-relaxed">
-              Professional session violinist bringing soul and precision to every recording session and live performance.
+              {t(locale, "footer.description")}
             </div>
           </div>
           {/* Sitemap Columns */}
-          {links.map(({ title, items }, index) => (
+          {links.map(({ title, titleKey, items }, index) => (
             <div
               key={index}
               class={`
@@ -139,37 +121,18 @@ export default component$(() => {
             >
               <div class="text-sm font-semibold mb-4 mt-2">
                 <span class="bg-gradient-to-r from-stone-700 via-amber-700 to-stone-700 bg-clip-text text-transparent">
-                  {title}
+                  {titleKey ? t(locale, titleKey as any) : title}
                 </span>
               </div>
               {Array.isArray(items) && items.length > 0 && (
                 <ul class="text-sm space-y-2">
-                  {items.map(({ title, href, icon: Icon }, index2) => {
-                    // Determine color based on social platform
-                    const titleStr = typeof title === 'string' ? title : '';
-                    const getSocialColors = () => {
-                      if (titleStr === 'YouTube') return 'text-red-600 hover:text-red-700';
-                      if (titleStr === 'Spotify') return 'text-green-600 hover:text-green-700';
-                      if (titleStr === 'Instagram') return 'text-pink-600 hover:text-pink-700';
-                      if (titleStr === 'Facebook') return 'text-blue-600 hover:text-blue-700';
-                      return 'text-stone-600 hover:text-amber-600';
-                    };
-
+                  {items.map(({ title, titleKey: itemTitleKey, href, icon: Icon }, index2) => {
                     return (
-                      <li key={index2} class={`flex items-start gap-2 ${getSocialColors()} transition-colors duration-200`}>
+                      <li key={index2} class="flex items-start gap-2 text-stone-600 transition-colors duration-200">
                         {Icon && <Icon class="w-4 h-4 flex-shrink-0 mt-0.5" />}
-                        {href ? (
-                          <Link
-                            class="hover:underline"
-                            href={href}
-                            target={href.startsWith("http") || href.startsWith("mailto") ? "_blank" : undefined}
-                            rel={href.startsWith("http") || href.startsWith("mailto") ? "noopener noreferrer" : undefined}
-                          >
-                            {title}
-                          </Link>
-                        ) : (
-                          <span class="text-stone-600">{title}</span>
-                        )}
+                        <span class="text-stone-600">
+                          {itemTitleKey ? t(locale, itemTitleKey as any) : title}
+                        </span>
                       </li>
                     );
                   })}

@@ -1,14 +1,17 @@
 import { component$, useSignal, $ } from "@builder.io/qwik";
 import { LuX } from "@qwikest/icons/lucide";
+import { useI18n, t } from "~/context/i18n";
 
 export default component$(() => {
   const expandedCard = useSignal<number | null>(null);
+  const i18n = useI18n();
+  const locale = i18n.locale.value;
 
   const services = [
     {
-      title: "Studio Sessions",
-      description: "Professional violin recording for albums, singles, and soundtracks.",
-      fullDescription: "Transform your music with professional violin recordings. From classical to contemporary, I bring soul and precision to every track. Whether you're producing an album, single, or soundtrack, my studio sessions deliver the rich, emotive sound that elevates your project.",
+      titleKey: "service.studioSessions",
+      descriptionKey: "service.studioSessionsDesc",
+      fullDescriptionKey: "service.studioSessionsFullDesc",
       link: "/offerings#studio",
       image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80",
       accent: "stone",
@@ -20,9 +23,9 @@ export default component$(() => {
       ]
     },
     {
-      title: "Live Performance",
-      description: "Bringing elegance and emotion to weddings, events, and concerts.",
-      fullDescription: "Create unforgettable moments with live violin performances. Specializing in weddings, corporate events, and intimate concerts, I craft musical experiences that resonate with your audience. From classical elegance to modern arrangements, each performance is tailored to your vision.",
+      titleKey: "service.livePerformance",
+      descriptionKey: "service.livePerformanceDesc",
+      fullDescriptionKey: "service.livePerformanceFullDesc",
       link: "/offerings#live",
       image: "https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800&q=80",
       accent: "stone",
@@ -34,9 +37,9 @@ export default component$(() => {
       ]
     },
     {
-      title: "My Music",
-      description: "Listen to my original music and arrangements on Spotify.",
-      fullDescription: "Discover unique violin arrangements and original compositions. I create custom transcriptions that breathe new life into beloved pieces and compose original works that showcase the violin's versatility. Each arrangement is crafted with musicality and technical excellence in mind.",
+      titleKey: "service.myMusic",
+      descriptionKey: "service.myMusicDesc",
+      fullDescriptionKey: "service.myMusicFullDesc",
       link: "https://open.spotify.com/artist/6XYvaoDGE0VmRt83Jss9Sn",
       image: "https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80",
       accent: "stone",
@@ -104,7 +107,7 @@ export default component$(() => {
                   <div class="aspect-[4/3] md:aspect-[4/5] relative overflow-hidden">
                     <img
                       src={service.image}
-                      alt={service.title}
+                      alt={t(locale, service.titleKey as any)}
                       class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
 
@@ -114,15 +117,15 @@ export default component$(() => {
                     {/* Content overlay */}
                     <div class="absolute inset-0 flex flex-col justify-end p-6">
                       <h3 class="text-2xl font-bold text-white mb-2 drop-shadow-lg">
-                        {service.title}
+                        {t(locale, service.titleKey as any)}
                       </h3>
                       <p class="text-white/90 text-sm leading-relaxed mb-4 drop-shadow">
-                        {service.description}
+                        {t(locale, service.descriptionKey as any)}
                       </p>
 
                       {/* Button */}
                       <div class={`inline-flex items-center gap-2 px-4 py-2 rounded-lg ${style.button} font-medium text-sm transition-all duration-300 w-fit`}>
-                        <span>Learn more</span>
+                        <span>{t(locale, "service.learnMore")}</span>
                         <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
@@ -156,25 +159,25 @@ export default component$(() => {
                   {/* Header Section */}
                   <div class="mb-12">
                     <h1 class="text-4xl md:text-6xl font-bold text-stone-800 mb-4">
-                      {service.title}
+                      {t(locale, service.titleKey as any)}
                     </h1>
                     <p class="text-xl md:text-2xl text-stone-600 mb-6">
-                      {service.description}
+                      {t(locale, service.descriptionKey as any)}
                     </p>
                     <p class="text-lg text-stone-600 leading-relaxed max-w-3xl">
-                      {service.fullDescription}
+                      {t(locale, service.fullDescriptionKey as any)}
                     </p>
                   </div>
 
                   {/* Portfolio Grid */}
                   <div class="mb-12">
-                    <h2 class="text-3xl font-bold text-stone-800 mb-6">Portfolio</h2>
+                    <h2 class="text-3xl font-bold text-stone-800 mb-6">{t(locale, "service.portfolio")}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {service.portfolioImages.map((img, idx) => (
                         <div key={idx} class="aspect-video rounded-xl overflow-hidden border-2 border-stone-300 shadow-lg">
                           <img
                             src={img}
-                            alt={`${service.title} - Portfolio ${idx + 1}`}
+                            alt={`${t(locale, service.titleKey as any)} - ${t(locale, "service.portfolio")} ${idx + 1}`}
                             class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                           />
                         </div>
@@ -185,16 +188,16 @@ export default component$(() => {
                   {/* CTA Section */}
                   <div class="bg-gradient-to-br from-stone-100 to-stone-200 rounded-2xl p-8 md:p-12 text-center">
                     <h3 class="text-2xl md:text-3xl font-bold text-stone-800 mb-4">
-                      Ready to work together?
+                      {t(locale, expandedCard.value === 0 ? "service.readyToElevate" : expandedCard.value === 1 ? "service.readyToBook" : "service.readyToElevate")}
                     </h3>
                     <p class="text-lg text-stone-600 mb-6 max-w-2xl mx-auto">
-                      Let's create something beautiful. Get in touch to discuss your project.
+                      {t(locale, expandedCard.value === 0 ? "service.studioCTA" : expandedCard.value === 1 ? "service.liveCTA" : "service.studioCTA")}
                     </p>
                     <a
                       href="mailto:book@phineasstewart.com"
                       class="inline-flex items-center gap-2 px-8 py-4 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
                     >
-                      Contact Me
+                      {t(locale, expandedCard.value === 0 ? "service.bookStudioSession" : expandedCard.value === 1 ? "service.bookLivePerformance" : "service.bookStudioSession")}
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
