@@ -136,7 +136,7 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
 // Exported for use in Hero flip cards
 export const menuItems = [
   { title: "Session Violinist", href: "/", badge: null },
-  { title: "Live Performances", href: "/", badge: null },
+  { title: "Artist Profile", href: "/", badge: null },
   { title: "My Music", href: "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa", badge: null },
   { title: "Updates", href: "/#newsletter", badge: null },
 ];
@@ -152,7 +152,7 @@ export default component$(() => {
 
   const localMenuItems = [
     { title: "Session Violinist", href: "/", badge: null },
-    { title: "Live Performances", href: "/", badge: null },
+    { title: "Artist Profile", href: "/", badge: null },
     { title: "My Music", href: "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa", badge: null },
     { title: "Updates", href: "/#newsletter", badge: null },
   ];

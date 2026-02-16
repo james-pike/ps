@@ -262,7 +262,7 @@ export default component$(() => {
     e.preventDefault();
     if (itemTitle === "Session Violinist") {
       flipTarget.value = 'session-violinist';
-    } else if (itemTitle === "Live Performances") {
+    } else if (itemTitle === "Artist Profile") {
       flipTarget.value = 'live-performance';
     } else if (itemTitle === "My Music") {
       window.open("https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa", '_blank');
@@ -515,86 +515,152 @@ export default component$(() => {
                             </span>
                             <span class={`${style.titleLast} block`}>{card.title[2]}</span>
                           </h1>
-                          <p class={`relative z-10 text-lg ${style.description} mb-6 min-h-[3.5rem]`}>
+                          <p class={`relative z-10 text-lg ${style.description} mb-4 min-h-[3.5rem]`}>
                             {card.description}
                           </p>
-                          <div class="relative z-10 flex flex-col sm:flex-row gap-3">
-                            <button
-                              onClick$={() => handleFlip(index === 0 ? 'session-violinist' : 'live-performance')}
-                              class={`group px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
-                            >
-                              {t(locale, "button.learnMore")}
-                              <span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
-                            </button>
-                            <a
-                              href={index === 0 ? "mailto:book@phineasstewart.com" : "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"}
-                              target={index === 0 ? undefined : "_blank"}
-                              rel={index === 0 ? undefined : "noopener noreferrer"}
-                              class={`px-6 py-3 bg-transparent border-2 ${style.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-center`}
-                            >
-                              {index === 0 ? t(locale, "service.bookSessionViolinist") : t(locale, "expanded.listenOnSpotify")}
-                            </a>
-                          </div>
 
-                          {/* Video Carousel inside card */}
-                          <div class={`relative z-10 mt-6 pt-4 border-t ${style.divider}`}>
-                          <div
-                            class={`rounded-xl overflow-hidden border ${style.border}`}
-                            onTouchStart$={(e) => {
-                              e.stopPropagation();
-                              videoTouchStartX.value = e.touches[0].clientX;
-                              videoTouchEndX.value = e.touches[0].clientX;
-                            }}
-                            onTouchMove$={(e) => {
-                              e.stopPropagation();
-                              videoTouchEndX.value = e.touches[0].clientX;
-                            }}
-                            onTouchEnd$={(e) => {
-                              e.stopPropagation();
-                              const swipeThreshold = 50;
-                              const diff = videoTouchStartX.value - videoTouchEndX.value;
-                              const videosPerCard = cardVideos[0].length;
-
-                              if (Math.abs(diff) > swipeThreshold) {
-                                if (diff > 0) {
-                                  rightColumnImageIndex.value = (rightColumnImageIndex.value + 1) % videosPerCard;
-                                } else {
-                                  rightColumnImageIndex.value = (rightColumnImageIndex.value - 1 + videosPerCard) % videosPerCard;
-                                }
-                              }
-
-                              videoTouchStartX.value = 0;
-                              videoTouchEndX.value = 0;
-                            }}
-                          >
-                            <div class="relative aspect-video">
-                              {cardVideos[index].map((img, imgIdx) => (
-                                <div
-                                  key={imgIdx}
-                                  class={`absolute inset-0 transition-all duration-700 ${
-                                    imgIdx === rightColumnImageIndex.value
-                                      ? 'opacity-100 scale-100'
-                                      : 'opacity-0 scale-110'
-                                  }`}
-                                >
-                                  <img
-                                    src={img}
-                                    alt={`Performance ${imgIdx + 1}`}
-                                    class="w-full h-full object-cover"
-                                  />
+                          {/* Card 1: Services tags + single video + book button */}
+                          {index === 0 ? (
+                            <>
+                              {/* Services Tags */}
+                              <div class="relative z-10 mb-4">
+                                <div class="flex flex-wrap gap-2">
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
+                                    {t(locale, "expanded.weddings")}
+                                  </span>
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
+                                    {t(locale, "expanded.events")}
+                                  </span>
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
+                                    {t(locale, "expanded.funerals")}
+                                  </span>
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
+                                    {t(locale, "expanded.studioSessions")}
+                                  </span>
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
+                                    {t(locale, "expanded.customArrangements")}
+                                  </span>
                                 </div>
-                              ))}
-                              <div class="absolute inset-0 flex items-center justify-center bg-stone-900/20">
-                                <button class={`w-12 h-12 rounded-full bg-white/70 backdrop-blur-sm border-2 ${style.border} flex items-center justify-center hover:bg-white/90 transition-all duration-300 hover:scale-110`}>
-                                  <svg class={`w-5 h-5 ${style.statValue} ml-0.5`} fill="currentColor" viewBox="0 0 24 24">
-                                    <path d="M8 5v14l11-7z"/>
-                                  </svg>
-                                </button>
                               </div>
-                              <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
-                            </div>
-                          </div>
-                          </div>
+
+                              {/* Single Video/Image */}
+                              <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
+                                <div
+                                  class={`rounded-xl overflow-hidden border ${style.border}`}
+                                  onTouchStart$={(e) => {
+                                    e.stopPropagation();
+                                    videoTouchStartX.value = e.touches[0].clientX;
+                                    videoTouchEndX.value = e.touches[0].clientX;
+                                  }}
+                                  onTouchMove$={(e) => {
+                                    e.stopPropagation();
+                                    videoTouchEndX.value = e.touches[0].clientX;
+                                  }}
+                                  onTouchEnd$={(e) => {
+                                    e.stopPropagation();
+                                    const swipeThreshold = 50;
+                                    const diff = videoTouchStartX.value - videoTouchEndX.value;
+                                    const videosPerCard = cardVideos[0].length;
+
+                                    if (Math.abs(diff) > swipeThreshold) {
+                                      if (diff > 0) {
+                                        rightColumnImageIndex.value = (rightColumnImageIndex.value + 1) % videosPerCard;
+                                      } else {
+                                        rightColumnImageIndex.value = (rightColumnImageIndex.value - 1 + videosPerCard) % videosPerCard;
+                                      }
+                                    }
+
+                                    videoTouchStartX.value = 0;
+                                    videoTouchEndX.value = 0;
+                                  }}
+                                >
+                                  <div class="relative aspect-video">
+                                    {cardVideos[index].map((img, imgIdx) => (
+                                      <div
+                                        key={imgIdx}
+                                        class={`absolute inset-0 transition-all duration-700 ${
+                                          imgIdx === rightColumnImageIndex.value
+                                            ? 'opacity-100 scale-100'
+                                            : 'opacity-0 scale-110'
+                                        }`}
+                                      >
+                                        <img
+                                          src={img}
+                                          alt={`Performance ${imgIdx + 1}`}
+                                          class="w-full h-full object-cover"
+                                        />
+                                      </div>
+                                    ))}
+                                    <div class="absolute inset-0 flex items-center justify-center bg-stone-900/20">
+                                      <button class={`w-12 h-12 rounded-full bg-white/70 backdrop-blur-sm border-2 ${style.border} flex items-center justify-center hover:bg-white/90 transition-all duration-300 hover:scale-110`}>
+                                        <svg class={`w-5 h-5 ${style.statValue} ml-0.5`} fill="currentColor" viewBox="0 0 24 24">
+                                          <path d="M8 5v14l11-7z"/>
+                                        </svg>
+                                      </button>
+                                    </div>
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Book Button */}
+                              <a
+                                href="mailto:book@phineasstewart.com"
+                                class={`relative z-10 flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
+                              >
+                                {t(locale, "service.bookSessionViolinist")}
+                                <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+                              </a>
+                            </>
+                          ) : (
+                            <>
+                              {/* Card 2: Gallery grid layout */}
+                              {/* Portfolio Grid */}
+                              <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
+                                <div class="grid grid-cols-2 gap-2">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
+                                    <img
+                                      src="https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800&q=80"
+                                      alt="Performance"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
+                                    <img
+                                      src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+                                      alt="Studio"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
+                                    <img
+                                      src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80"
+                                      alt="Concert"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
+                                    <img
+                                      src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80"
+                                      alt="Live performance"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Listen on Spotify Button */}
+                              <a
+                                href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class={`relative z-10 flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
+                              >
+                                {t(locale, "expanded.listenOnSpotify")}
+                                <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
+                              </a>
+                            </>
+                          )}
                         </div>
                       </div>
 
