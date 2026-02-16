@@ -73,12 +73,12 @@ export default component$(() => {
       ]
     },
     {
-      badge: t(locale, "hero.studioSessions"),
-      title: [t(locale, "hero.crafting"), t(locale, "hero.musical"), t(locale, "hero.moments")],
-      description: t(locale, "hero.sessionDescription"),
+      badge: t(locale, "hero.artistProfile"),
+      title: [t(locale, "hero.singer"), t(locale, "hero.songwriter"), t(locale, "hero.violinist")],
+      description: t(locale, "hero.artistCardDesc"),
       stats: [
-        { value: "50+", label: t(locale, "hero.sessions") },
-        { value: "15+", label: t(locale, "hero.albums") },
+        { value: "NS", label: t(locale, "hero.roots") },
+        { value: "MTL", label: t(locale, "hero.based") },
         { value: "10+", label: t(locale, "hero.years") }
       ]
     }
@@ -527,10 +527,12 @@ export default component$(() => {
                               <span class="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
                             </button>
                             <a
-                              href="mailto:book@phineasstewart.com"
+                              href={index === 0 ? "mailto:book@phineasstewart.com" : "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"}
+                              target={index === 0 ? undefined : "_blank"}
+                              rel={index === 0 ? undefined : "noopener noreferrer"}
                               class={`px-6 py-3 bg-transparent border-2 ${style.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-center`}
                             >
-                              {index === 0 ? t(locale, "service.bookStudioSession") : t(locale, "service.bookLivePerformance")}
+                              {index === 0 ? t(locale, "service.bookSessionViolinist") : t(locale, "expanded.listenOnSpotify")}
                             </a>
                           </div>
 
@@ -779,43 +781,65 @@ export default component$(() => {
                           {/* Session Violinist Expanded Content */}
                           {flipTarget.value === 'session-violinist' && (
                             <div class="pt-2">
-                              <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>Session Violinist</h3>
+                              <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>{t(locale, "expanded.sessionViolinist")}</h3>
                               <p class={`text-base ${style.backText} mb-3`}>
-                                Professional violin recording for albums, singles, and soundtracks.
+                                {t(locale, "expanded.sessionViolinistTagline")}
                               </p>
                               <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
-                                Transform your music with professional violin recordings. From classical to contemporary, I bring soul and precision to every track. Whether you're producing an album, single, or soundtrack, my studio sessions deliver the rich, emotive sound that elevates your project.
+                                {t(locale, "expanded.sessionViolinistDesc")}
                               </p>
+
+                              {/* Services List */}
+                              <div class="mb-4">
+                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>{t(locale, "expanded.services")}</h4>
+                                <div class="grid grid-cols-2 gap-2">
+                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg}`}>
+                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.weddings")}</span>
+                                  </div>
+                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg}`}>
+                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.events")}</span>
+                                  </div>
+                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg}`}>
+                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.funerals")}</span>
+                                  </div>
+                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg}`}>
+                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.studioSessions")}</span>
+                                  </div>
+                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg} col-span-2`}>
+                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.customArrangements")}</span>
+                                  </div>
+                                </div>
+                              </div>
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>Portfolio</h4>
+                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>{t(locale, "expanded.portfolio")}</h4>
                                 <div class="grid grid-cols-2 gap-2">
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80"
-                                      alt="Studio session 1"
+                                      alt="Studio session"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80"
-                                      alt="Studio session 2"
+                                      alt="Wedding performance"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80"
-                                      alt="Studio session 3"
+                                      alt="Event performance"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80"
-                                      alt="Studio session 4"
+                                      alt="Concert performance"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
@@ -827,52 +851,53 @@ export default component$(() => {
                                 href="mailto:book@phineasstewart.com"
                                 class={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
-                                Book Studio Session
+                                {t(locale, "service.bookSessionViolinist")}
                                 <LuChevronRight class="w-5 h-5" />
                               </a>
                             </div>
                           )}
 
-                          {/* Live Performance Expanded Content */}
+                          {/* Artist Profile Expanded Content */}
                           {flipTarget.value === 'live-performance' && (
                             <div class="pt-2">
-                              <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>Live Performances</h3>
+                              <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>{t(locale, "expanded.artistProfile")}</h3>
                               <p class={`text-base ${style.backText} mb-3`}>
-                                Bringing elegance and emotion to weddings, events, and concerts.
+                                {t(locale, "expanded.artistTagline")}
                               </p>
                               <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
-                                Create unforgettable moments with live violin performances. Specializing in weddings, corporate events, and intimate concerts, I craft musical experiences that resonate with your audience. From classical elegance to modern arrangements, each performance is tailored to your vision.
+                                {t(locale, "expanded.artistDesc")}
                               </p>
+
+                              {/* Background */}
+                              <div class="mb-4">
+                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>{t(locale, "expanded.background")}</h4>
+                                <div class="space-y-2">
+                                  <div class={`flex items-center gap-3 p-2 rounded-lg ${style.backSocialBg}`}>
+                                    <LuMapPin class={`w-4 h-4 ${style.backText}`} />
+                                    <span class={`text-sm ${style.backText}`}>{t(locale, "expanded.fromNovaScotia")}</span>
+                                  </div>
+                                  <div class={`flex items-center gap-3 p-2 rounded-lg ${style.backSocialBg}`}>
+                                    <LuMapPin class={`w-4 h-4 ${style.backText}`} />
+                                    <span class={`text-sm ${style.backText}`}>{t(locale, "expanded.basedInMontreal")}</span>
+                                  </div>
+                                </div>
+                              </div>
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>Portfolio</h4>
+                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>{t(locale, "expanded.gallery")}</h4>
                                 <div class="grid grid-cols-2 gap-2">
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800&q=80"
-                                      alt="Live performance 1"
+                                      alt="Performance"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
                                       src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
-                                      alt="Live performance 2"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80"
-                                      alt="Live performance 3"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80"
-                                      alt="Live performance 4"
+                                      alt="Studio"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
@@ -881,10 +906,12 @@ export default component$(() => {
 
                               {/* CTA */}
                               <a
-                                href="mailto:book@phineasstewart.com"
+                                href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
+                                target="_blank"
+                                rel="noopener noreferrer"
                                 class={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
-                                Book Live Performance
+                                {t(locale, "expanded.listenOnSpotify")}
                                 <LuChevronRight class="w-5 h-5" />
                               </a>
                             </div>

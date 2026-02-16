@@ -68,7 +68,7 @@ export const translations = {
     "nav.bookAClass": "Book a Class",
 
     // Hero
-    "hero.studioSessions": "Studio Sessions",
+    "hero.artistProfile": "Artist Profile",
     "hero.polishing": "Polishing",
     "hero.every": "Every",
     "hero.recording": "Recording",
@@ -120,9 +120,40 @@ export const translations = {
     "service.readyToBook": "Ready to book your performance?",
     "service.studioCTA": "Let's bring your music to life with professional violin recordings. Get in touch to discuss your project and studio session details.",
     "service.liveCTA": "Whether it's a wedding, corporate event, or intimate concert, let's create an unforgettable musical experience together.",
-    "service.bookStudioSession": "Book Studio Session",
+    "service.bookSessionViolinist": "Book Session Violinist",
     "service.bookLivePerformance": "Book Live Performance",
     "service.learnMore": "Learn more",
+
+    // Session Violinist Expanded
+    "expanded.sessionViolinist": "Session Violinist",
+    "expanded.sessionViolinistTagline": "Professional violin for weddings, events, funerals, studio sessions, and arrangements.",
+    "expanded.sessionViolinistDesc": "From wedding ceremonies to studio recordings, I bring soul and precision to every occasion.",
+    "expanded.services": "Services",
+    "expanded.weddings": "Weddings",
+    "expanded.events": "Events",
+    "expanded.funerals": "Funerals",
+    "expanded.studioSessions": "Studio Sessions",
+    "expanded.customArrangements": "Custom Arrangements",
+    "expanded.portfolio": "Portfolio",
+
+    // Artist Profile Expanded
+    "expanded.artistProfile": "Artist Profile",
+    "expanded.artistTagline": "Singer-songwriter and violinist from Nova Scotia.",
+    "expanded.artistDesc": "Born and raised in Nova Scotia, now calling Montreal home. As a singer-songwriter and violinist, I blend East Coast roots with urban inspiration to create music that tells stories and touches hearts.",
+    "expanded.background": "Background",
+    "expanded.fromNovaScotia": "From Nova Scotia",
+    "expanded.basedInMontreal": "Based in Montreal",
+    "expanded.gallery": "Gallery",
+    "expanded.listenOnSpotify": "Listen on Spotify",
+    "expanded.listenToMyMusic": "Listen to My Music",
+
+    // Artist Profile Card
+    "hero.singer": "Singer",
+    "hero.songwriter": "Songwriter",
+    "hero.violinist": "Violinist",
+    "hero.artistCardDesc": "Born and raised in Nova Scotia, now creating music in Montreal.",
+    "hero.roots": "Roots",
+    "hero.based": "Based",
 
     // Buttons
     "button.watch": "Watch",
@@ -171,7 +202,7 @@ export const translations = {
     "nav.bookAClass": "Réserver un Cours",
 
     // Hero
-    "hero.studioSessions": "Sessions Studio",
+    "hero.artistProfile": "Profil d'Artiste",
     "hero.polishing": "Perfectionner",
     "hero.every": "Chaque",
     "hero.recording": "Enregistrement",
@@ -223,9 +254,40 @@ export const translations = {
     "service.readyToBook": "Prêt à réserver votre performance?",
     "service.studioCTA": "Donnons vie à votre musique avec des enregistrements professionnels de violon. Contactez-moi pour discuter de votre projet et des détails de la session studio.",
     "service.liveCTA": "Qu'il s'agisse d'un mariage, d'un événement corporatif ou d'un concert intime, créons ensemble une expérience musicale inoubliable.",
-    "service.bookStudioSession": "Réserver Session Studio",
+    "service.bookSessionViolinist": "Réserver Violoniste de Session",
     "service.bookLivePerformance": "Réserver Performance Live",
     "service.learnMore": "En savoir plus",
+
+    // Session Violinist Expanded
+    "expanded.sessionViolinist": "Violoniste de Session",
+    "expanded.sessionViolinistTagline": "Violon professionnel pour mariages, événements, funérailles, sessions studio et arrangements.",
+    "expanded.sessionViolinistDesc": "Des cérémonies de mariage aux enregistrements studio, j'apporte âme et précision à chaque occasion.",
+    "expanded.services": "Services",
+    "expanded.weddings": "Mariages",
+    "expanded.events": "Événements",
+    "expanded.funerals": "Funérailles",
+    "expanded.studioSessions": "Sessions Studio",
+    "expanded.customArrangements": "Arrangements Personnalisés",
+    "expanded.portfolio": "Portfolio",
+
+    // Artist Profile Expanded
+    "expanded.artistProfile": "Profil d'Artiste",
+    "expanded.artistTagline": "Auteur-compositeur-interprète et violoniste de la Nouvelle-Écosse.",
+    "expanded.artistDesc": "Né et élevé en Nouvelle-Écosse, maintenant installé à Montréal. En tant qu'auteur-compositeur-interprète et violoniste, je mélange mes racines de la côte Est avec l'inspiration urbaine pour créer une musique qui raconte des histoires et touche les cœurs.",
+    "expanded.background": "Parcours",
+    "expanded.fromNovaScotia": "De la Nouvelle-Écosse",
+    "expanded.basedInMontreal": "Basé à Montréal",
+    "expanded.gallery": "Galerie",
+    "expanded.listenOnSpotify": "Écouter sur Spotify",
+    "expanded.listenToMyMusic": "Écouter Ma Musique",
+
+    // Artist Profile Card
+    "hero.singer": "Chanteur",
+    "hero.songwriter": "Auteur-Compositeur",
+    "hero.violinist": "Violoniste",
+    "hero.artistCardDesc": "Né et élevé en Nouvelle-Écosse, créant maintenant de la musique à Montréal.",
+    "hero.roots": "Racines",
+    "hero.based": "Basé",
 
     // Buttons
     "button.watch": "Regarder",
