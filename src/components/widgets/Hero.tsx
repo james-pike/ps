@@ -418,7 +418,7 @@ export default component$(() => {
                   statLabel: "text-stone-500/70",
                   divider: "border-stone-200/50",
                   description: "text-stone-600",
-                  textureColor: "#57534e",
+                  textureColor: "#3f3a36",
                   // Back of card styles
                   backBg: "bg-stone-100",
                   backBorder: "border-stone-400/60",
@@ -431,28 +431,28 @@ export default component$(() => {
                 },
                 // Card 2: Hunter/Melchers green - with black headline (Artist Profile)
                 {
-                  bg: "from-green-100 to-stone-100",
-                  innerBg: "bg-green-100",
-                  border: "border-green-400/60",
-                  badge: "bg-green-200/70 border-green-300/50 text-green-800",
+                  bg: "from-green-200 to-green-100",
+                  innerBg: "bg-green-200",
+                  border: "border-green-500/60",
+                  badge: "bg-green-300/70 border-green-400/50 text-green-900",
                   title: "from-gray-900 via-gray-800 to-gray-900",
                   titleLast: "text-gray-900",
-                  button: "from-green-200 to-green-300 hover:from-green-300 hover:to-green-400 shadow-green-200/20 text-green-900",
-                  buttonOutline: "border-green-400 text-green-800 hover:bg-green-200/30",
-                  statValue: "text-green-800",
-                  statLabel: "text-green-700/70",
-                  divider: "border-green-300/50",
-                  description: "text-stone-700",
-                  textureColor: "#14532d",
+                  button: "from-green-300 to-green-400 hover:from-green-400 hover:to-green-500 shadow-green-300/20 text-green-900",
+                  buttonOutline: "border-green-500 text-green-900 hover:bg-green-300/30",
+                  statValue: "text-green-900",
+                  statLabel: "text-green-800/70",
+                  divider: "border-green-400/50",
+                  description: "text-green-900",
+                  textureColor: "#0a3d1f",
                   // Back of card styles
-                  backBg: "bg-green-100",
-                  backBorder: "border-green-400/60",
-                  backCloseBtn: "bg-green-200/90 border-green-400/60",
-                  backCloseIcon: "text-green-800",
+                  backBg: "bg-green-200",
+                  backBorder: "border-green-500/60",
+                  backCloseBtn: "bg-green-300/90 border-green-500/60",
+                  backCloseIcon: "text-green-900",
                   backText: "text-green-900",
-                  backTextMuted: "text-green-700/70",
-                  backMenuHover: "hover:bg-green-200/50",
-                  backSocialBg: "bg-green-200/70 border-green-300/60"
+                  backTextMuted: "text-green-800/70",
+                  backMenuHover: "hover:bg-green-300/50",
+                  backSocialBg: "bg-green-300/70 border-green-400/60"
                 },
                 // Card 3: Soft cream/yellow - with black headline (Session Violinist)
                 {
@@ -578,14 +578,14 @@ export default component$(() => {
                                 <div class="grid grid-cols-2 gap-2">
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
                                     <img
-                                      src="https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800&q=80"
+                                      src="/images/ap1.jpg"
                                       alt="Performance"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
                                     <img
-                                      src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80"
+                                      src="/images/ap2.jpg"
                                       alt="Studio"
                                       class="w-full h-full object-cover"
                                     />
@@ -631,11 +631,11 @@ export default component$(() => {
                         <div
                           class={`relative backdrop-blur-sm p-6 rounded-2xl shadow-2xl h-full ${
                             flipTarget.value === 'menu'
-                              ? 'bg-slate-100 border border-slate-300'
+                              ? 'bg-slate-200 border border-slate-400'
                               : `${style.backBg} border ${style.backBorder}`
                           }`}
                           style={{
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${flipTarget.value === 'menu' ? '%23334155' : encodeURIComponent(style.textureColor)}' fill-opacity='${flipTarget.value === 'menu' ? '0.15' : '0.15'}'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${flipTarget.value === 'menu' ? '%231e293b' : encodeURIComponent(style.textureColor)}' fill-opacity='${flipTarget.value === 'menu' ? '0.20' : '0.15'}'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
                           }}
                         >
 
