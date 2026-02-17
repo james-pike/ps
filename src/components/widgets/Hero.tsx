@@ -805,38 +805,27 @@ export default component$(() => {
                           {flipTarget.value === 'session-violinist' && (
                             <div class="pt-2">
                               <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>{t(locale, "expanded.sessionViolinist")}</h3>
-                              <p class={`text-base ${style.backText} mb-3`}>
+                              <p class={`text-lg ${style.backText} mb-2`}>
                                 {t(locale, "expanded.sessionViolinistTagline")}
                               </p>
                               <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
                                 {t(locale, "expanded.sessionViolinistDesc")}
                               </p>
 
-                              {/* Services List */}
+                              {/* Services Tags */}
                               <div class="mb-4">
-                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>{t(locale, "expanded.services")}</h4>
-                                <div class="grid grid-cols-2 gap-2">
-                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg}`}>
-                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.weddings")}</span>
-                                  </div>
-                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg}`}>
-                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.events")}</span>
-                                  </div>
-                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg}`}>
-                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.funerals")}</span>
-                                  </div>
-                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg}`}>
-                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.studioSessions")}</span>
-                                  </div>
-                                  <div class={`flex items-center gap-2 p-2 rounded-lg ${style.backSocialBg} col-span-2`}>
-                                    <span class={`text-sm font-medium ${style.backText}`}>{t(locale, "expanded.customArrangements")}</span>
-                                  </div>
+                                <p class={`text-xs uppercase tracking-wide ${style.backTextMuted} mb-2`}>{t(locale, "expanded.services")}</p>
+                                <div class="flex flex-wrap gap-2">
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.weddings")}</span>
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.events")}</span>
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.funerals")}</span>
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.studioSessions")}</span>
+                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.customArrangements")}</span>
                                 </div>
                               </div>
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>{t(locale, "expanded.portfolio")}</h4>
                                 <div class="grid grid-cols-2 gap-2">
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
@@ -849,20 +838,6 @@ export default component$(() => {
                                     <img
                                       src="https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80"
                                       alt="Wedding performance"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80"
-                                      alt="Event performance"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80"
-                                      alt="Concert performance"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
@@ -883,14 +858,29 @@ export default component$(() => {
                           {/* Artist Profile Expanded Content */}
                           {flipTarget.value === 'live-performance' && (
                             <div class="pt-2">
-                              <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>{t(locale, "expanded.artistProfile")}</h3>
-                              <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
-                                {t(locale, "expanded.artistDesc")}
+                              <h3 class={`text-2xl font-bold ${style.backText} mb-3`}>{t(locale, "expanded.artistProfile")}</h3>
+
+                              <p class={`text-base ${style.backTextMuted} leading-relaxed mb-3`}>
+                                {t(locale, "expanded.artistJourney")}
                               </p>
+                              <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
+                                {t(locale, "expanded.artistStyle")}
+                              </p>
+
+                              {/* Location Tags */}
+                              <div class="flex flex-wrap gap-2 mb-4">
+                                <span class={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>
+                                  <LuMapPin class="w-3.5 h-3.5" />
+                                  {t(locale, "expanded.fromNovaScotia")}
+                                </span>
+                                <span class={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>
+                                  <LuMapPin class="w-3.5 h-3.5" />
+                                  {t(locale, "expanded.basedInMontreal")}
+                                </span>
+                              </div>
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>{t(locale, "expanded.gallery")}</h4>
                                 <div class="grid grid-cols-2 gap-2">
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
