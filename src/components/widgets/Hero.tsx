@@ -299,7 +299,7 @@ export default component$(() => {
       <div class="absolute top-40 right-20 w-48 h-48 bg-gray-300/15 rounded-full blur-3xl animate-floatx" aria-hidden="true"></div>
       <div class="absolute bottom-20 left-1/3 w-40 h-40 bg-stone-300/15 rounded-full blur-2xl animate-float" aria-hidden="true"></div>
 
-      <div class="relative z-10 w-full mx-auto px-3.5 pt-3.5 pb-1 lg:px-4 lg:pt-0 lg:pb-8">
+      <div class="relative z-10 w-full mx-auto px-3 pt-3 pb-1 lg:px-4 lg:pt-0 lg:pb-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden relative">
           {/* Mobile Menu Button + Language Dropdown - positioned above card stack */}
@@ -515,33 +515,12 @@ export default component$(() => {
                             </span>
                             <span class={`${style.titleLast} block`}>{card.title[2]}</span>
                           </h1>
-                          <p class={`relative z-10 text-lg ${style.description} mb-4 min-h-[3.5rem]`}>
-                            {card.description}
-                          </p>
-
-                          {/* Card 1: Services tags + single video + book button */}
+                          {/* Card 1: Combined description + services / Card 2: Just description */}
                           {index === 0 ? (
                             <>
-                              {/* Services Tags */}
-                              <div class="relative z-10 mb-4">
-                                <div class="flex flex-wrap gap-2">
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
-                                    {t(locale, "expanded.weddings")}
-                                  </span>
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
-                                    {t(locale, "expanded.events")}
-                                  </span>
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
-                                    {t(locale, "expanded.funerals")}
-                                  </span>
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
-                                    {t(locale, "expanded.studioSessions")}
-                                  </span>
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.badge}`}>
-                                    {t(locale, "expanded.customArrangements")}
-                                  </span>
-                                </div>
-                              </div>
+                              <p class={`relative z-10 text-xl ${style.description} mb-4 min-h-[3.5rem]`}>
+                                {card.description} {t(locale, "expanded.weddings")}, {t(locale, "expanded.events")}, {t(locale, "expanded.funerals")}, {t(locale, "expanded.studioSessions")}, {t(locale, "expanded.customArrangements")}.
+                              </p>
 
                               {/* Single Video/Image */}
                               <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
@@ -614,7 +593,10 @@ export default component$(() => {
                             </>
                           ) : (
                             <>
-                              {/* Card 2: Gallery grid layout */}
+                              {/* Card 2: Description + Gallery grid layout */}
+                              <p class={`relative z-10 text-lg ${style.description} mb-4 min-h-[3.5rem]`}>
+                                {card.description}
+                              </p>
                               {/* Portfolio Grid */}
                               <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
                                 <div class="grid grid-cols-2 gap-2">

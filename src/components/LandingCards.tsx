@@ -219,7 +219,7 @@ export default component$(() => {
                           : 'bg-stone-700 hover:bg-stone-800 text-white'
                       }`}
                     >
-                      {t(locale, expandedCard.value === 0 ? "service.bookStudioSession" : expandedCard.value === 1 ? "service.bookLivePerformance" : "service.bookStudioSession")}
+                      {t(locale, expandedCard.value === 0 ? "service.bookSessionViolinist" : expandedCard.value === 1 ? "service.bookLivePerformance" : "service.bookSessionViolinist")}
                       <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                       </svg>
