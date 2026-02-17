@@ -17,9 +17,6 @@ export default component$(() => {
   const rightColumnImageIndex = useSignal(0);
   const touchStartX = useSignal(0);
   const touchEndX = useSignal(0);
-  // Separate touch tracking for video carousel
-  const videoTouchStartX = useSignal(0);
-  const videoTouchEndX = useSignal(0);
 
   // 3D Flip card state
   const isFlipped = useSignal<boolean>(false);
