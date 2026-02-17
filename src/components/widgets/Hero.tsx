@@ -538,17 +538,20 @@ export default component$(() => {
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
                                     <img
-                                      src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80"
-                                      alt="Event performance"
+                                      src="/images/sv3.jpg"
+                                      alt="Session violinist"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
-                                    <img
-                                      src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80"
-                                      alt="Concert performance"
-                                      class="w-full h-full object-cover"
-                                    />
+                                    <iframe
+                                      src="https://www.youtube.com/embed/dl6sZEikzz0"
+                                      title="Session violinist video"
+                                      class="w-full h-full"
+                                      frameBorder="0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                      allowFullScreen
+                                    ></iframe>
                                   </div>
                                 </div>
                               </div>
@@ -837,6 +840,23 @@ export default component$(() => {
                                       alt="Wedding performance"
                                       class="w-full h-full object-cover"
                                     />
+                                  </div>
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
+                                    <img
+                                      src="/images/sv3.jpg"
+                                      alt="Session violinist"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
+                                    <iframe
+                                      src="https://www.youtube.com/embed/dl6sZEikzz0"
+                                      title="Session violinist video"
+                                      class="w-full h-full"
+                                      frameBorder="0"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                      allowFullScreen
+                                    ></iframe>
                                   </div>
                                 </div>
                               </div>

@@ -69,11 +69,11 @@ export const translations = {
 
     // Hero
     "hero.artistProfile": "Artist Profile",
-    "hero.polishing": "Polishing",
-    "hero.every": "Every",
-    "hero.recording": "Performance",
+    "hero.polishing": "Session",
+    "hero.every": "Violinist",
+    "hero.recording": "-",
     "hero.studioDescription": "Professional violinist bringing soul and precision to every occasion.",
-    "hero.sessionViolinist": "Session Violinist",
+    "hero.sessionViolinist": "Phineas Stewart",
     "hero.crafting": "Crafting",
     "hero.musical": "Musical",
     "hero.moments": "Moments",

@@ -18,8 +18,8 @@ export default component$(() => {
       portfolioImages: [
         "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80",
         "https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80",
-        "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80",
-        "https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80"
+        "/images/sv3.jpg",
+        "youtube:dl6sZEikzz0"
       ]
     },
     {
