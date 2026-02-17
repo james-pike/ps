@@ -74,7 +74,7 @@ export default component$(() => {
     },
     {
       badge: t(locale, "hero.artistProfile"),
-      title: [t(locale, "hero.singer"), t(locale, "hero.songwriter"), t(locale, "hero.violinist")],
+      title: [t(locale, "hero.singer"), t(locale, "hero.songwriter"), ""],
       description: t(locale, "hero.artistCardDesc"),
       stats: [
         { value: "NS", label: t(locale, "hero.roots") },
@@ -312,7 +312,7 @@ export default component$(() => {
                     currentSlideIndex.value === 0
                       ? 'border-stone-300 bg-stone-100/40 hover:bg-stone-200/50'
                       : currentSlideIndex.value === 1
-                        ? 'border-yellow-200 bg-yellow-50/40 hover:bg-yellow-100/50'
+                        ? 'border-green-300 bg-green-100/40 hover:bg-green-200/50'
                         : 'border-amber-300 bg-amber-100/40 hover:bg-amber-200/50'
                   }`}
                   onClick$={() => showLangDropdown.value = !showLangDropdown.value}
@@ -344,7 +344,7 @@ export default component$(() => {
                   currentSlideIndex.value === 0
                     ? 'border-stone-300 bg-stone-100/40 hover:bg-stone-200/50'
                     : currentSlideIndex.value === 1
-                      ? 'border-yellow-200 bg-yellow-50/40 hover:bg-yellow-100/50'
+                      ? 'border-green-300 bg-green-100/40 hover:bg-green-200/50'
                       : 'border-amber-300 bg-amber-100/40 hover:bg-amber-200/50'
                 }`}
                 onClick$={() => handleFlip('menu')}
@@ -431,30 +431,30 @@ export default component$(() => {
                   backMenuHover: "hover:bg-stone-200/50",
                   backSocialBg: "bg-stone-200/70 border-stone-300/60"
                 },
-                // Card 2: Faint notebook yellow - with black headline (Live Performances)
+                // Card 2: Hunter/Melchers green - with black headline (Artist Profile)
                 {
-                  bg: "from-yellow-50 to-amber-50",
-                  innerBg: "bg-yellow-50",
-                  border: "border-yellow-300/60",
-                  badge: "bg-yellow-100/70 border-yellow-200/50 text-yellow-700",
+                  bg: "from-green-100 to-stone-100",
+                  innerBg: "bg-green-100",
+                  border: "border-green-400/60",
+                  badge: "bg-green-200/70 border-green-300/50 text-green-800",
                   title: "from-gray-900 via-gray-800 to-gray-900",
                   titleLast: "text-gray-900",
-                  button: "from-yellow-100 to-yellow-200 hover:from-yellow-200 hover:to-yellow-300 shadow-yellow-100/20 text-yellow-800",
-                  buttonOutline: "border-yellow-300 text-yellow-700 hover:bg-yellow-100/30",
-                  statValue: "text-yellow-700",
-                  statLabel: "text-yellow-600/70",
-                  divider: "border-yellow-200/50",
-                  description: "text-stone-600",
-                  textureColor: "#ca8a04",
+                  button: "from-green-200 to-green-300 hover:from-green-300 hover:to-green-400 shadow-green-200/20 text-green-900",
+                  buttonOutline: "border-green-400 text-green-800 hover:bg-green-200/30",
+                  statValue: "text-green-800",
+                  statLabel: "text-green-700/70",
+                  divider: "border-green-300/50",
+                  description: "text-stone-700",
+                  textureColor: "#166534",
                   // Back of card styles
-                  backBg: "bg-yellow-50",
-                  backBorder: "border-yellow-300/60",
-                  backCloseBtn: "bg-yellow-100/90 border-yellow-300/60",
-                  backCloseIcon: "text-yellow-700",
-                  backText: "text-yellow-800",
-                  backTextMuted: "text-yellow-600/70",
-                  backMenuHover: "hover:bg-yellow-100/50",
-                  backSocialBg: "bg-yellow-100/70 border-yellow-200/60"
+                  backBg: "bg-green-100",
+                  backBorder: "border-green-400/60",
+                  backCloseBtn: "bg-green-200/90 border-green-400/60",
+                  backCloseIcon: "text-green-800",
+                  backText: "text-green-900",
+                  backTextMuted: "text-green-700/70",
+                  backMenuHover: "hover:bg-green-200/50",
+                  backSocialBg: "bg-green-200/70 border-green-300/60"
                 },
                 // Card 3: Soft cream/yellow - with black headline (Session Violinist)
                 {
@@ -515,69 +515,43 @@ export default component$(() => {
                             </span>
                             <span class={`${style.titleLast} block`}>{card.title[2]}</span>
                           </h1>
-                          {/* Card 1: Combined description + services / Card 2: Just description */}
+                          {/* Card 1: Session Violinist / Card 2: Songwriter */}
                           {index === 0 ? (
                             <>
                               <p class={`relative z-10 text-xl ${style.description} mb-4 min-h-[3.5rem]`}>
                                 {card.description} {t(locale, "expanded.weddings")}, {t(locale, "expanded.events")}, {t(locale, "expanded.funerals")}, {t(locale, "expanded.studioSessions")}, {t(locale, "expanded.customArrangements")}.
                               </p>
 
-                              {/* Single Video/Image */}
+                              {/* Portfolio Grid */}
                               <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
-                                <div
-                                  class={`rounded-xl overflow-hidden border ${style.border}`}
-                                  onTouchStart$={(e) => {
-                                    e.stopPropagation();
-                                    videoTouchStartX.value = e.touches[0].clientX;
-                                    videoTouchEndX.value = e.touches[0].clientX;
-                                  }}
-                                  onTouchMove$={(e) => {
-                                    e.stopPropagation();
-                                    videoTouchEndX.value = e.touches[0].clientX;
-                                  }}
-                                  onTouchEnd$={(e) => {
-                                    e.stopPropagation();
-                                    const swipeThreshold = 50;
-                                    const diff = videoTouchStartX.value - videoTouchEndX.value;
-                                    const videosPerCard = cardVideos[0].length;
-
-                                    if (Math.abs(diff) > swipeThreshold) {
-                                      if (diff > 0) {
-                                        rightColumnImageIndex.value = (rightColumnImageIndex.value + 1) % videosPerCard;
-                                      } else {
-                                        rightColumnImageIndex.value = (rightColumnImageIndex.value - 1 + videosPerCard) % videosPerCard;
-                                      }
-                                    }
-
-                                    videoTouchStartX.value = 0;
-                                    videoTouchEndX.value = 0;
-                                  }}
-                                >
-                                  <div class="relative aspect-video">
-                                    {cardVideos[index].map((img, imgIdx) => (
-                                      <div
-                                        key={imgIdx}
-                                        class={`absolute inset-0 transition-all duration-700 ${
-                                          imgIdx === rightColumnImageIndex.value
-                                            ? 'opacity-100 scale-100'
-                                            : 'opacity-0 scale-110'
-                                        }`}
-                                      >
-                                        <img
-                                          src={img}
-                                          alt={`Performance ${imgIdx + 1}`}
-                                          class="w-full h-full object-cover"
-                                        />
-                                      </div>
-                                    ))}
-                                    <div class="absolute inset-0 flex items-center justify-center bg-stone-900/20">
-                                      <button class={`w-12 h-12 rounded-full bg-white/70 backdrop-blur-sm border-2 ${style.border} flex items-center justify-center hover:bg-white/90 transition-all duration-300 hover:scale-110`}>
-                                        <svg class={`w-5 h-5 ${style.statValue} ml-0.5`} fill="currentColor" viewBox="0 0 24 24">
-                                          <path d="M8 5v14l11-7z"/>
-                                        </svg>
-                                      </button>
-                                    </div>
-                                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"></div>
+                                <div class="grid grid-cols-2 gap-2">
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
+                                    <img
+                                      src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80"
+                                      alt="Studio session"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
+                                    <img
+                                      src="https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80"
+                                      alt="Wedding performance"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
+                                    <img
+                                      src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80"
+                                      alt="Event performance"
+                                      class="w-full h-full object-cover"
+                                    />
+                                  </div>
+                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
+                                    <img
+                                      src="https://images.unsplash.com/photo-1514320291840-2e0a9bf2a9ae?w=800&q=80"
+                                      alt="Concert performance"
+                                      class="w-full h-full object-cover"
+                                    />
                                   </div>
                                 </div>
                               </div>
@@ -593,10 +567,11 @@ export default component$(() => {
                             </>
                           ) : (
                             <>
-                              {/* Card 2: Description + Gallery grid layout */}
-                              <p class={`relative z-10 text-lg ${style.description} mb-4 min-h-[3.5rem]`}>
-                                {card.description}
+                              {/* Card 2: Songwriter with description and gallery */}
+                              <p class={`relative z-10 text-xl ${style.description} mb-4`}>
+                                {card.description} {t(locale, "expanded.artistDesc")}
                               </p>
+
                               {/* Portfolio Grid */}
                               <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
                                 <div class="grid grid-cols-2 gap-2">
@@ -909,27 +884,9 @@ export default component$(() => {
                           {flipTarget.value === 'live-performance' && (
                             <div class="pt-2">
                               <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>{t(locale, "expanded.artistProfile")}</h3>
-                              <p class={`text-base ${style.backText} mb-3`}>
-                                {t(locale, "expanded.artistTagline")}
-                              </p>
                               <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
                                 {t(locale, "expanded.artistDesc")}
                               </p>
-
-                              {/* Background */}
-                              <div class="mb-4">
-                                <h4 class={`text-lg font-bold ${style.backText} mb-3`}>{t(locale, "expanded.background")}</h4>
-                                <div class="space-y-2">
-                                  <div class={`flex items-center gap-3 p-2 rounded-lg ${style.backSocialBg}`}>
-                                    <LuMapPin class={`w-4 h-4 ${style.backText}`} />
-                                    <span class={`text-sm ${style.backText}`}>{t(locale, "expanded.fromNovaScotia")}</span>
-                                  </div>
-                                  <div class={`flex items-center gap-3 p-2 rounded-lg ${style.backSocialBg}`}>
-                                    <LuMapPin class={`w-4 h-4 ${style.backText}`} />
-                                    <span class={`text-sm ${style.backText}`}>{t(locale, "expanded.basedInMontreal")}</span>
-                                  </div>
-                                </div>
-                              </div>
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">

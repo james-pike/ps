@@ -139,7 +139,7 @@ export const translations = {
     // Artist Profile Expanded
     "expanded.artistProfile": "Artist Profile",
     "expanded.artistTagline": "Singer-songwriter and violinist from Nova Scotia.",
-    "expanded.artistDesc": "Born and raised in Nova Scotia, now calling Montreal home. As a singer-songwriter and violinist, I blend East Coast roots with urban inspiration to create music that tells stories and touches hearts.",
+    "expanded.artistDesc": "I blend East Coast roots with urban inspiration to create music that tells stories and connects with listeners.",
     "expanded.background": "Background",
     "expanded.fromNovaScotia": "From Nova Scotia",
     "expanded.basedInMontreal": "Based in Montreal",
@@ -273,7 +273,7 @@ export const translations = {
     // Artist Profile Expanded
     "expanded.artistProfile": "Profil d'Artiste",
     "expanded.artistTagline": "Auteur-compositeur-interprète et violoniste de la Nouvelle-Écosse.",
-    "expanded.artistDesc": "Né et élevé en Nouvelle-Écosse, maintenant installé à Montréal. En tant qu'auteur-compositeur-interprète et violoniste, je mélange mes racines de la côte Est avec l'inspiration urbaine pour créer une musique qui raconte des histoires et touche les cœurs.",
+    "expanded.artistDesc": "Je mélange mes racines de la côte Est avec l'inspiration urbaine pour créer une musique qui raconte des histoires et connecte avec les auditeurs.",
     "expanded.background": "Parcours",
     "expanded.fromNovaScotia": "De la Nouvelle-Écosse",
     "expanded.basedInMontreal": "Basé à Montréal",
