@@ -26,22 +26,12 @@ export default component$(() => {
 
   const links: LinkSection[] = [
     {
-      title: "Services",
-      titleKey: "footer.services",
+      title: "About",
+      titleKey: "footer.about",
       items: [
-        { title: "Session Violinist", titleKey: "footer.sessionViolinist", href: null },
-        { title: "Live Performances", titleKey: "footer.livePerformances", href: null },
-        { title: "My Music", titleKey: "footer.myMusic", href: null },
-        { title: "Portfolio", titleKey: "footer.portfolio", href: null },
-      ],
-    },
-    {
-      title: "Connect",
-      titleKey: "footer.connect",
-      items: [
-        { title: "Session Violinist", titleKey: "footer.sessionViolinist", href: null },
-        { title: "Live Performances", titleKey: "footer.livePerformances", href: null },
-        { title: "My Music", titleKey: "footer.myMusic", href: null },
+        { title: "Session Violinist", titleKey: "footer.sessionViolinist", href: "#session-violinist" },
+        { title: "Artist Profile", titleKey: "footer.artistProfile", href: "#artist-profile" },
+        { title: "My Music", titleKey: "footer.myMusic", href: "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa" },
       ],
     },
   ];
@@ -53,10 +43,8 @@ export default component$(() => {
           {/* First Column: Logo, Description, Newsletter */}
           <div class="col-span-12 lg:col-span-5 md:pr-8">
             <div class="mb-4 mt-2 md:mt-0">
-              <Link class="inline-block xdxd font-bold !text-3xl" href={"/"}>
-                <span class="bg-gradient-to-r from-stone-700 via-amber-700 to-stone-700 bg-clip-text text-transparent">
-                  Phineas Stewart
-                </span>
+              <Link class="inline-block font-bold text-2xl text-stone-700 hover:text-stone-800 transition-colors" href={"/"}>
+                Phineas Stewart
               </Link>
             </div>
             <div class="text-sm text-stone-600 leading-relaxed">
@@ -126,13 +114,25 @@ export default component$(() => {
               </div>
               {Array.isArray(items) && items.length > 0 && (
                 <ul class="text-sm space-y-2">
-                  {items.map(({ title, titleKey: itemTitleKey, icon: Icon }, index2) => {
+                  {items.map(({ title, titleKey: itemTitleKey, href, icon: Icon }, index2) => {
+                    const isExternal = href?.startsWith('http');
                     return (
-                      <li key={index2} class="flex items-start gap-2 text-stone-600 transition-colors duration-200">
+                      <li key={index2} class="flex items-start gap-2 transition-colors duration-200">
                         {Icon && <Icon class="w-4 h-4 flex-shrink-0 mt-0.5" />}
-                        <span class="text-stone-600">
-                          {itemTitleKey ? t(locale, itemTitleKey as any) : title}
-                        </span>
+                        {href ? (
+                          <a
+                            href={href}
+                            target={isExternal ? "_blank" : undefined}
+                            rel={isExternal ? "noopener noreferrer" : undefined}
+                            class="text-stone-600 hover:text-amber-700 transition-colors"
+                          >
+                            {itemTitleKey ? t(locale, itemTitleKey as any) : title}
+                          </a>
+                        ) : (
+                          <span class="text-stone-600">
+                            {itemTitleKey ? t(locale, itemTitleKey as any) : title}
+                          </span>
+                        )}
                       </li>
                     );
                   })}

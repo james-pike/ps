@@ -71,7 +71,7 @@ export const translations = {
     "hero.artistProfile": "Artist Profile",
     "hero.polishing": "Session",
     "hero.every": "Violinist",
-    "hero.recording": "-",
+    "hero.recording": "",
     "hero.studioDescription": "Professional violinist bringing soul and precision to every occasion.",
     "hero.sessionViolinist": "Phineas Stewart",
     "hero.crafting": "Crafting",
@@ -168,9 +168,11 @@ export const translations = {
     "footer.joinNewsletter": "Stay Updated",
     "footer.copyright": "© 2025 Session Violinist · All rights reserved.",
     "footer.description": "Professional session violinist bringing soul and precision to every recording session and live performance.",
+    "footer.about": "About",
     "footer.services": "Services",
     "footer.connect": "Connect",
     "footer.sessionViolinist": "Session Violinist",
+    "footer.artistProfile": "Artist Profile",
     "footer.livePerformances": "Live Performances",
     "footer.myMusic": "My Music",
     "footer.portfolio": "Portfolio",
@@ -304,9 +306,11 @@ export const translations = {
     "footer.joinNewsletter": "Rejoignez Notre Infolettre",
     "footer.copyright": "© 2025 Session Violinist · Tous droits réservés.",
     "footer.description": "Violoniste de session professionnel apportant âme et précision à chaque enregistrement et performance live.",
+    "footer.about": "À Propos",
     "footer.services": "Services",
     "footer.connect": "Connecter",
     "footer.sessionViolinist": "Violoniste de Session",
+    "footer.artistProfile": "Profil d'Artiste",
     "footer.livePerformances": "Performances Live",
     "footer.myMusic": "Ma Musique",
     "footer.portfolio": "Portfolio",
@@ -321,5 +325,6 @@ export const translations = {
 export type TranslationKey = keyof typeof translations.en;
 
 export function t(locale: Language, key: TranslationKey): string {
-  return translations[locale][key] || key;
+  const value = translations[locale][key];
+  return value !== undefined ? value : key;
 }

@@ -17,8 +17,8 @@ export default component$(() => {
       accent: "stone",
       portfolioImages: [
         "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80",
-        "https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80",
-        "/images/sv3.jpg",
+        "/images/sv2.JPG",
+        "/images/sv3.JPG",
         "youtube:dl6sZEikzz0"
       ]
     },
@@ -76,7 +76,7 @@ export default component$(() => {
         <div class="relative max-w-7xl mx-auto px-3 md:px-4">
           {/* Textured container for all cards */}
           <div
-            class="relative bg-gradient-to-br from-stone-100 to-stone-50 rounded-2xl p-3 md:p-4 border-2 border-stone-300/60"
+            class="relative bg-gradient-to-br from-stone-100 to-stone-50 rounded-2xl p-5 md:p-6 border-2 border-stone-300/60"
             style={{
               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%2378716c' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
             }}
@@ -195,15 +195,30 @@ export default component$(() => {
                   <div class="mb-12">
                     <h2 class={`text-3xl font-bold mb-6 ${isStudio ? 'text-yellow-900' : 'text-stone-800'}`}>{t(locale, "service.portfolio")}</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      {service.portfolioImages.map((img, idx) => (
-                        <div key={idx} class={`aspect-video rounded-xl overflow-hidden border-2 shadow-lg ${isStudio ? 'border-yellow-300' : 'border-stone-300'}`}>
-                          <img
-                            src={img}
-                            alt={`${t(locale, service.titleKey as any)} - ${t(locale, "service.portfolio")} ${idx + 1}`}
-                            class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                      ))}
+                      {service.portfolioImages.map((img, idx) => {
+                        const isYouTube = img.startsWith('youtube:');
+                        const videoId = isYouTube ? img.replace('youtube:', '') : null;
+
+                        return (
+                          <div key={idx} class={`aspect-video rounded-xl overflow-hidden border-2 shadow-lg ${isStudio ? 'border-yellow-300' : 'border-stone-300'}`}>
+                            {isYouTube && videoId ? (
+                              <iframe
+                                src={`https://www.youtube.com/embed/${videoId}`}
+                                title="YouTube video"
+                                class="w-full h-full"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullscreen
+                              />
+                            ) : (
+                              <img
+                                src={img}
+                                alt={`${t(locale, service.titleKey as any)} - ${t(locale, "service.portfolio")} ${idx + 1}`}
+                                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                              />
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
 

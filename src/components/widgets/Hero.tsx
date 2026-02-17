@@ -85,7 +85,6 @@ export default component$(() => {
     .hero-carousel-container {
       position: relative;
       width: 100%;
-      min-height: 780px;
       perspective: 1000px;
       touch-action: pan-y;
       user-select: none;
@@ -100,10 +99,12 @@ export default component$(() => {
       visibility: hidden;
     }
     .carousel-card-wrapper.active {
+      position: relative;
       z-index: 3;
       transform: translate(0, 0) scale(1) rotate(0deg);
       opacity: 1;
       visibility: visible;
+      min-height: 720px;
     }
     .carousel-card-wrapper.next {
       z-index: 2;
@@ -290,7 +291,7 @@ export default component$(() => {
   });
 
   return (
-    <section class="relative min-h-[auto] lg:min-h-screen flex items-center justify-center overflow-hidden pt-0 pb-0 lg:py-0">
+    <section class="relative flex items-center justify-center overflow-hidden pt-0 pb-6 lg:pb-12">
       {/* Floating decorations */}
       <div class="absolute top-20 left-10 w-32 h-32 bg-stone-400/15 rounded-full blur-2xl animate-float" aria-hidden="true"></div>
       <div class="absolute top-40 right-20 w-48 h-48 bg-gray-300/15 rounded-full blur-3xl animate-floatx" aria-hidden="true"></div>
@@ -417,7 +418,7 @@ export default component$(() => {
                   statLabel: "text-stone-500/70",
                   divider: "border-stone-200/50",
                   description: "text-stone-600",
-                  textureColor: "#78716c",
+                  textureColor: "#57534e",
                   // Back of card styles
                   backBg: "bg-stone-100",
                   backBorder: "border-stone-400/60",
@@ -442,7 +443,7 @@ export default component$(() => {
                   statLabel: "text-green-700/70",
                   divider: "border-green-300/50",
                   description: "text-stone-700",
-                  textureColor: "#166534",
+                  textureColor: "#14532d",
                   // Back of card styles
                   backBg: "bg-green-100",
                   backBorder: "border-green-400/60",
@@ -516,7 +517,7 @@ export default component$(() => {
                           {index === 0 ? (
                             <>
                               <p class={`relative z-10 text-xl ${style.description} mb-4 min-h-[3.5rem]`}>
-                                {card.description} {t(locale, "expanded.weddings")}, {t(locale, "expanded.events")}, {t(locale, "expanded.funerals")}, {t(locale, "expanded.studioSessions")}, {t(locale, "expanded.customArrangements")}.
+                                {card.description} Available for weddings, events, funerals, studio sessions, and custom arrangements.
                               </p>
 
                               {/* Portfolio Grid */}
@@ -531,14 +532,14 @@ export default component$(() => {
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
                                     <img
-                                      src="https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80"
-                                      alt="Wedding performance"
+                                      src="/images/sv2.JPG"
+                                      alt="Session violinist"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
                                     <img
-                                      src="/images/sv3.jpg"
+                                      src="/images/sv3.JPG"
                                       alt="Session violinist"
                                       class="w-full h-full object-cover"
                                     />
@@ -621,25 +622,33 @@ export default component$(() => {
                         </div>
                       </div>
 
-                      {/* BACK OF CARD - Uses same color theme as front */}
+                      {/* BACK OF CARD - Dark theme for menu, card theme for others */}
                       <div
                         class="flip-card-back"
                         onTouchStart$={handleBackTouchStart}
                         onTouchEnd$={handleBackTouchEnd}
                       >
                         <div
-                          class={`relative ${style.backBg} backdrop-blur-sm p-6 rounded-2xl border ${style.backBorder} shadow-2xl h-full`}
+                          class={`relative backdrop-blur-sm p-6 rounded-2xl shadow-2xl h-full ${
+                            flipTarget.value === 'menu'
+                              ? 'bg-slate-100 border border-slate-300'
+                              : `${style.backBg} border ${style.backBorder}`
+                          }`}
                           style={{
-                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
+                            backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${flipTarget.value === 'menu' ? '%23334155' : encodeURIComponent(style.textureColor)}' fill-opacity='${flipTarget.value === 'menu' ? '0.15' : '0.15'}'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
                           }}
                         >
 
                           {/* Close button */}
                           <button
                             onClick$={handleFlipBack}
-                            class={`absolute top-4 right-4 z-10 p-2 rounded-full ${style.backCloseBtn} transition-all duration-200 hover:scale-110`}
+                            class={`absolute top-4 right-4 z-10 p-2 rounded-full transition-all duration-200 hover:scale-110 ${
+                              flipTarget.value === 'menu'
+                                ? 'bg-slate-200 border border-slate-400'
+                                : style.backCloseBtn
+                            }`}
                           >
-                            <LuX class={`w-5 h-5 ${style.backCloseIcon}`} />
+                            <LuX class={`w-5 h-5 ${flipTarget.value === 'menu' ? 'text-slate-700' : style.backCloseIcon}`} />
                           </button>
 
 
@@ -649,22 +658,19 @@ export default component$(() => {
                               {/* Logo */}
                               <div class="mb-4">
                                 <a href="/" class="focus:outline-none">
-                                  <span
-                                    class="text-4xl font-bold bg-gradient-to-r from-stone-700 via-amber-700 to-stone-700 bg-clip-text text-transparent"
-                                    style={{ fontFamily: "'Dancing Script', cursive" }}
-                                  >
-                                    PS
+                                  <span class="inline-block px-4 py-1.5 rounded-full bg-slate-200/70 border border-slate-300/50 text-slate-700 text-lg font-medium tracking-wide">
+                                    Phineas Stewart
                                   </span>
                                 </a>
                               </div>
 
                               {/* Navigation */}
                               <nav class="space-y-1 max-h-[45vh] overflow-y-auto pr-2">
-                                {menuItems.map((item, menuIdx) => (
+                                {menuItems.filter(item => item.title !== "Updates").map((item, menuIdx) => (
                                   <div key={menuIdx}>
                                     <button
                                       onClick$={(e) => handleMenuItemClick(item.title, e)}
-                                      class={`w-full text-left block px-3 py-2.5 rounded-lg text-lg font-medium ${style.backText} ${style.backMenuHover} transition-colors`}
+                                      class="w-full text-left block px-3 py-2.5 rounded-lg text-lg font-medium text-slate-700 hover:bg-slate-200/70 transition-colors"
                                     >
                                       {item.title}
                                     </button>
@@ -673,14 +679,14 @@ export default component$(() => {
                               </nav>
 
                               {/* Social Links */}
-                              <div class={`mt-4 pt-4 border-t ${style.divider}`}>
-                                <p class={`text-xs ${style.backTextMuted} text-center mb-3`}>Follow on</p>
+                              <div class="mt-4 pt-4 border-t border-slate-300">
+                                <p class="text-xs text-slate-500 text-center mb-3">Follow on</p>
                                 <div class="flex justify-center gap-4">
                                   <a
                                     href="https://www.youtube.com/channel/UCeX217HOtpviekPVlEO8jJQ"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class={`p-3 rounded-full ${style.backSocialBg} text-red-600 hover:bg-red-50 hover:border-red-300 hover:scale-110 transition-all duration-300`}
+                                    class="p-3 rounded-full bg-slate-200 border border-slate-300 text-red-600 hover:bg-red-50 hover:border-red-300 hover:scale-110 transition-all duration-300"
                                   >
                                     <LuYoutube class="w-6 h-6" />
                                   </a>
@@ -688,7 +694,7 @@ export default component$(() => {
                                     href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class={`p-3 rounded-full ${style.backSocialBg} text-green-600 hover:bg-green-50 hover:border-green-300 hover:scale-110 transition-all duration-300`}
+                                    class="p-3 rounded-full bg-slate-200 border border-slate-300 text-green-600 hover:bg-green-50 hover:border-green-300 hover:scale-110 transition-all duration-300"
                                   >
                                     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                                       <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
@@ -698,7 +704,7 @@ export default component$(() => {
                                     href="https://www.tiktok.com/@phineasstewart"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class={`p-3 rounded-full ${style.backSocialBg} text-stone-800 hover:bg-stone-100 hover:border-stone-400 hover:scale-110 transition-all duration-300`}
+                                    class="p-3 rounded-full bg-slate-200 border border-slate-300 text-slate-700 hover:bg-slate-300 hover:border-slate-400 hover:scale-110 transition-all duration-300"
                                   >
                                     <svg class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
                                       <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
@@ -708,7 +714,7 @@ export default component$(() => {
                                     href="https://www.instagram.com/phineasstewart"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    class={`p-3 rounded-full ${style.backSocialBg} text-pink-600 hover:bg-pink-50 hover:border-pink-300 hover:scale-110 transition-all duration-300`}
+                                    class="p-3 rounded-full bg-slate-200 border border-slate-300 text-pink-600 hover:bg-pink-50 hover:border-pink-300 hover:scale-110 transition-all duration-300"
                                   >
                                     <LuInstagram class="w-6 h-6" />
                                   </a>
@@ -836,14 +842,14 @@ export default component$(() => {
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
-                                      src="https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80"
-                                      alt="Wedding performance"
+                                      src="/images/sv2.JPG"
+                                      alt="Session violinist"
                                       class="w-full h-full object-cover"
                                     />
                                   </div>
                                   <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
                                     <img
-                                      src="/images/sv3.jpg"
+                                      src="/images/sv3.JPG"
                                       alt="Session violinist"
                                       class="w-full h-full object-cover"
                                     />
