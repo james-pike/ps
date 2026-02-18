@@ -28,6 +28,12 @@ export default component$(() => {
   // Menu accordion state for flip card
   const menuOpenIndex = useSignal<number | null>(null);
 
+  // Video play state for thumbnail click-to-play
+  const videoPlaying = useSignal<boolean>(false);
+
+  // Expanded gallery item state: { cardIndex, itemIndex } or null
+  const expandedGalleryItem = useSignal<{ card: number; item: number } | null>(null);
+
   // Desktop header state
   const i18n = useI18n();
   const showLangDropdown = useSignal(false);
@@ -533,37 +539,66 @@ export default component$(() => {
 
                               {/* Portfolio Grid */}
                               <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
-                                <div class="grid grid-cols-2 gap-2">
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
-                                    <img
-                                      src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80"
-                                      alt="Studio session"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
-                                    <img
-                                      src="/images/sv2.JPG"
-                                      alt="Session violinist"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
-                                    <img
-                                      src="/images/sv3.JPG"
-                                      alt="Session violinist"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
-                                    <iframe
-                                      src="https://www.youtube.com/embed/dl6sZEikzz0"
-                                      title="Session violinist video"
-                                      class="w-full h-full"
-                                      frameBorder="0"
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                      allowFullscreen
-                                    ></iframe>
+                                <div class="relative">
+                                  {/* Expanded View */}
+                                  {expandedGalleryItem.value?.card === 0 && (
+                                    <div class="absolute inset-0 z-20 rounded-lg overflow-hidden animate-in fade-in duration-200">
+                                      <button
+                                        onClick$={() => {
+                                          const wasVideo = expandedGalleryItem.value?.item === 3;
+                                          expandedGalleryItem.value = null;
+                                          if (wasVideo) videoPlaying.value = false;
+                                        }}
+                                        class="absolute top-2 right-2 z-30 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                                      >
+                                        <LuX class="w-4 h-4 text-white" />
+                                      </button>
+                                      {expandedGalleryItem.value.item === 0 && (
+                                        <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80" alt="Studio session" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 1 && (
+                                        <img src="/images/sv2.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 2 && (
+                                        <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 3 && (
+                                        <iframe
+                                          src="https://www.youtube.com/embed/dl6sZEikzz0?autoplay=1"
+                                          title="Session violinist video"
+                                          class="w-full h-full"
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                          allowFullscreen
+                                        ></iframe>
+                                      )}
+                                    </div>
+                                  )}
+                                  {/* Grid */}
+                                  <div class={`grid grid-cols-2 gap-2 ${expandedGalleryItem.value?.card === 0 ? 'invisible' : ''}`}>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 0, item: 0 }}
+                                    >
+                                      <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80" alt="Studio session" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 0, item: 1 }}
+                                    >
+                                      <img src="/images/sv2.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 0, item: 2 }}
+                                    >
+                                      <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 0, item: 3 }}
+                                    >
+                                      <img src="https://img.youtube.com/vi/dl6sZEikzz0/hqdefault.jpg" alt="Session violinist video" class="w-full h-full object-cover" />
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -581,34 +616,56 @@ export default component$(() => {
                             <>
                               {/* Portfolio Grid */}
                               <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
-                                <div class="grid grid-cols-2 gap-2">
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
-                                    <img
-                                      src="/images/ap1.jpg"
-                                      alt="Performance"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
-                                    <img
-                                      src="/images/ap2.jpg"
-                                      alt="Studio"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
-                                    <img
-                                      src="/images/ap3.JPEG"
-                                      alt="Concert"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.border}`}>
-                                    <img
-                                      src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80"
-                                      alt="Live performance"
-                                      class="w-full h-full object-cover"
-                                    />
+                                <div class="relative">
+                                  {/* Expanded View */}
+                                  {expandedGalleryItem.value?.card === 1 && (
+                                    <div class="absolute inset-0 z-20 rounded-lg overflow-hidden animate-in fade-in duration-200">
+                                      <button
+                                        onClick$={() => expandedGalleryItem.value = null}
+                                        class="absolute top-2 right-2 z-30 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                                      >
+                                        <LuX class="w-4 h-4 text-white" />
+                                      </button>
+                                      {expandedGalleryItem.value.item === 0 && (
+                                        <img src="/images/ap1.jpg" alt="Performance" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 1 && (
+                                        <img src="/images/ap2.jpg" alt="Studio" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 2 && (
+                                        <img src="/images/ap3.JPEG" alt="Concert" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 3 && (
+                                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Live performance" class="w-full h-full object-cover" />
+                                      )}
+                                    </div>
+                                  )}
+                                  {/* Grid */}
+                                  <div class={`grid grid-cols-2 gap-2 ${expandedGalleryItem.value?.card === 1 ? 'invisible' : ''}`}>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 1, item: 0 }}
+                                    >
+                                      <img src="/images/ap1.jpg" alt="Performance" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 1, item: 1 }}
+                                    >
+                                      <img src="/images/ap2.jpg" alt="Studio" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 1, item: 2 }}
+                                    >
+                                      <img src="/images/ap3.JPEG" alt="Concert" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 1, item: 3 }}
+                                    >
+                                      <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Live performance" class="w-full h-full object-cover" />
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -635,7 +692,7 @@ export default component$(() => {
                         onTouchEnd$={handleBackTouchEnd}
                       >
                         <div
-                          class={`relative backdrop-blur-sm p-6 rounded-2xl shadow-2xl h-full ${style.backBg} border ${style.backBorder}`}
+                          class={`relative backdrop-blur-sm p-5 md:p-6 rounded-2xl shadow-2xl h-full ${style.backBg} border ${style.backBorder}`}
                           style={{
                             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
                           }}
@@ -653,7 +710,7 @@ export default component$(() => {
                           {flipTarget.value === 'menu' && (
                             <div class="pt-2">
                               {/* Logo and Navigation container */}
-                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-4 mb-4`}>
+                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-3 mb-3`}>
                                 {/* Logo */}
                                 <div class="mb-4">
                                   <a href="/" class="focus:outline-none">
@@ -811,7 +868,7 @@ export default component$(() => {
                           {flipTarget.value === 'session-violinist' && (
                             <div class="pt-2">
                               {/* Text container */}
-                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-4 mb-4`}>
+                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-3 mb-3`}>
                                 <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>{t(locale, "expanded.sessionViolinist")}</h3>
                                 <p class={`text-lg ${style.backText} mb-2`}>
                                   {t(locale, "expanded.sessionViolinistTagline")}
@@ -835,37 +892,62 @@ export default component$(() => {
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <div class="grid grid-cols-2 gap-2">
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80"
-                                      alt="Studio session"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="/images/sv2.JPG"
-                                      alt="Session violinist"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="/images/sv3.JPG"
-                                      alt="Session violinist"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <iframe
-                                      src="https://www.youtube.com/embed/dl6sZEikzz0"
-                                      title="Session violinist video"
-                                      class="w-full h-full"
-                                      frameBorder="0"
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                      allowFullscreen
-                                    ></iframe>
+                                <div class="relative">
+                                  {/* Expanded View */}
+                                  {expandedGalleryItem.value?.card === 2 && (
+                                    <div class="absolute inset-0 z-20 rounded-lg overflow-hidden animate-in fade-in duration-200">
+                                      <button
+                                        onClick$={() => expandedGalleryItem.value = null}
+                                        class="absolute top-2 right-2 z-30 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                                      >
+                                        <LuX class="w-4 h-4 text-white" />
+                                      </button>
+                                      {expandedGalleryItem.value.item === 0 && (
+                                        <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80" alt="Studio session" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 1 && (
+                                        <img src="/images/sv2.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 2 && (
+                                        <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 3 && (
+                                        <iframe
+                                          src="https://www.youtube.com/embed/dl6sZEikzz0?autoplay=1"
+                                          title="Session violinist video"
+                                          class="w-full h-full"
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                          allowFullscreen
+                                        ></iframe>
+                                      )}
+                                    </div>
+                                  )}
+                                  {/* Grid */}
+                                  <div class={`grid grid-cols-2 gap-2 ${expandedGalleryItem.value?.card === 2 ? 'invisible' : ''}`}>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 2, item: 0 }}
+                                    >
+                                      <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80" alt="Studio session" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 2, item: 1 }}
+                                    >
+                                      <img src="/images/sv2.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 2, item: 2 }}
+                                    >
+                                      <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 2, item: 3 }}
+                                    >
+                                      <img src="https://img.youtube.com/vi/dl6sZEikzz0/hqdefault.jpg" alt="Session violinist video" class="w-full h-full object-cover" />
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -885,7 +967,7 @@ export default component$(() => {
                           {flipTarget.value === 'live-performance' && (
                             <div class="pt-2">
                               {/* Text container */}
-                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-4 mb-4`}>
+                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-3 mb-3`}>
                                 <h3 class={`text-2xl font-bold ${style.backText} mb-3`}>{t(locale, "expanded.artistProfile")}</h3>
 
                                 <p class={`text-base ${style.backTextMuted} leading-relaxed mb-3`}>
@@ -910,34 +992,56 @@ export default component$(() => {
 
                               {/* Portfolio Grid */}
                               <div class="mb-4">
-                                <div class="grid grid-cols-2 gap-2">
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="/images/ap1.jpg"
-                                      alt="Performance"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="/images/ap2.jpg"
-                                      alt="Studio"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="/images/ap3.JPEG"
-                                      alt="Concert"
-                                      class="w-full h-full object-cover"
-                                    />
-                                  </div>
-                                  <div class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder}`}>
-                                    <img
-                                      src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80"
-                                      alt="Live performance"
-                                      class="w-full h-full object-cover"
-                                    />
+                                <div class="relative">
+                                  {/* Expanded View */}
+                                  {expandedGalleryItem.value?.card === 3 && (
+                                    <div class="absolute inset-0 z-20 rounded-lg overflow-hidden animate-in fade-in duration-200">
+                                      <button
+                                        onClick$={() => expandedGalleryItem.value = null}
+                                        class="absolute top-2 right-2 z-30 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                                      >
+                                        <LuX class="w-4 h-4 text-white" />
+                                      </button>
+                                      {expandedGalleryItem.value.item === 0 && (
+                                        <img src="/images/ap1.jpg" alt="Performance" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 1 && (
+                                        <img src="/images/ap2.jpg" alt="Studio" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 2 && (
+                                        <img src="/images/ap3.JPEG" alt="Concert" class="w-full h-full object-cover" />
+                                      )}
+                                      {expandedGalleryItem.value.item === 3 && (
+                                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Live performance" class="w-full h-full object-cover" />
+                                      )}
+                                    </div>
+                                  )}
+                                  {/* Grid */}
+                                  <div class={`grid grid-cols-2 gap-2 ${expandedGalleryItem.value?.card === 3 ? 'invisible' : ''}`}>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 3, item: 0 }}
+                                    >
+                                      <img src="/images/ap1.jpg" alt="Performance" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 3, item: 1 }}
+                                    >
+                                      <img src="/images/ap2.jpg" alt="Studio" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 3, item: 2 }}
+                                    >
+                                      <img src="/images/ap3.JPEG" alt="Concert" class="w-full h-full object-cover" />
+                                    </div>
+                                    <div
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      onClick$={() => expandedGalleryItem.value = { card: 3, item: 3 }}
+                                    >
+                                      <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Live performance" class="w-full h-full object-cover" />
+                                    </div>
                                   </div>
                                 </div>
                               </div>
