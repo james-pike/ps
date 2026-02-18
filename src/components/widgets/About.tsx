@@ -169,7 +169,7 @@ export default component$(() => {
           <div class="relative max-w-7xl mx-auto">
             <h2 class="text-4xl md:text-5xl lg:text-6xl text-center font-bold tracking-tight mb-16">
               <span class="bg-gradient-to-r from-primary-400 via-secondary-400 to-primary-500 bg-clip-text text-transparent">
-                What I Bring
+                What I Brings
               </span>
             </h2>
             <div class="mx-auto grid max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
