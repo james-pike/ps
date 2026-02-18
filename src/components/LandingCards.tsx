@@ -75,14 +75,14 @@ export default component$(() => {
       <div class="relative max-w-7xl mx-auto px-1 lg:px-4">
         {/* Textured container */}
         <div
-          class="relative bg-gradient-to-br from-stone-200 to-stone-100 rounded-2xl p-3 md:p-6 border-2 border-stone-400/60"
+          class="relative bg-gradient-to-br from-stone-200 to-stone-100 rounded-2xl p-5 md:p-6 border-2 border-stone-400/60"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%232c2825' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
           }}
         >
           {/* Show cards grid when nothing is expanded */}
           {expandedCard.value === null ? (
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
               {services.map((service, index) => {
                 const accentStyles: Record<string, { border: string; overlay: string; button: string }> = {
                   stone: {

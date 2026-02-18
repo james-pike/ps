@@ -492,7 +492,7 @@ export default component$(() => {
                     <div class={`flip-card-inner ${isActiveCard && isFlipped.value ? 'flipped' : ''}`}>
                       {/* FRONT OF CARD */}
                       <div class="flip-card-front">
-                        <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-7 md:p-8 rounded-2xl border ${style.border} shadow-2xl`}>
+                        <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-6 md:p-7 rounded-2xl border ${style.border} shadow-2xl`}>
                           {/* Texture overlay */}
                           <div
                             class="absolute inset-0 rounded-2xl pointer-events-none z-0"
@@ -500,26 +500,36 @@ export default component$(() => {
                               backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
                             }}
                           ></div>
-                          <div class="relative z-10 inline-block mb-4 -mt-3">
-                            <span class={`px-3 py-1 rounded-full ${style.badge} text-xs font-medium tracking-wider uppercase`}>
-                              {card.badge}
-                            </span>
+                          {/* Text content container with semi-transparent background */}
+                          <div class={`relative z-10 ${index === 0 ? 'bg-stone-100/50' : 'bg-slate-200/50'} backdrop-blur-[2px] rounded-xl px-4 py-3 mb-4 -mx-1`}>
+                            <div class="inline-block mb-3 -mt-1">
+                              <span class={`px-3 py-1 rounded-full ${style.badge} text-xs font-medium tracking-wider uppercase`}>
+                                {card.badge}
+                              </span>
+                            </div>
+                            <h1 class="text-[2.625rem] md:text-5xl font-bold tracking-tight leading-tight mb-3">
+                              <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
+                                {card.title[0]}
+                              </span>
+                              <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
+                                {card.title[1]}
+                              </span>
+                              <span class={`${style.titleLast} block`}>{card.title[2]}</span>
+                            </h1>
+                            {/* Card 1: Session Violinist / Card 2: Songwriter */}
+                            {index === 0 ? (
+                              <p class={`text-xl ${style.description} min-h-[3.5rem]`}>
+                                {card.description} Available for weddings, events, funerals, studio sessions, and custom arrangements.
+                              </p>
+                            ) : (
+                              <p class={`text-xl ${style.description}`}>
+                                {card.description} {t(locale, "expanded.artistDesc")}
+                              </p>
+                            )}
                           </div>
-                          <h1 class="relative z-10 text-[2.625rem] md:text-5xl font-bold tracking-tight leading-tight mb-4">
-                            <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
-                              {card.title[0]}
-                            </span>
-                            <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
-                              {card.title[1]}
-                            </span>
-                            <span class={`${style.titleLast} block`}>{card.title[2]}</span>
-                          </h1>
                           {/* Card 1: Session Violinist / Card 2: Songwriter */}
                           {index === 0 ? (
                             <>
-                              <p class={`relative z-10 text-xl ${style.description} mb-4 min-h-[3.5rem]`}>
-                                {card.description} Available for weddings, events, funerals, studio sessions, and custom arrangements.
-                              </p>
 
                               {/* Portfolio Grid */}
                               <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
@@ -569,11 +579,6 @@ export default component$(() => {
                             </>
                           ) : (
                             <>
-                              {/* Card 2: Songwriter with description and gallery */}
-                              <p class={`relative z-10 text-xl ${style.description} mb-4`}>
-                                {card.description} {t(locale, "expanded.artistDesc")}
-                              </p>
-
                               {/* Portfolio Grid */}
                               <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
                                 <div class="grid grid-cols-2 gap-2">
@@ -635,7 +640,6 @@ export default component$(() => {
                             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
                           }}
                         >
-
                           {/* Close button */}
                           <button
                             onClick$={handleFlipBack}
@@ -648,32 +652,34 @@ export default component$(() => {
                           {/* Menu Back Content */}
                           {flipTarget.value === 'menu' && (
                             <div class="pt-2">
-                              {/* Logo */}
-                              <div class="mb-4">
-                                <a href="/" class="focus:outline-none">
-                                  <span class={`inline-block px-4 py-1.5 rounded-full ${style.backSocialBg} ${style.backText} text-lg font-medium tracking-wide`}>
-                                    Phineas Stewart
-                                  </span>
-                                </a>
-                              </div>
+                              {/* Logo and Navigation container */}
+                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-4 mb-4`}>
+                                {/* Logo */}
+                                <div class="mb-4">
+                                  <a href="/" class="focus:outline-none">
+                                    <span class={`inline-block px-4 py-1.5 rounded-full ${style.backSocialBg} ${style.backText} text-lg font-medium tracking-wide`}>
+                                      Phineas Stewart
+                                    </span>
+                                  </a>
+                                </div>
 
-                              {/* Navigation */}
-                              <nav class="space-y-1 max-h-[45vh] overflow-y-auto pr-2">
-                                {menuItems.filter(item => item.title !== "Updates").map((item, menuIdx) => (
-                                  <div key={menuIdx}>
-                                    <button
-                                      onClick$={(e) => handleMenuItemClick(item.title, e)}
-                                      class={`w-full text-left block px-3 py-2.5 rounded-lg text-lg font-medium ${style.backText} ${style.backMenuHover} transition-colors`}
-                                    >
-                                      {item.title}
-                                    </button>
-                                  </div>
-                                ))}
-                              </nav>
+                                {/* Navigation */}
+                                <nav class="space-y-1 max-h-[45vh] overflow-y-auto pr-2">
+                                  {menuItems.filter(item => item.title !== "Updates").map((item, menuIdx) => (
+                                    <div key={menuIdx}>
+                                      <button
+                                        onClick$={(e) => handleMenuItemClick(item.title, e)}
+                                        class={`w-full text-left block px-3 py-2.5 rounded-lg text-lg font-medium ${style.backText} ${style.backMenuHover} transition-colors`}
+                                      >
+                                        {item.title}
+                                      </button>
+                                    </div>
+                                  ))}
+                                </nav>
 
-                              {/* Social Links */}
-                              <div class={`mt-4 pt-4 border-t ${style.divider}`}>
-                                <p class={`text-xs ${style.backTextMuted} text-center mb-3`}>Follow on</p>
+                                {/* Social Links */}
+                                <div class={`mt-4 pt-4 border-t ${style.divider}`}>
+                                  <p class={`text-xs ${style.backTextMuted} text-center mb-3`}>Follow on</p>
                                 <div class="flex justify-center gap-4">
                                   <a
                                     href="https://www.youtube.com/channel/UCeX217HOtpviekPVlEO8jJQ"
@@ -712,6 +718,7 @@ export default component$(() => {
                                     <LuInstagram class="w-6 h-6" />
                                   </a>
                                 </div>
+                              </div>
                               </div>
                             </div>
                           )}
@@ -803,23 +810,26 @@ export default component$(() => {
                           {/* Session Violinist Expanded Content */}
                           {flipTarget.value === 'session-violinist' && (
                             <div class="pt-2">
-                              <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>{t(locale, "expanded.sessionViolinist")}</h3>
-                              <p class={`text-lg ${style.backText} mb-2`}>
-                                {t(locale, "expanded.sessionViolinistTagline")}
-                              </p>
-                              <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
-                                {t(locale, "expanded.sessionViolinistDesc")}
-                              </p>
+                              {/* Text container */}
+                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-4 mb-4`}>
+                                <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>{t(locale, "expanded.sessionViolinist")}</h3>
+                                <p class={`text-lg ${style.backText} mb-2`}>
+                                  {t(locale, "expanded.sessionViolinistTagline")}
+                                </p>
+                                <p class={`text-base ${style.backTextMuted} leading-relaxed mb-3`}>
+                                  {t(locale, "expanded.sessionViolinistDesc")}
+                                </p>
 
-                              {/* Services Tags */}
-                              <div class="mb-4">
-                                <p class={`text-xs uppercase tracking-wide ${style.backTextMuted} mb-2`}>{t(locale, "expanded.services")}</p>
-                                <div class="flex flex-wrap gap-2">
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.weddings")}</span>
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.events")}</span>
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.funerals")}</span>
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.studioSessions")}</span>
-                                  <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.customArrangements")}</span>
+                                {/* Services Tags */}
+                                <div>
+                                  <p class={`text-xs uppercase tracking-wide ${style.backTextMuted} mb-2`}>{t(locale, "expanded.services")}</p>
+                                  <div class="flex flex-wrap gap-2">
+                                    <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.weddings")}</span>
+                                    <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.events")}</span>
+                                    <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.funerals")}</span>
+                                    <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.studioSessions")}</span>
+                                    <span class={`px-3 py-1.5 rounded-lg text-sm font-medium ${style.backSocialBg} ${style.backText}`}>{t(locale, "expanded.customArrangements")}</span>
+                                  </div>
                                 </div>
                               </div>
 
@@ -874,14 +884,17 @@ export default component$(() => {
                           {/* Artist Profile Expanded Content */}
                           {flipTarget.value === 'live-performance' && (
                             <div class="pt-2">
-                              <h3 class={`text-2xl font-bold ${style.backText} mb-3`}>{t(locale, "expanded.artistProfile")}</h3>
+                              {/* Text container */}
+                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-4 mb-4`}>
+                                <h3 class={`text-2xl font-bold ${style.backText} mb-3`}>{t(locale, "expanded.artistProfile")}</h3>
 
-                              <p class={`text-base ${style.backTextMuted} leading-relaxed mb-3`}>
-                                {t(locale, "expanded.artistJourney")}
-                              </p>
-                              <p class={`text-base ${style.backTextMuted} leading-relaxed mb-4`}>
-                                {t(locale, "expanded.artistStyle")}
-                              </p>
+                                <p class={`text-base ${style.backTextMuted} leading-relaxed mb-3`}>
+                                  {t(locale, "expanded.artistJourney")}
+                                </p>
+                                <p class={`text-base ${style.backTextMuted} leading-relaxed`}>
+                                  {t(locale, "expanded.artistStyle")}
+                                </p>
+                              </div>
 
                               {/* Location Tags */}
                               <div class="flex flex-wrap gap-2 mb-4">
@@ -967,7 +980,7 @@ export default component$(() => {
               rightBg: "from-stone-50/95 to-stone-100/95",
               rightInner: "bg-stone-100/90",
               imageBorder: "border-stone-400/60",
-              badge: "bg-stone-100/70 border-stone-300/50 text-stone-600",
+              badge: "bg-stone-100/50 border-stone-300/50 text-stone-600",
               title: "from-gray-900 via-gray-800 to-gray-900",
               titleMiddle: "text-gray-900",
               titleLast: "text-gray-900",

@@ -47,17 +47,19 @@ export default component$(() => {
         <div class="grid grid-cols-12 gap-4 gap-y-4 sm:gap-4 py-8 md:pt-12 md:pb-2">
           {/* First Column: Logo, Description, Newsletter */}
           <div class="col-span-12 lg:col-span-5 md:pr-8">
-            <div class="mb-4 mt-2 md:mt-0">
-              <Link class="inline-block font-bold text-2xl text-stone-700 hover:text-stone-800 transition-colors" href={"/"}>
-                Phineas Stewart
-              </Link>
-            </div>
-            <div class="text-base text-stone-600 leading-relaxed">
-              {t(locale, "footer.description")}
-            </div>
+            {/* Text container with semi-transparent background */}
+            <div class="bg-stone-100/50 backdrop-blur-[2px] rounded-xl p-4 -ml-2">
+              <div class="mb-3">
+                <Link class="inline-block font-bold text-2xl text-stone-700 hover:text-stone-800 transition-colors" href={"/"}>
+                  Phineas Stewart
+                </Link>
+              </div>
+              <div class="text-base text-stone-600 leading-relaxed">
+                {t(locale, "footer.description")}
+              </div>
 
-            {/* Social Icons - Below description, centered on mobile, left-aligned on desktop */}
-            <div class="flex gap-3 mt-4">
+              {/* Social Icons - Below description, centered on mobile, left-aligned on desktop */}
+              <div class="flex gap-3 mt-4">
               <a
                 href="https://www.youtube.com/channel/UCeX217HOtpviekPVlEO8jJQ"
                 target="_blank"
@@ -98,6 +100,7 @@ export default component$(() => {
               >
                 <LuInstagram class="w-5 h-5" />
               </a>
+            </div>
             </div>
           </div>
           {/* Sitemap Columns */}
