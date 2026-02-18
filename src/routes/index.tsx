@@ -10,11 +10,13 @@ export default component$(() => {
       <div>
         <Hero />
 
-        {/* Services Section */}
-        <LandingCards />
+        {/* Services Section - Hidden on mobile since it's in Hero */}
+        <div class="hidden lg:block">
+          <LandingCards />
+        </div>
 
         {/* Newsletter Section */}
-        <section class="relative py-16 px-5 overflow-hidden bg-stone-100">
+        <section class="relative py-8 px-5 overflow-hidden bg-stone-100">
           <div class="relative max-w-xl mx-auto">
             {/* Outer container with darker textured border */}
             <div
