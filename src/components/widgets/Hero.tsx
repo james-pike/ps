@@ -1,5 +1,4 @@
 import { component$, useSignal, useVisibleTask$, useStyles$, $ } from "@builder.io/qwik";
-import { Image } from "@unpic/qwik";
 import { menuItems } from "./MenuModal";
 import IconHamburger from "../icons/IconHamburger";
 import IconChevronDown from "../icons/IconChevronDown";
@@ -555,7 +554,7 @@ export default component$(() => {
                                     <div class="absolute inset-0 z-20 rounded-lg overflow-hidden animate-in fade-in duration-200">
                                       <button
                                         onClick$={() => {
-                                          const wasVideo = expandedGalleryItem.value?.item === 3;
+                                          const wasVideo = expandedGalleryItem.value?.item === 2 || expandedGalleryItem.value?.item === 3;
                                           expandedGalleryItem.value = null;
                                           if (wasVideo) videoPlaying.value = false;
                                         }}
@@ -564,13 +563,19 @@ export default component$(() => {
                                         <LuX class="w-4 h-4 text-white" />
                                       </button>
                                       {expandedGalleryItem.value.item === 0 && (
-                                        <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80" alt="Studio session" class="w-full h-full object-cover" />
+                                        <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                       )}
                                       {expandedGalleryItem.value.item === 1 && (
                                         <img src="/images/sv2.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                       )}
                                       {expandedGalleryItem.value.item === 2 && (
-                                        <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                        <iframe
+                                          src="https://www.youtube.com/embed/rFRBV-bvkTI?autoplay=1"
+                                          title="Session violinist video"
+                                          class="w-full h-full"
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                          allowFullscreen
+                                        ></iframe>
                                       )}
                                       {expandedGalleryItem.value.item === 3 && (
                                         <iframe
@@ -589,7 +594,7 @@ export default component$(() => {
                                       class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
                                       onClick$={() => expandedGalleryItem.value = { card: 0, item: 0 }}
                                     >
-                                      <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80" alt="Studio session" class="w-full h-full object-cover" />
+                                      <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                     </div>
                                     <div
                                       class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
@@ -598,10 +603,13 @@ export default component$(() => {
                                       <img src="/images/sv2.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                     </div>
                                     <div
-                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity relative`}
                                       onClick$={() => expandedGalleryItem.value = { card: 0, item: 2 }}
                                     >
-                                      <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                      <img src="https://img.youtube.com/vi/rFRBV-bvkTI/hqdefault.jpg" alt="Session violinist video" class="w-full h-full object-cover" />
+                                      <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                        <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                      </div>
                                     </div>
                                     <div
                                       class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity relative`}
@@ -798,6 +806,24 @@ export default component$(() => {
                                   </a>
                                 </div>
                               </div>
+
+                              {/* Action Buttons */}
+                              <div class={`mt-4 pt-4 border-t ${style.divider} space-y-2`}>
+                                <a
+                                  href="mailto:book@phineasstewart.com"
+                                  class="group relative flex items-center justify-center gap-2 w-full px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 rounded-lg shadow-md hover:shadow-amber-500/25 transition-all duration-300 hover:scale-[1.02] overflow-hidden"
+                                >
+                                  <LuCalendar class="w-4 h-4" />
+                                  <span>Book Session Violinist</span>
+                                </a>
+                                <a
+                                  href="mailto:hello@phineasstewart.com"
+                                  class={`flex items-center justify-center gap-2 w-full px-4 py-2.5 text-sm font-semibold ${style.backText} ${style.backSocialBg} rounded-lg hover:scale-[1.02] transition-all duration-300`}
+                                >
+                                  <LuMail class="w-4 h-4" />
+                                  <span>Get in Touch</span>
+                                </a>
+                              </div>
                               </div>
                             </div>
                           )}
@@ -925,13 +951,19 @@ export default component$(() => {
                                         <LuX class="w-4 h-4 text-white" />
                                       </button>
                                       {expandedGalleryItem.value.item === 0 && (
-                                        <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80" alt="Studio session" class="w-full h-full object-cover" />
+                                        <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                       )}
                                       {expandedGalleryItem.value.item === 1 && (
                                         <img src="/images/sv2.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                       )}
                                       {expandedGalleryItem.value.item === 2 && (
-                                        <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                        <iframe
+                                          src="https://www.youtube.com/embed/rFRBV-bvkTI?autoplay=1"
+                                          title="Session violinist video"
+                                          class="w-full h-full"
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                          allowFullscreen
+                                        ></iframe>
                                       )}
                                       {expandedGalleryItem.value.item === 3 && (
                                         <iframe
@@ -950,7 +982,7 @@ export default component$(() => {
                                       class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
                                       onClick$={() => expandedGalleryItem.value = { card: 2, item: 0 }}
                                     >
-                                      <img src="https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=800&q=80" alt="Studio session" class="w-full h-full object-cover" />
+                                      <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                     </div>
                                     <div
                                       class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
@@ -959,10 +991,13 @@ export default component$(() => {
                                       <img src="/images/sv2.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                     </div>
                                     <div
-                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity relative`}
                                       onClick$={() => expandedGalleryItem.value = { card: 2, item: 2 }}
                                     >
-                                      <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
+                                      <img src="https://img.youtube.com/vi/rFRBV-bvkTI/hqdefault.jpg" alt="Session violinist video" class="w-full h-full object-cover" />
+                                      <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                        <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                      </div>
                                     </div>
                                     <div
                                       class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity relative`}
@@ -1108,100 +1143,187 @@ export default component$(() => {
 
         </div>
 
-        {/* Desktop Layout - Simple Hero */}
-        <div class="hidden lg:block w-full max-w-7xl mx-auto px-4">
+        {/* Desktop Layout - Styled like mobile */}
+        <div class="hidden lg:block w-full max-w-7xl mx-auto px-4 py-8 space-y-6">
+          {/* Session Violinist Card */}
           {(() => {
-            const card = heroCards[0]; // Show first card
-            const ds = {
-              leftBg: "from-stone-100/95 to-stone-50/95",
-              leftInner: "bg-stone-50/90",
-              rightBg: "from-stone-50/95 to-stone-100/95",
-              rightInner: "bg-stone-100/90",
-              imageBorder: "border-stone-400/60",
-              badge: "bg-stone-100/50 border-stone-300/50 text-stone-600",
+            const card = heroCards[0];
+            const style = {
+              bg: "from-stone-200 to-stone-100",
+              border: "border-stone-500/60",
+              badge: "bg-stone-200/70 border-stone-400/50 text-stone-700",
               title: "from-gray-900 via-gray-800 to-gray-900",
-              titleMiddle: "text-gray-900",
-              titleLast: "text-gray-900",
-              description: "text-stone-600",
-              button: "from-stone-200 to-stone-300 hover:from-stone-300 hover:to-stone-400 shadow-stone-200/20 text-stone-700",
-              buttonOutline: "border-stone-300 text-stone-600 hover:bg-stone-200/30",
-              statValue: "text-stone-600",
-              statLabel: "text-stone-500/70",
-              divider: "border-stone-200/50"
+              description: "text-stone-700",
+              button: "from-stone-300 to-stone-400 hover:from-stone-400 hover:to-stone-500 shadow-stone-300/20 text-stone-800",
+              statValue: "text-stone-700",
+              statLabel: "text-stone-600/70",
+              divider: "border-stone-300/50",
+              textureColor: "#2c2825"
             };
 
             return (
-              <div class="grid grid-cols-2 gap-8 py-12">
-                {/* Left: Messaging */}
-                <div class="flex flex-col justify-center">
-                  <div class="inline-block mb-4">
-                    <span class={`px-4 py-2 rounded-full ${ds.badge} text-sm font-medium tracking-wider uppercase`}>
-                      {card.badge}
-                    </span>
+              <div
+                class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-6 rounded-2xl border ${style.border} shadow-2xl`}
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
+                }}
+              >
+                <div class="grid grid-cols-2 gap-8">
+                  {/* Left: Text Content */}
+                  <div class="bg-stone-100/50 backdrop-blur-[2px] rounded-xl p-6">
+                    <div class="inline-block mb-4">
+                      <span class={`px-3 py-1 rounded-full ${style.badge} text-xs font-medium tracking-wider uppercase`}>
+                        {card.badge}
+                      </span>
+                    </div>
+
+                    <h1 class="text-4xl xl:text-5xl font-bold tracking-tight leading-tight mb-4">
+                      <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
+                        {card.title[0]}
+                      </span>
+                      <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
+                        {card.title[1]}
+                      </span>
+                    </h1>
+
+                    <p class={`text-lg ${style.description} mb-6`}>
+                      {card.description} Available for weddings, events, funerals, studio sessions, and custom arrangements.
+                    </p>
+
+                    <div class="flex gap-3 mb-6">
+                      <a
+                        href="mailto:book@phineasstewart.com"
+                        class={`group/btn flex-1 px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
+                      >
+                        {t(locale, "service.bookSessionViolinist")}
+                        <span class="inline-block ml-2 transition-transform group-hover/btn:translate-x-1">→</span>
+                      </a>
+                    </div>
+
+                    <div class={`grid grid-cols-3 gap-4 pt-4 border-t ${style.divider}`}>
+                      {card.stats.map((stat, idx) => (
+                        <div key={idx}>
+                          <div class={`text-2xl font-bold ${style.statValue}`}>{stat.value}</div>
+                          <div class={`text-xs ${style.statLabel} uppercase tracking-wide`}>{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
 
-                  <h1 class="text-4xl xl:text-6xl font-bold tracking-tight leading-tight mb-4">
-                    <span class={`bg-gradient-to-r ${ds.title} bg-clip-text text-transparent`}>
-                      {card.title[0]}
-                    </span>
-                    <br />
-                    <span class={ds.titleMiddle}>{card.title[1]}</span>
-                    <br />
-                    <span class={`bg-gradient-to-r ${ds.titleLast} bg-clip-text text-transparent`}>
-                      {card.title[2]}
-                    </span>
-                  </h1>
-
-                  <p class={`text-base xl:text-lg ${ds.description} mb-6 max-w-md`}>
-                    {card.description}
-                  </p>
-
-                  <div class="flex flex-col gap-3 mb-6">
-                    <a
-                      href="/gallery"
-                      class={`group/btn px-6 py-3 bg-gradient-to-r ${ds.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
-                    >
-                      {t(locale, "button.learnMore")}
-                      <span class="inline-block ml-2 transition-transform group-hover/btn:translate-x-1">→</span>
-                    </a>
-                    <a
-                      href="mailto:book@phineasstewart.com"
-                      class={`px-6 py-3 bg-transparent border-2 ${ds.buttonOutline} font-semibold rounded-lg transition-all duration-300 hover:scale-105 text-center`}
-                    >
-                      {t(locale, "hero.bookSession")}
-                    </a>
-                  </div>
-
-                  <div class={`grid grid-cols-3 gap-4 pt-4 border-t ${ds.divider}`}>
-                    {card.stats.map((stat, idx) => (
-                      <div key={idx}>
-                        <div class={`text-2xl xl:text-3xl font-bold ${ds.statValue}`}>{stat.value}</div>
-                        <div class={`text-xs ${ds.statLabel} uppercase tracking-wide`}>{stat.label}</div>
+                  {/* Right: Media Grid */}
+                  <div class="flex flex-col justify-center">
+                    <div class="grid grid-cols-2 gap-3">
+                      <div class={`aspect-video rounded-lg overflow-hidden border ${style.border} shadow-lg`}>
+                        <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="eager" />
                       </div>
-                    ))}
+                      <div class={`aspect-video rounded-lg overflow-hidden border ${style.border} shadow-lg`}>
+                        <img src="/images/sv2.JPG" alt="Session violinist" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="eager" />
+                      </div>
+                      <div class={`aspect-video rounded-lg overflow-hidden border ${style.border} shadow-lg relative`}>
+                        <img src="https://img.youtube.com/vi/rFRBV-bvkTI/hqdefault.jpg" alt="Session violinist video" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="eager" />
+                        <div class="absolute bottom-2 left-2 bg-black/70 rounded-full p-1.5">
+                          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                      </div>
+                      <div class={`aspect-video rounded-lg overflow-hidden border ${style.border} shadow-lg relative`}>
+                        <img src="https://img.youtube.com/vi/dl6sZEikzz0/hqdefault.jpg" alt="Session violinist video" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="eager" />
+                        <div class="absolute bottom-2 left-2 bg-black/70 rounded-full p-1.5">
+                          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
+              </div>
+            );
+          })()}
 
-                {/* Right: Image */}
-                <div class="flex items-center justify-center">
-                  <div class={`relative border-2 ${ds.imageBorder} rounded-xl overflow-hidden w-full aspect-square shadow-2xl`}>
-                    {cardVideos[0].map((img, idx) => (
-                      <div
-                        key={idx}
-                        class={`absolute inset-0 transition-all duration-700 ${
-                          idx === rightColumnImageIndex.value
-                            ? 'opacity-100 scale-100'
-                            : 'opacity-0 scale-110'
-                        }`}
-                      >
-                        <Image
-                          src={img}
-                          alt={`Gallery ${idx + 1}`}
-                          class="w-full h-full object-cover"
-                        />
+          {/* Artist Profile Card */}
+          {(() => {
+            const card = heroCards[1];
+            const style = {
+              bg: "from-slate-300 to-slate-200",
+              border: "border-slate-500/60",
+              badge: "bg-slate-300/70 border-slate-400/50 text-slate-800",
+              title: "from-gray-900 via-gray-800 to-gray-900",
+              description: "text-slate-800",
+              button: "from-slate-300 to-slate-400 hover:from-slate-400 hover:to-slate-500 shadow-slate-300/20 text-slate-900",
+              statValue: "text-slate-800",
+              statLabel: "text-slate-700/70",
+              divider: "border-slate-400/50",
+              textureColor: "#1e293b"
+            };
+
+            return (
+              <div
+                class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-6 rounded-2xl border ${style.border} shadow-2xl`}
+                style={{
+                  backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
+                }}
+              >
+                <div class="grid grid-cols-2 gap-8">
+                  {/* Left: Media Grid */}
+                  <div class="flex flex-col justify-center">
+                    <div class="grid grid-cols-2 gap-3">
+                      <div class={`aspect-video rounded-lg overflow-hidden border ${style.border} shadow-lg`}>
+                        <img src="/images/ap1.jpg" alt="Performance" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="eager" />
                       </div>
-                    ))}
-                    <div class="absolute inset-0 bg-gradient-to-br from-stone-950/20 via-transparent to-stone-950/40"></div>
+                      <div class={`aspect-video rounded-lg overflow-hidden border ${style.border} shadow-lg`}>
+                        <img src="/images/ap2.jpg" alt="Studio" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="eager" />
+                      </div>
+                      <div class={`aspect-video rounded-lg overflow-hidden border ${style.border} shadow-lg`}>
+                        <img src="/images/ap3.JPEG" alt="Concert" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="eager" />
+                      </div>
+                      <div class={`aspect-video rounded-lg overflow-hidden border ${style.border} shadow-lg relative`}>
+                        <img src="https://img.youtube.com/vi/06YplsNk_ro/hqdefault.jpg" alt="Artist profile video" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" loading="eager" />
+                        <div class="absolute bottom-2 left-2 bg-black/70 rounded-full p-1.5">
+                          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Right: Text Content */}
+                  <div class="bg-slate-200/50 backdrop-blur-[2px] rounded-xl p-6">
+                    <div class="inline-block mb-4">
+                      <span class={`px-3 py-1 rounded-full ${style.badge} text-xs font-medium tracking-wider uppercase`}>
+                        {card.badge}
+                      </span>
+                    </div>
+
+                    <h1 class="text-4xl xl:text-5xl font-bold tracking-tight leading-tight mb-4">
+                      <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
+                        {card.title[0]}
+                      </span>
+                      <span class={`bg-gradient-to-r ${style.title} bg-clip-text text-transparent block`}>
+                        {card.title[1]}
+                      </span>
+                    </h1>
+
+                    <p class={`text-lg ${style.description} mb-6`}>
+                      {card.description} East Coast roots meet urban inspiration.
+                    </p>
+
+                    <div class="flex gap-3 mb-6">
+                      <a
+                        href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class={`group/btn flex-1 px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105 text-center`}
+                      >
+                        {t(locale, "expanded.listenOnSpotify")}
+                        <span class="inline-block ml-2 transition-transform group-hover/btn:translate-x-1">→</span>
+                      </a>
+                    </div>
+
+                    <div class={`grid grid-cols-3 gap-4 pt-4 border-t ${style.divider}`}>
+                      {card.stats.map((stat, idx) => (
+                        <div key={idx}>
+                          <div class={`text-2xl font-bold ${style.statValue}`}>{stat.value}</div>
+                          <div class={`text-xs ${style.statLabel} uppercase tracking-wide`}>{stat.label}</div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

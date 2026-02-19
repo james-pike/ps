@@ -1,5 +1,5 @@
 import { component$, useSignal, $, Signal, useVisibleTask$ } from "@builder.io/qwik";
-import { LuX, LuChevronDown, LuFacebook, LuInstagram, LuGlobe, LuYoutube, LuMusic, LuCalendar } from "@qwikest/icons/lucide";
+import { LuX, LuChevronDown, LuInstagram, LuGlobe, LuYoutube, LuMusic, LuCalendar, LuMail } from "@qwikest/icons/lucide";
 import { cn } from "@qwik-ui/utils";
 import { useLocation } from "@builder.io/qwik-city";
 import { Modal } from "../ui/Modal";
@@ -263,39 +263,50 @@ export default component$(() => {
 
             {/* Social Links */}
             <div class="px-4 pt-4 pb-3 border-b border-primary-800/30">
-              <div class="flex items-center justify-center gap-6">
+              <div class="flex items-center justify-center gap-5">
                 <a
                   href="https://www.instagram.com/phineasstewart"
                   target="_blank"
                   rel="noopener noreferrer"
                   class="flex flex-col items-center gap-1 text-tertiary-400 hover:text-pink-400 transition-colors"
                 >
-                  <LuInstagram class="h-7 w-7" />
+                  <LuInstagram class="h-6 w-6" />
                   <span class="text-xs">Instagram</span>
                 </a>
                 <a
-                  href="https://www.facebook.com/yourpage"
+                  href="https://www.tiktok.com/@phineasstewart"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex flex-col items-center gap-1 text-tertiary-400 hover:text-blue-400 transition-colors"
+                  class="flex flex-col items-center gap-1 text-tertiary-400 hover:text-tertiary-200 transition-colors"
                 >
-                  <LuFacebook class="h-7 w-7" />
-                  <span class="text-xs">Facebook</span>
+                  <svg class="h-6 w-6" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/>
+                  </svg>
+                  <span class="text-xs">TikTok</span>
                 </a>
               </div>
             </div>
 
-            {/* Book Performance CTA */}
-            <div class="px-4 pt-4">
+            {/* Action Buttons */}
+            <div class="px-4 pt-4 space-y-3">
               <a
-                href="/contact"
-                class="group relative flex items-center justify-center gap-3 w-full px-6 py-3.5 text-lg font-semibold text-white bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 rounded-xl shadow-lg hover:shadow-amber-500/25 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] overflow-hidden"
+                href="mailto:book@phineasstewart.com"
+                class="group relative flex items-center justify-center gap-3 w-full px-6 py-3 text-base font-semibold text-white bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 rounded-xl shadow-lg hover:shadow-amber-500/25 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] overflow-hidden"
                 role="button"
-                aria-label="Book a performance"
+                aria-label="Book a session"
               >
                 <LuCalendar class="w-5 h-5" />
-                <span class="relative z-10">Book a Performance</span>
+                <span class="relative z-10">Book Session Violinist</span>
                 <div class="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-white/20 to-amber-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+              </a>
+              <a
+                href="mailto:hello@phineasstewart.com"
+                class="group relative flex items-center justify-center gap-3 w-full px-6 py-3 text-base font-semibold text-tertiary-200 bg-primary-800/50 border border-primary-600/40 rounded-xl hover:bg-primary-700/50 hover:border-primary-500/50 transition-all duration-300 hover:scale-[1.02]"
+                role="button"
+                aria-label="Contact"
+              >
+                <LuMail class="w-5 h-5" />
+                <span class="relative z-10">Get in Touch</span>
               </a>
             </div>
           </div>

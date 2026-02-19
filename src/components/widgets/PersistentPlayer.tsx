@@ -138,8 +138,8 @@ export default component$(() => {
 
   return (
     <>
-      {/* Spacer to prevent content from being hidden behind fixed player */}
-      <div class="h-16 md:h-14" />
+      {/* Spacer to prevent content from being hidden behind fixed player - only show when player is visible */}
+      {hasScrolledPastHero.value && <div class="h-14" />}
 
       {/* Hidden audio element */}
       <audio
