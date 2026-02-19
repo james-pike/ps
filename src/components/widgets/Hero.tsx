@@ -534,11 +534,11 @@ export default component$(() => {
                             {/* Card 1: Session Violinist / Card 2: Songwriter */}
                             {index === 0 ? (
                               <p class={`text-xl ${style.description}`}>
-                                {card.description} Available for weddings, events, funerals, studio sessions, and custom arrangements.
+                                {card.description} {t(locale, "hero.sessionAvailable")}
                               </p>
                             ) : (
                               <p class={`text-xl ${style.description}`}>
-                                {card.description} East Coast roots meet urban inspiration.
+                                {card.description} {t(locale, "hero.artistRoots")}
                               </p>
                             )}
                           </div>
@@ -1234,7 +1234,7 @@ export default component$(() => {
                     </h1>
 
                     <p class={`text-lg ${style.description} mb-6`}>
-                      {card.description} Available for weddings, events, funerals, studio sessions, and custom arrangements.
+                      {card.description} {t(locale, "hero.sessionAvailable")}
                     </p>
 
                     <div class="flex gap-3 mb-6">
@@ -1348,7 +1348,7 @@ export default component$(() => {
                     </h1>
 
                     <p class={`text-lg ${style.description} mb-6`}>
-                      {card.description} East Coast roots meet urban inspiration.
+                      {card.description} {t(locale, "hero.artistRoots")}
                     </p>
 
                     <div class="flex gap-3 mb-6">

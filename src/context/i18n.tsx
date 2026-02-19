@@ -156,6 +156,14 @@ export const translations = {
     "hero.artistCardDesc": "Born and raised in Nova Scotia, now creating music in Montreal.",
     "hero.roots": "Roots",
     "hero.based": "Based",
+    "hero.sessionAvailable": "Available for weddings, events, funerals, studio sessions, and custom arrangements.",
+    "hero.artistRoots": "East Coast roots meet urban inspiration.",
+
+    // Newsletter
+    "newsletter.stayUpdated": "Stay Updated",
+    "newsletter.description": "Get the latest news and updates delivered to your inbox.",
+    "newsletter.placeholder": "Enter your email",
+    "newsletter.subscribe": "Subscribe",
 
     // Buttons
     "button.watch": "Watch",
@@ -294,6 +302,14 @@ export const translations = {
     "hero.artistCardDesc": "Né en Nouvelle-Écosse, créant maintenant à Montréal.",
     "hero.roots": "Racines",
     "hero.based": "Basé",
+    "hero.sessionAvailable": "Mariages, événements, funérailles, studio et arrangements.",
+    "hero.artistRoots": "Racines côte Est, inspiration urbaine.",
+
+    // Newsletter
+    "newsletter.stayUpdated": "Restez Informé",
+    "newsletter.description": "Recevez les dernières nouvelles dans votre boîte mail.",
+    "newsletter.placeholder": "Votre courriel",
+    "newsletter.subscribe": "S'abonner",
 
     // Buttons
     "button.watch": "Voir",
