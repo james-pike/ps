@@ -111,7 +111,6 @@ export default component$(() => {
       transform: translate(0, 0) scale(1) rotate(0deg);
       opacity: 1;
       visibility: visible;
-      min-height: 720px;
     }
     .carousel-card-wrapper.next {
       z-index: 2;
@@ -304,7 +303,7 @@ export default component$(() => {
       <div class="absolute top-40 right-20 w-48 h-48 bg-gray-300/15 rounded-full blur-3xl animate-floatx" aria-hidden="true"></div>
       <div class="absolute bottom-20 left-1/3 w-40 h-40 bg-stone-300/15 rounded-full blur-2xl animate-float" aria-hidden="true"></div>
 
-      <div class="relative z-10 w-full mx-auto px-3 pt-3 pb-1 lg:px-4 lg:pt-0 lg:pb-8">
+      <div class="relative z-10 w-full mx-auto px-2 pt-2 pb-1 lg:px-4 lg:pt-0 lg:pb-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden relative">
           {/* Mobile Menu Button + Language Dropdown - positioned above card stack */}
@@ -524,12 +523,12 @@ export default component$(() => {
                             </h1>
                             {/* Card 1: Session Violinist / Card 2: Songwriter */}
                             {index === 0 ? (
-                              <p class={`text-xl ${style.description} min-h-[3.5rem]`}>
+                              <p class={`text-xl ${style.description}`}>
                                 {card.description} Available for weddings, events, funerals, studio sessions, and custom arrangements.
                               </p>
                             ) : (
                               <p class={`text-xl ${style.description}`}>
-                                {card.description} {t(locale, "expanded.artistDesc")}
+                                {card.description} East Coast roots meet urban inspiration.
                               </p>
                             )}
                           </div>

@@ -74,12 +74,12 @@ export default component$(() => {
   });
 
   return (
-    <section class="relative overflow-hidden pb-7 pt-2 md:pt-6 md:pb-28">
+    <section class="relative overflow-hidden pb-2 pt-14 md:pt-6 md:pb-28">
       {/* Background decorations */}
       <div class="absolute top-1/4 left-10 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl"></div>
       <div class="absolute bottom-1/4 right-10 w-64 h-64 bg-stone-300/20 rounded-full blur-3xl"></div>
 
-      <div class="relative max-w-7xl mx-auto px-1 lg:px-4">
+      <div class="relative max-w-7xl mx-auto px-0 lg:px-4">
         {/* Textured container */}
         <div
           class="relative bg-gradient-to-br from-stone-200 to-stone-100 rounded-2xl p-3 md:p-4 border border-stone-400/60"
