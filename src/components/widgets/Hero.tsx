@@ -498,7 +498,7 @@ export default component$(() => {
                     <div class={`flip-card-inner ${isActiveCard && isFlipped.value ? 'flipped' : ''}`}>
                       {/* FRONT OF CARD */}
                       <div class="flip-card-front">
-                        <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-6 md:p-7 rounded-2xl border ${style.border} shadow-2xl`}>
+                        <div class={`relative bg-gradient-to-br ${style.bg} backdrop-blur-sm p-4 md:p-5 rounded-2xl border ${style.border} shadow-2xl`}>
                           {/* Texture overlay */}
                           <div
                             class="absolute inset-0 rounded-2xl pointer-events-none z-0"
@@ -507,7 +507,7 @@ export default component$(() => {
                             }}
                           ></div>
                           {/* Text content container with semi-transparent background */}
-                          <div class={`relative z-10 ${index === 0 ? 'bg-stone-100/50' : 'bg-slate-200/50'} backdrop-blur-[2px] rounded-xl px-4 py-3 mb-4 -mx-1`}>
+                          <div class={`relative z-10 ${index === 0 ? 'bg-stone-100/50' : 'bg-slate-200/50'} backdrop-blur-[2px] rounded-xl px-4 py-3 mb-2 -mx-1`}>
                             <div class="inline-block mb-3 -mt-1">
                               <span class={`px-3 py-1 rounded-full ${style.badge} text-xs font-medium tracking-wider uppercase`}>
                                 {card.badge}
@@ -538,7 +538,7 @@ export default component$(() => {
                             <>
 
                               {/* Portfolio Grid */}
-                              <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
+                              <div class={`relative z-10 mb-4 pt-2 border-t ${style.divider}`}>
                                 <div class="relative">
                                   {/* Expanded View */}
                                   {expandedGalleryItem.value?.card === 0 && (
@@ -594,10 +594,13 @@ export default component$(() => {
                                       <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                     </div>
                                     <div
-                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity relative`}
                                       onClick$={() => expandedGalleryItem.value = { card: 0, item: 3 }}
                                     >
                                       <img src="https://img.youtube.com/vi/dl6sZEikzz0/hqdefault.jpg" alt="Session violinist video" class="w-full h-full object-cover" />
+                                      <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                        <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -615,7 +618,7 @@ export default component$(() => {
                           ) : (
                             <>
                               {/* Portfolio Grid */}
-                              <div class={`relative z-10 mb-4 pt-4 border-t ${style.divider}`}>
+                              <div class={`relative z-10 mb-4 pt-2 border-t ${style.divider}`}>
                                 <div class="relative">
                                   {/* Expanded View */}
                                   {expandedGalleryItem.value?.card === 1 && (
@@ -636,7 +639,13 @@ export default component$(() => {
                                         <img src="/images/ap3.JPEG" alt="Concert" class="w-full h-full object-cover" />
                                       )}
                                       {expandedGalleryItem.value.item === 3 && (
-                                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Live performance" class="w-full h-full object-cover" />
+                                        <iframe
+                                          src="https://www.youtube.com/embed/06YplsNk_ro?autoplay=1"
+                                          title="Artist profile video"
+                                          class="w-full h-full"
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                          allowFullscreen
+                                        ></iframe>
                                       )}
                                     </div>
                                   )}
@@ -661,10 +670,13 @@ export default component$(() => {
                                       <img src="/images/ap3.JPEG" alt="Concert" class="w-full h-full object-cover" />
                                     </div>
                                     <div
-                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.border} cursor-pointer hover:opacity-90 transition-opacity relative`}
                                       onClick$={() => expandedGalleryItem.value = { card: 1, item: 3 }}
                                     >
-                                      <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Live performance" class="w-full h-full object-cover" />
+                                      <img src="https://img.youtube.com/vi/06YplsNk_ro/hqdefault.jpg" alt="Artist profile video" class="w-full h-full object-cover" />
+                                      <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                        <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -692,7 +704,7 @@ export default component$(() => {
                         onTouchEnd$={handleBackTouchEnd}
                       >
                         <div
-                          class={`relative backdrop-blur-sm p-5 md:p-6 rounded-2xl shadow-2xl h-full ${style.backBg} border ${style.backBorder}`}
+                          class={`relative backdrop-blur-sm p-4 md:p-5 rounded-2xl shadow-2xl h-full ${style.backBg} border ${style.backBorder}`}
                           style={{
                             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
                           }}
@@ -943,10 +955,13 @@ export default component$(() => {
                                       <img src="/images/sv3.JPG" alt="Session violinist" class="w-full h-full object-cover" />
                                     </div>
                                     <div
-                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity relative`}
                                       onClick$={() => expandedGalleryItem.value = { card: 2, item: 3 }}
                                     >
                                       <img src="https://img.youtube.com/vi/dl6sZEikzz0/hqdefault.jpg" alt="Session violinist video" class="w-full h-full object-cover" />
+                                      <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                        <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>
@@ -1012,7 +1027,13 @@ export default component$(() => {
                                         <img src="/images/ap3.JPEG" alt="Concert" class="w-full h-full object-cover" />
                                       )}
                                       {expandedGalleryItem.value.item === 3 && (
-                                        <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Live performance" class="w-full h-full object-cover" />
+                                        <iframe
+                                          src="https://www.youtube.com/embed/06YplsNk_ro?autoplay=1"
+                                          title="Artist profile video"
+                                          class="w-full h-full"
+                                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                          allowFullscreen
+                                        ></iframe>
                                       )}
                                     </div>
                                   )}
@@ -1037,10 +1058,13 @@ export default component$(() => {
                                       <img src="/images/ap3.JPEG" alt="Concert" class="w-full h-full object-cover" />
                                     </div>
                                     <div
-                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity`}
+                                      class={`aspect-video rounded-lg overflow-hidden border ${style.backBorder} cursor-pointer hover:opacity-90 transition-opacity relative`}
                                       onClick$={() => expandedGalleryItem.value = { card: 3, item: 3 }}
                                     >
-                                      <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80" alt="Live performance" class="w-full h-full object-cover" />
+                                      <img src="https://img.youtube.com/vi/06YplsNk_ro/hqdefault.jpg" alt="Artist profile video" class="w-full h-full object-cover" />
+                                      <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                        <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                      </div>
                                     </div>
                                   </div>
                                 </div>

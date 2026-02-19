@@ -38,7 +38,7 @@ export default component$(() => {
 
   return (
     <footer
-      class="relative border-t pl-1 mt-2 pb-8 md:pb-12 border-stone-200/80 overflow-hidden bg-gradient-to-b from-stone-200 to-stone-100"
+      class="relative border-t pl-1 mt-2 pb-0 md:pb-12 border-stone-200/80 overflow-hidden bg-gradient-to-b from-stone-200 to-stone-100"
       style={{
         backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='%232c2825' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
       }}
@@ -101,53 +101,26 @@ export default component$(() => {
                 <LuInstagram class="w-5 h-5" />
               </a>
             </div>
+
+              {/* Footer Links - Horizontal */}
+              <div class="flex flex-wrap gap-4 mt-4 pt-4 border-t border-stone-300/50">
+                {links[0].items.map(({ title, titleKey: itemTitleKey, href }, index2) => {
+                  const isExternal = href?.startsWith('http');
+                  return (
+                    <a
+                      key={index2}
+                      href={href || '#'}
+                      target={isExternal ? "_blank" : undefined}
+                      rel={isExternal ? "noopener noreferrer" : undefined}
+                      class="text-sm text-stone-600 hover:text-amber-700 transition-colors"
+                    >
+                      {itemTitleKey ? t(locale, itemTitleKey as any) : title}
+                    </a>
+                  );
+                })}
+              </div>
             </div>
           </div>
-          {/* Sitemap Columns */}
-          {links.map(({ title, titleKey, items }, index) => (
-            <div
-              key={index}
-              class={`
-                col-span-6 sm:col-span-6 md:col-span-3 mt-1
-                ${index === 0 ? 'lg:col-span-2'
-                  : index === 1 ? 'lg:col-span-2'
-                    : index === 2 ? 'lg:col-span-3'
-                      : 'lg:col-span-1'}
-              `}
-            >
-              <div class="text-sm font-semibold mb-4 mt-2">
-                <span class="bg-gradient-to-r from-stone-700 via-amber-700 to-stone-700 bg-clip-text text-transparent">
-                  {titleKey ? t(locale, titleKey as any) : title}
-                </span>
-              </div>
-              {Array.isArray(items) && items.length > 0 && (
-                <ul class="text-sm space-y-2">
-                  {items.map(({ title, titleKey: itemTitleKey, href, icon: Icon }, index2) => {
-                    const isExternal = href?.startsWith('http');
-                    return (
-                      <li key={index2} class="flex items-start gap-2 transition-colors duration-200">
-                        {Icon && <Icon class="w-4 h-4 flex-shrink-0 mt-0.5" />}
-                        {href ? (
-                          <a
-                            href={href}
-                            target={isExternal ? "_blank" : undefined}
-                            rel={isExternal ? "noopener noreferrer" : undefined}
-                            class="text-stone-600 hover:text-amber-700 transition-colors"
-                          >
-                            {itemTitleKey ? t(locale, itemTitleKey as any) : title}
-                          </a>
-                        ) : (
-                          <span class="text-stone-600">
-                            {itemTitleKey ? t(locale, itemTitleKey as any) : title}
-                          </span>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
-          ))}
         </div>
       </div>
     </footer>
