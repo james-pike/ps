@@ -308,7 +308,7 @@ export default component$(() => {
   });
 
   return (
-    <section class="relative flex items-center justify-center overflow-hidden pt-0 pb-0 lg:pb-12">
+    <section class="relative flex items-center justify-center overflow-clip pt-0 pb-0 lg:pb-12">
       {/* Floating decorations */}
       <div class="absolute top-20 left-10 w-32 h-32 bg-stone-400/15 rounded-full blur-2xl animate-float" aria-hidden="true"></div>
       <div class="absolute top-40 right-20 w-48 h-48 bg-gray-300/15 rounded-full blur-3xl animate-floatx" aria-hidden="true"></div>

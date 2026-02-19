@@ -74,7 +74,7 @@ export default component$(() => {
   });
 
   return (
-    <section class="relative overflow-hidden pb-2 pt-14 md:pt-6 md:pb-28" style={{ transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)', willChange: 'transform', backfaceVisibility: 'hidden' }}>
+    <section class="relative overflow-hidden pb-2 pt-14 md:pt-6 md:pb-28">
       {/* Background decorations */}
       <div class="absolute top-1/4 left-10 w-64 h-64 bg-amber-200/20 rounded-full blur-3xl"></div>
       <div class="absolute bottom-1/4 right-10 w-64 h-64 bg-stone-300/20 rounded-full blur-3xl"></div>
@@ -123,7 +123,8 @@ export default component$(() => {
                         src={service.image}
                         alt={(service as any).title || t(locale, (service as any).titleKey as any)}
                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        style={{ transform: 'translateZ(0)', WebkitTransform: 'translateZ(0)', backfaceVisibility: 'hidden' }}
+                        loading="eager"
+                        decoding="sync"
                       />
 
                       {/* Gradient overlay */}

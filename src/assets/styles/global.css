@@ -13,24 +13,31 @@
     border-width: 0.5px;
   }
 
-/* GPU acceleration for images to prevent disappearing on scroll */
-.hero-carousel-container img,
-.flip-card-container img,
-.carousel-card-wrapper img {
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
+/* Prevent image flickering on scroll - force layer persistence */
+.hero-carousel-container,
+.flip-card-container,
+.carousel-card-wrapper,
+.flip-card-front,
+.flip-card-back {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
-  will-change: transform;
+  backface-visibility: hidden;
 }
 
-/* GPU layer promotion for card sections */
-.gpu-accelerated {
-  transform: translateZ(0);
-  -webkit-transform: translateZ(0);
-  backface-visibility: hidden;
+.hero-carousel-container img,
+.flip-card-container img,
+.carousel-card-wrapper img,
+.flip-card-front img,
+.flip-card-back img {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden;
-  will-change: transform;
+  backface-visibility: hidden;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative;
+  z-index: 1;
 }
 
 /* Watercolor texture with enhanced noise */
