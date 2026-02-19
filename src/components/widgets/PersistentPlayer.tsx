@@ -138,8 +138,8 @@ export default component$(() => {
 
   return (
     <>
-      {/* Spacer to prevent content from being hidden behind fixed player */}
-      <div class="h-14" />
+      {/* Spacer to prevent content from being hidden behind fixed player - only when visible */}
+      {hasScrolledPastHero.value && <div class="h-14" />}
 
       {/* Hidden audio element */}
       <audio
@@ -156,8 +156,9 @@ export default component$(() => {
       <div
         class={`
           fixed bottom-0 left-0 right-0 z-50
-          transition-all duration-300 ease-in-out
+          transition-all duration-500 ease-in-out
           ${isExpanded.value ? "h-80" : "h-14"}
+          ${hasScrolledPastHero.value ? "translate-y-0 opacity-100" : "translate-y-full opacity-0"}
         `}
       >
       {/* Background with blur - grayscale theme */}
