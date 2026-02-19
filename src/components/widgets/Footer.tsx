@@ -103,7 +103,7 @@ export default component$(() => {
             </div>
 
               {/* Footer Links - Horizontal */}
-              <div class="flex flex-wrap gap-4 mt-4 pt-4 border-t border-stone-300/50">
+              <div class="flex flex-wrap gap-4 mt-4 hidden md:block pt-4 border-t border-stone-300/50">
                 {links[0].items.map(({ title, titleKey: itemTitleKey, href }, index2) => {
                   const isExternal = href?.startsWith('http');
                   return (
