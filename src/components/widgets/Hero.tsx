@@ -95,6 +95,11 @@ export default component$(() => {
       perspective: 1000px;
       touch-action: pan-y;
       user-select: none;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      will-change: transform;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
     .carousel-card-wrapper {
       position: absolute;
@@ -104,6 +109,9 @@ export default component$(() => {
       transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       transform-origin: center center;
       visibility: hidden;
+      will-change: transform, opacity;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
     .carousel-card-wrapper.active {
       position: relative;
@@ -152,6 +160,9 @@ export default component$(() => {
       width: 100%;
       perspective: 1200px;
       -webkit-perspective: 1200px;
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      will-change: transform;
     }
     .flip-card-inner {
       position: relative;

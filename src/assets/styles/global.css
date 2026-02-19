@@ -13,6 +13,26 @@
     border-width: 0.5px;
   }
 
+/* GPU acceleration for images to prevent disappearing on scroll */
+.hero-carousel-container img,
+.flip-card-container img,
+.carousel-card-wrapper img {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* GPU layer promotion for card sections */
+.gpu-accelerated {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  will-change: transform;
+}
+
 /* Watercolor texture with enhanced noise */
 .bg-watercolor-texture {
   background-image: 
