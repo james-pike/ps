@@ -1,5 +1,5 @@
 import { component$, useSignal, $, Signal, useVisibleTask$ } from "@builder.io/qwik";
-import { LuX, LuChevronDown, LuInstagram, LuGlobe, LuYoutube, LuMusic, LuCalendar, LuMail } from "@qwikest/icons/lucide";
+import { LuX, LuChevronDown, LuInstagram, LuGlobe, LuYoutube, LuMusic, LuCalendar } from "@qwikest/icons/lucide";
 import { cn } from "@qwik-ui/utils";
 import { useLocation } from "@builder.io/qwik-city";
 import { Modal } from "../ui/Modal";
@@ -291,22 +291,25 @@ export default component$(() => {
             <div class="px-4 pt-4 space-y-3">
               <a
                 href="mailto:book@phineasstewart.com"
-                class="group relative flex items-center justify-center gap-3 w-full px-6 py-3 text-base font-semibold text-white bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 rounded-xl shadow-lg hover:shadow-amber-500/25 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] overflow-hidden"
+                class="flex items-center justify-center gap-2 w-full px-6 py-3 text-base font-semibold bg-gradient-to-r from-stone-300 to-stone-400 hover:from-stone-400 hover:to-stone-500 text-stone-800 rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02]"
                 role="button"
                 aria-label="Book a session"
               >
                 <LuCalendar class="w-5 h-5" />
-                <span class="relative z-10">Book Session Violinist</span>
-                <div class="absolute inset-0 bg-gradient-to-r from-amber-400/0 via-white/20 to-amber-400/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
+                <span>Book Session Violinist</span>
               </a>
               <a
-                href="mailto:hello@phineasstewart.com"
-                class="group relative flex items-center justify-center gap-3 w-full px-6 py-3 text-base font-semibold text-tertiary-200 bg-primary-800/50 border border-primary-600/40 rounded-xl hover:bg-primary-700/50 hover:border-primary-500/50 transition-all duration-300 hover:scale-[1.02]"
+                href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-2 w-full px-6 py-3 text-base font-semibold bg-green-600/20 border border-green-500/30 text-green-400 hover:bg-green-600/30 hover:text-green-300 rounded-xl transition-all duration-300 hover:scale-[1.02]"
                 role="button"
-                aria-label="Contact"
+                aria-label="Listen on Spotify"
               >
-                <LuMail class="w-5 h-5" />
-                <span class="relative z-10">Get in Touch</span>
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                </svg>
+                <span>Listen on Spotify</span>
               </a>
             </div>
           </div>

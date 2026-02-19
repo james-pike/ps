@@ -1,4 +1,4 @@
-import { component$, useSignal, $ } from "@builder.io/qwik";
+import { component$, useSignal, $, useVisibleTask$ } from "@builder.io/qwik";
 import { LuX, LuMapPin } from "@qwikest/icons/lucide";
 import { useI18n, t } from "~/context/i18n";
 
@@ -6,6 +6,18 @@ export default component$(() => {
   const expandedCard = useSignal<number | null>(null);
   const i18n = useI18n();
   const locale = i18n.locale.value;
+  const touchStartY = useSignal<number | null>(null);
+  const expandedRef = useSignal<Element | undefined>(undefined);
+
+  // Scroll to expanded content when it opens
+  useVisibleTask$(({ track }) => {
+    track(() => expandedCard.value);
+    if (expandedCard.value !== null && expandedRef.value) {
+      setTimeout(() => {
+        expandedRef.value?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    }
+  });
 
   const services = [
     {
@@ -71,6 +83,22 @@ export default component$(() => {
 
   const handleClose = $(() => {
     expandedCard.value = null;
+  });
+
+  // Swipe handling for closing expanded view
+  const handleTouchStart = $((e: TouchEvent) => {
+    touchStartY.value = e.touches[0].clientY;
+  });
+
+  const handleTouchEnd = $((e: TouchEvent) => {
+    if (touchStartY.value === null) return;
+    const touchEndY = e.changedTouches[0].clientY;
+    const deltaY = touchEndY - touchStartY.value;
+    // Swipe down to close (threshold of 80px)
+    if (deltaY > 80) {
+      expandedCard.value = null;
+    }
+    touchStartY.value = null;
   });
 
   return (
@@ -154,7 +182,12 @@ export default component$(() => {
             </div>
           ) : (
             /* Expanded Content - replaces the cards grid */
-            <div class="relative">
+            <div
+              class="relative"
+              ref={expandedRef}
+              onTouchStart$={handleTouchStart}
+              onTouchEnd$={handleTouchEnd}
+            >
               {(() => {
                 const service = services[expandedCard.value];
                 return (
@@ -229,7 +262,7 @@ export default component$(() => {
                                           alt="Video thumbnail"
                                           class="w-full h-full object-cover"
                                         />
-                                        <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                        <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1 z-10">
                                           <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                                         </div>
                                       </>
@@ -247,25 +280,17 @@ export default component$(() => {
                           </div>
 
                           {/* CTA */}
-                          <div class="flex flex-col sm:flex-row gap-3">
-                            <a
-                              href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
-                            >
-                              {t(locale, "expanded.listenOnSpotify")}
-                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                              </svg>
-                            </a>
-                            <button
-                              onClick$={handleClose}
-                              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-200 hover:bg-stone-300 text-stone-700 font-medium rounded-lg transition-all duration-300"
-                            >
-                              Back to Services
-                            </button>
-                          </div>
+                          <a
+                            href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
+                          >
+                            {t(locale, "expanded.listenOnSpotify")}
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                          </a>
                         </>
                       ) : (
                         <>
@@ -291,7 +316,7 @@ export default component$(() => {
                                           alt="Video thumbnail"
                                           class="w-full h-full object-cover"
                                         />
-                                        <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                        <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1 z-10">
                                           <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                                         </div>
                                       </>
@@ -309,23 +334,15 @@ export default component$(() => {
                           </div>
 
                           {/* CTA */}
-                          <div class="flex flex-col sm:flex-row gap-3">
-                            <a
-                              href="mailto:book@phineasstewart.com"
-                              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
-                            >
-                              {t(locale, "service.bookSessionViolinist")}
-                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                              </svg>
-                            </a>
-                            <button
-                              onClick$={handleClose}
-                              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-200 hover:bg-stone-300 text-stone-700 font-medium rounded-lg transition-all duration-300"
-                            >
-                              Back to Services
-                            </button>
-                          </div>
+                          <a
+                            href="mailto:book@phineasstewart.com"
+                            class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
+                          >
+                            {t(locale, "service.bookSessionViolinist")}
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                          </a>
                         </>
                       )}
                     </div>
