@@ -46,7 +46,7 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
               <>
                 <button
                   class={cn(
-                    "!text-xl font-medium text-tertiary-200 flex items-center justify-between w-full p-2.5 px-5",
+                    "!text-xl font-medium text-tertiary-200 flex items-center justify-between w-full p-2.5 px-4",
                     isActive &&
                       "bg-primary-900/50 text-primary-300 font-bold",
                     "hover:bg-primary-900/30 transition-all duration-200"
@@ -109,7 +109,7 @@ const CustomAccordion = component$(({ items, show }: { items: any[]; show: Signa
                   <a
                     {...itemLinkProps}
                     class={cn(
-                      "block lg text-tertiary-200 !text-xl p-3 px-5 font-medium transition-all duration-200",
+                      "block lg text-tertiary-200 !text-xl p-3 px-4 font-medium transition-all duration-200",
                       isActive &&
                         "bg-primary-900/50 text-primary-300 font-bold",
                       "hover:bg-primary-900/30"
@@ -200,7 +200,7 @@ export default component$(() => {
 
           <div class="rounded-b-2xl border-t border-primary-800/30 bg-gradient-to-br from-primary-900/20 to-black/40 backdrop-blur-md pb-5">
             {/* Language Selector */}
-            <div class="px-5 pt-4 pb-3 border-b border-primary-800/30">
+            <div class="px-4 pt-4 pb-3 border-b border-primary-800/30">
               <div class="flex items-center gap-2 mb-2">
                 <LuGlobe class="w-5 h-5 text-tertiary-400" />
                 <span class="text-sm font-medium text-tertiary-300">Language</span>
@@ -232,7 +232,7 @@ export default component$(() => {
             </div>
 
             {/* Listen On - Streaming Platforms */}
-            <div class="px-5 pt-4 pb-3 border-b border-primary-800/30">
+            <div class="px-4 pt-4 pb-3 border-b border-primary-800/30">
               <div class="flex items-center gap-2 mb-3">
                 <LuMusic class="w-5 h-5 text-tertiary-400" />
                 <span class="text-sm font-medium text-tertiary-300">Listen On</span>
@@ -262,7 +262,7 @@ export default component$(() => {
             </div>
 
             {/* Social Links */}
-            <div class="px-5 pt-4 pb-3 border-b border-primary-800/30">
+            <div class="px-4 pt-4 pb-3 border-b border-primary-800/30">
               <div class="flex items-center justify-center gap-6">
                 <a
                   href="https://www.instagram.com/phineasstewart"
@@ -286,7 +286,7 @@ export default component$(() => {
             </div>
 
             {/* Book Performance CTA */}
-            <div class="px-5 pt-4">
+            <div class="px-4 pt-4">
               <a
                 href="/contact"
                 class="group relative flex items-center justify-center gap-3 w-full px-6 py-3.5 text-lg font-semibold text-white bg-gradient-to-r from-amber-500 via-orange-500 to-amber-500 rounded-xl shadow-lg hover:shadow-amber-500/25 hover:shadow-xl transition-all duration-300 hover:scale-[1.02] overflow-hidden"

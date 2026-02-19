@@ -1,5 +1,5 @@
 import { component$, useSignal, $ } from "@builder.io/qwik";
-import { LuX } from "@qwikest/icons/lucide";
+import { LuX, LuMapPin } from "@qwikest/icons/lucide";
 import { useI18n, t } from "~/context/i18n";
 
 export default component$(() => {
@@ -8,6 +8,16 @@ export default component$(() => {
   const locale = i18n.locale.value;
 
   const services = [
+    {
+      title: "New Single",
+      description: "Seagulls in the City",
+      link: "https://distrokid.com/hyperfollow/phineasstewart/seagulls-in-the-city",
+      image: "/images/ap2.jpg",
+      accent: "stone",
+      portfolioImages: [],
+      isExternal: true,
+      buttonText: "Pre-save now"
+    },
     {
       titleKey: "service.studioSessions",
       descriptionKey: "service.studioSessionsDesc",
@@ -23,17 +33,17 @@ export default component$(() => {
       ]
     },
     {
-      titleKey: "service.livePerformance",
-      descriptionKey: "service.livePerformanceDesc",
-      fullDescriptionKey: "service.livePerformanceFullDesc",
-      link: "/offerings#live",
-      image: "https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800&q=80",
+      titleKey: "expanded.artistProfile",
+      descriptionKey: "hero.artistCardDesc",
+      contentType: "artistProfile",
+      link: "/artist",
+      image: "/images/sv2.JPG",
       accent: "stone",
       portfolioImages: [
-        "https://images.unsplash.com/photo-1485579149621-3123dd979885?w=800&q=80",
-        "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80",
-        "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&q=80",
-        "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=800&q=80"
+        "/images/ap1.jpg",
+        "/images/ap2.jpg",
+        "/images/ap3.JPEG",
+        "youtube:06YplsNk_ro"
       ]
     },
     {
@@ -41,20 +51,17 @@ export default component$(() => {
       descriptionKey: "service.myMusicDesc",
       fullDescriptionKey: "service.myMusicFullDesc",
       link: "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa",
-      image: "https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80",
+      image: "/images/ap1.jpg",
       accent: "stone",
-      portfolioImages: [
-        "https://images.unsplash.com/photo-1524650359799-842906ca1c06?w=800&q=80",
-        "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=800&q=80",
-        "https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=800&q=80",
-        "https://images.unsplash.com/photo-1516280440614-37939bbacd81?w=800&q=80"
-      ]
+      portfolioImages: [],
+      isExternal: true,
+      buttonText: "Listen on Spotify"
     }
   ];
 
-  const handleCardClick = $((index: number, e: Event, link: string) => {
-    // If it's "My Music" (index 2), navigate to Spotify instead of expanding
-    if (index === 2) {
+  const handleCardClick = $((index: number, e: Event, link: string, isExternal?: boolean) => {
+    // If it's an external link card, navigate instead of expanding
+    if (isExternal) {
       window.open(link, '_blank');
       return;
     }
@@ -107,14 +114,14 @@ export default component$(() => {
                 return (
                   <button
                     key={index}
-                    onClick$={(e) => handleCardClick(index, e, service.link)}
+                    onClick$={(e) => handleCardClick(index, e, service.link, (service as any).isExternal)}
                     class={`group relative rounded-xl overflow-hidden border-2 ${style.border} transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl text-left w-full cursor-pointer bg-white`}
                   >
                     {/* Image */}
                     <div class="aspect-[4/3] md:aspect-[4/5] relative overflow-hidden">
                       <img
                         src={service.image}
-                        alt={t(locale, service.titleKey as any)}
+                        alt={(service as any).title || t(locale, (service as any).titleKey as any)}
                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       />
 
@@ -124,15 +131,15 @@ export default component$(() => {
                       {/* Content overlay */}
                       <div class="absolute inset-0 flex flex-col justify-end p-6">
                         <h3 class="text-2xl font-bold text-white mb-2 drop-shadow-lg">
-                          {t(locale, service.titleKey as any)}
+                          {(service as any).title || t(locale, (service as any).titleKey as any)}
                         </h3>
                         <p class="text-white/90 text-sm leading-relaxed mb-4 drop-shadow">
-                          {t(locale, service.descriptionKey as any)}
+                          {(service as any).description || t(locale, (service as any).descriptionKey as any)}
                         </p>
 
                         {/* Button */}
                         <div class={`inline-flex items-center gap-2 px-4 py-2 rounded-lg ${style.button} font-medium text-sm transition-all duration-300 w-fit`}>
-                          <span>{t(locale, "service.learnMore")}</span>
+                          <span>{(service as any).buttonText || t(locale, "service.learnMore")}</span>
                           <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                           </svg>
@@ -180,60 +187,145 @@ export default component$(() => {
 
                     {/* Content */}
                     <div class="p-5 md:p-8">
-                      {/* Full Description */}
-                      <p class="text-stone-600 leading-relaxed mb-6">
-                        {t(locale, service.fullDescriptionKey as any)}
-                      </p>
+                      {/* Artist Profile Content */}
+                      {(service as any).contentType === 'artistProfile' ? (
+                        <>
+                          {/* Artist Description */}
+                          <p class="text-stone-600 leading-relaxed mb-3">
+                            {t(locale, "expanded.artistJourney")}
+                          </p>
+                          <p class="text-stone-600 leading-relaxed mb-4">
+                            {t(locale, "expanded.artistStyle")}
+                          </p>
 
-                      {/* Portfolio Grid */}
-                      <div class="mb-6">
-                        <h4 class="text-lg font-bold text-stone-800 mb-4">{t(locale, "service.portfolio")}</h4>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                          {service.portfolioImages.map((img, idx) => {
-                            const isYouTube = img.startsWith('youtube:');
-                            const videoId = isYouTube ? img.replace('youtube:', '') : null;
+                          {/* Location Tags */}
+                          <div class="flex flex-wrap gap-2 mb-6">
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-stone-200/70 text-stone-700">
+                              <LuMapPin class="w-3.5 h-3.5" />
+                              {t(locale, "expanded.fromNovaScotia")}
+                            </span>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium bg-stone-200/70 text-stone-700">
+                              <LuMapPin class="w-3.5 h-3.5" />
+                              {t(locale, "expanded.basedInMontreal")}
+                            </span>
+                          </div>
 
-                            return (
-                              <div key={idx} class="aspect-video rounded-lg overflow-hidden border border-stone-300 shadow-sm">
-                                {isYouTube && videoId ? (
-                                  <iframe
-                                    src={`https://www.youtube.com/embed/${videoId}`}
-                                    title="YouTube video"
-                                    class="w-full h-full"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullscreen
-                                  />
-                                ) : (
-                                  <img
-                                    src={img}
-                                    alt={`${t(locale, service.titleKey as any)} - ${idx + 1}`}
-                                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                                  />
-                                )}
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
+                          {/* Portfolio Grid */}
+                          <div class="mb-6">
+                            <h4 class="text-lg font-bold text-stone-800 mb-4">{t(locale, "service.portfolio")}</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                              {service.portfolioImages.map((img, idx) => {
+                                const isYouTube = img.startsWith('youtube:');
+                                const videoId = isYouTube ? img.replace('youtube:', '') : null;
 
-                      {/* CTA */}
-                      <div class="flex flex-col sm:flex-row gap-3">
-                        <a
-                          href="mailto:book@phineasstewart.com"
-                          class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
-                        >
-                          {t(locale, expandedCard.value === 0 ? "service.bookSessionViolinist" : "service.bookLivePerformance")}
-                          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
-                        </a>
-                        <button
-                          onClick$={handleClose}
-                          class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-200 hover:bg-stone-300 text-stone-700 font-medium rounded-lg transition-all duration-300"
-                        >
-                          Back to Services
-                        </button>
-                      </div>
+                                return (
+                                  <div key={idx} class="aspect-video rounded-lg overflow-hidden border border-stone-300 shadow-sm relative">
+                                    {isYouTube && videoId ? (
+                                      <>
+                                        <img
+                                          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                                          alt="Video thumbnail"
+                                          class="w-full h-full object-cover"
+                                        />
+                                        <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                          <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <img
+                                        src={img}
+                                        alt={`${t(locale, service.titleKey as any)} - ${idx + 1}`}
+                                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                      />
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          {/* CTA */}
+                          <div class="flex flex-col sm:flex-row gap-3">
+                            <a
+                              href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
+                            >
+                              {t(locale, "expanded.listenOnSpotify")}
+                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                              </svg>
+                            </a>
+                            <button
+                              onClick$={handleClose}
+                              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-200 hover:bg-stone-300 text-stone-700 font-medium rounded-lg transition-all duration-300"
+                            >
+                              Back to Services
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          {/* Full Description */}
+                          <p class="text-stone-600 leading-relaxed mb-6">
+                            {t(locale, (service as any).fullDescriptionKey as any)}
+                          </p>
+
+                          {/* Portfolio Grid */}
+                          <div class="mb-6">
+                            <h4 class="text-lg font-bold text-stone-800 mb-4">{t(locale, "service.portfolio")}</h4>
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                              {service.portfolioImages.map((img, idx) => {
+                                const isYouTube = img.startsWith('youtube:');
+                                const videoId = isYouTube ? img.replace('youtube:', '') : null;
+
+                                return (
+                                  <div key={idx} class="aspect-video rounded-lg overflow-hidden border border-stone-300 shadow-sm relative">
+                                    {isYouTube && videoId ? (
+                                      <>
+                                        <img
+                                          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                                          alt="Video thumbnail"
+                                          class="w-full h-full object-cover"
+                                        />
+                                        <div class="absolute bottom-1.5 left-1.5 bg-black/70 rounded-full p-1">
+                                          <svg class="w-3 h-3 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                        </div>
+                                      </>
+                                    ) : (
+                                      <img
+                                        src={img}
+                                        alt={`${t(locale, service.titleKey as any)} - ${idx + 1}`}
+                                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                      />
+                                    )}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+
+                          {/* CTA */}
+                          <div class="flex flex-col sm:flex-row gap-3">
+                            <a
+                              href="mailto:book@phineasstewart.com"
+                              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-700 hover:bg-stone-800 text-white font-semibold rounded-lg shadow-lg transition-all duration-300 hover:scale-105"
+                            >
+                              {t(locale, "service.bookSessionViolinist")}
+                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                              </svg>
+                            </a>
+                            <button
+                              onClick$={handleClose}
+                              class="inline-flex items-center justify-center gap-2 px-6 py-3 bg-stone-200 hover:bg-stone-300 text-stone-700 font-medium rounded-lg transition-all duration-300"
+                            >
+                              Back to Services
+                            </button>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </div>
                 );

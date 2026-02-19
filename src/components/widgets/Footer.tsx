@@ -44,7 +44,7 @@ export default component$(() => {
       }}
     >
       <div class="relative max-w-7xl mx-auto px-4 md:mr-4 sm:px-6 md:px-8">
-        <div class="grid grid-cols-12 gap-4 gap-y-4 sm:gap-4 py-8 md:pt-12 md:pb-2">
+        <div class="grid grid-cols-12 gap-4 gap-y-4 sm:gap-4 py-5 md:pt-12 md:pb-2">
           {/* First Column: Logo, Description, Newsletter */}
           <div class="col-span-12 lg:col-span-5 md:pr-8">
             {/* Text container with semi-transparent background */}
@@ -119,6 +119,9 @@ export default component$(() => {
                   );
                 })}
               </div>
+
+              {/* Copyright */}
+              <p class="text-sm text-stone-500 mt-4 pt-4 border-t border-stone-300/50">&copy; 2026 Phineas Stewart. All rights reserved.</p>
             </div>
           </div>
         </div>

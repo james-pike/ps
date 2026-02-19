@@ -704,7 +704,7 @@ export default component$(() => {
                         onTouchEnd$={handleBackTouchEnd}
                       >
                         <div
-                          class={`relative backdrop-blur-sm p-4 md:p-5 rounded-2xl shadow-2xl h-full ${style.backBg} border ${style.backBorder}`}
+                          class={`relative backdrop-blur-sm pt-2 pb-3 px-3 md:pt-3 md:pb-4 md:px-4 rounded-2xl shadow-2xl h-full ${style.backBg} border ${style.backBorder}`}
                           style={{
                             backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='32' viewBox='0 0 16 32'%3E%3Cg fill='${encodeURIComponent(style.textureColor)}' fill-opacity='0.15'%3E%3Cpath fill-rule='evenodd' d='M0 24h4v2H0v-2zm0 4h6v2H0v-2zm0-8h2v2H0v-2zM0 0h4v2H0V0zm0 4h2v2H0V4zm16 20h-6v2h6v-2zm0 4H8v2h8v-2zm0-8h-4v2h4v-2zm0-20h-6v2h6V0zm0 4h-4v2h4V4zm-2 12h2v2h-2v-2zm0-8h2v2h-2V8zM2 8h10v2H2V8zm0 8h10v2H2v-2zm-2-4h14v2H0v-2zm4-8h6v2H4V4zm0 16h6v2H4v-2zM6 0h2v2H6V0zm0 24h2v2H6v-2z'/%3E%3C/g%3E%3C/svg%3E")`
                           }}
@@ -722,7 +722,7 @@ export default component$(() => {
                           {flipTarget.value === 'menu' && (
                             <div class="pt-2">
                               {/* Logo and Navigation container */}
-                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-3 mb-3`}>
+                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-2 mb-2`}>
                                 {/* Logo */}
                                 <div class="mb-4">
                                   <a href="/" class="focus:outline-none">
@@ -880,7 +880,7 @@ export default component$(() => {
                           {flipTarget.value === 'session-violinist' && (
                             <div class="pt-2">
                               {/* Text container */}
-                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-3 mb-3`}>
+                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl px-3 py-2.5 mb-2`}>
                                 <h3 class={`text-2xl font-bold ${style.backText} mb-2`}>{t(locale, "expanded.sessionViolinist")}</h3>
                                 <p class={`text-lg ${style.backText} mb-2`}>
                                   {t(locale, "expanded.sessionViolinistTagline")}
@@ -982,7 +982,7 @@ export default component$(() => {
                           {flipTarget.value === 'live-performance' && (
                             <div class="pt-2">
                               {/* Text container */}
-                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl p-3 mb-3`}>
+                              <div class={`${index === 0 ? 'bg-stone-100/50' : 'bg-slate-100/50'} backdrop-blur-[2px] rounded-xl px-3 py-2.5 mb-2`}>
                                 <h3 class={`text-2xl font-bold ${style.backText} mb-3`}>{t(locale, "expanded.artistProfile")}</h3>
 
                                 <p class={`text-base ${style.backTextMuted} leading-relaxed mb-3`}>
