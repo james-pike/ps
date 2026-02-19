@@ -303,7 +303,7 @@ export default component$(() => {
       <div class="absolute top-40 right-20 w-48 h-48 bg-gray-300/15 rounded-full blur-3xl animate-floatx" aria-hidden="true"></div>
       <div class="absolute bottom-20 left-1/3 w-40 h-40 bg-stone-300/15 rounded-full blur-2xl animate-float" aria-hidden="true"></div>
 
-      <div class="relative z-10 w-full mx-auto px-2 pt-2 pb-1 lg:px-4 lg:pt-0 lg:pb-8">
+      <div class="relative z-10 w-full mx-auto px-2.5 pt-2 pb-1 lg:px-4 lg:pt-0 lg:pb-8">
         {/* Mobile Layout - Card Stack */}
         <div class="lg:hidden relative">
           {/* Mobile Menu Button + Language Dropdown - positioned above card stack */}

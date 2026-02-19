@@ -16,7 +16,7 @@ export default component$(() => {
         </div>
 
         {/* Newsletter Section */}
-        <section class="relative pt-2 pb-4 px-2 overflow-hidden bg-stone-100">
+        <section class="relative pt-2 pb-4 px-2.5 overflow-hidden bg-stone-100">
           <div class="relative max-w-xl mx-auto">
             {/* Outer container with darker textured border */}
             <div
