@@ -1072,13 +1072,13 @@ export default component$(() => {
                           {flipTarget.value === 'live-performance' && (
                             <div class="pt-2">
                               {/* Text container - always slate for artist profile */}
-                              <div class="bg-slate-100/50 backdrop-blur-[2px] rounded-xl px-3 py-2.5 mb-2">
-                                <h3 class={`text-2xl font-bold ${backStyle.text} mb-3`}>{t(locale, "expanded.artistProfile")}</h3>
+                              <div class="bg-slate-100/50 backdrop-blur-[2px] rounded-xl px-3 py-2 mb-2">
+                                <h3 class={`text-xl font-bold ${backStyle.text} mb-1.5`}>{t(locale, "expanded.artistProfile")}</h3>
 
-                                <p class={`text-base ${backStyle.textMuted} leading-relaxed mb-3`}>
+                                <p class={`text-sm ${backStyle.textMuted} leading-snug mb-1`}>
                                   {t(locale, "expanded.artistJourney")}
                                 </p>
-                                <p class={`text-base ${backStyle.textMuted} leading-relaxed`}>
+                                <p class={`text-sm ${backStyle.textMuted} leading-snug`}>
                                   {t(locale, "expanded.artistStyle")}
                                 </p>
                               </div>
