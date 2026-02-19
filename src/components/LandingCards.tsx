@@ -4,6 +4,7 @@ import { useI18n, t } from "~/context/i18n";
 
 export default component$(() => {
   const expandedCard = useSignal<number | null>(null);
+  const expandedGalleryItem = useSignal<{ card: number; item: number } | null>(null);
   const i18n = useI18n();
   const locale = i18n.locale.value;
   const touchStartY = useSignal<number | null>(null);
@@ -255,34 +256,69 @@ export default component$(() => {
                           {/* Portfolio Grid */}
                           <div class="mb-6 lg:mb-4">
                             <h4 class="text-lg lg:text-sm font-bold lg:font-semibold text-stone-800 mb-4 lg:mb-2">{t(locale, "service.portfolio")}</h4>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-2">
-                              {service.portfolioImages.map((img, idx) => {
-                                const isYouTube = img.startsWith('youtube:');
-                                const videoId = isYouTube ? img.replace('youtube:', '') : null;
+                            <div class="relative">
+                              {/* Expanded View */}
+                              {expandedGalleryItem.value?.card === 1 && (
+                                <div class="absolute inset-0 z-20 rounded-lg overflow-hidden animate-in fade-in duration-200">
+                                  <button
+                                    onClick$={() => expandedGalleryItem.value = null}
+                                    class="absolute top-2 right-2 z-30 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                                  >
+                                    <LuX class="w-4 h-4 text-white" />
+                                  </button>
+                                  {service.portfolioImages.map((img, idx) => {
+                                    if (expandedGalleryItem.value?.item !== idx) return null;
+                                    const isYouTube = img.startsWith('youtube:');
+                                    const videoId = isYouTube ? img.replace('youtube:', '') : null;
+                                    return isYouTube && videoId ? (
+                                      <iframe
+                                        key={idx}
+                                        src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                                        title="Video"
+                                        class="w-full h-full"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullscreen
+                                      ></iframe>
+                                    ) : (
+                                      <img key={idx} src={img} alt="Gallery" class="w-full h-full object-cover" />
+                                    );
+                                  })}
+                                </div>
+                              )}
+                              {/* Grid */}
+                              <div class={`grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-2 ${expandedGalleryItem.value?.card === 1 ? 'invisible' : ''}`}>
+                                {service.portfolioImages.map((img, idx) => {
+                                  const isYouTube = img.startsWith('youtube:');
+                                  const videoId = isYouTube ? img.replace('youtube:', '') : null;
 
-                                return (
-                                  <div key={idx} class="aspect-video rounded-lg lg:rounded-md overflow-hidden border border-stone-300 lg:border-stone-200 shadow-sm lg:shadow-none relative">
-                                    {isYouTube && videoId ? (
-                                      <>
+                                  return (
+                                    <div
+                                      key={idx}
+                                      class="aspect-video rounded-lg lg:rounded-md overflow-hidden border border-stone-300 lg:border-stone-200 shadow-sm lg:shadow-none relative cursor-pointer hover:opacity-90 transition-opacity"
+                                      onClick$={() => expandedGalleryItem.value = { card: 1, item: idx }}
+                                    >
+                                      {isYouTube && videoId ? (
+                                        <>
+                                          <img
+                                            src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                                            alt="Video thumbnail"
+                                            class="w-full h-full object-cover"
+                                          />
+                                          <div class="absolute bottom-1.5 lg:bottom-1 left-1.5 lg:left-1 bg-black/70 rounded-full p-1 lg:p-0.5 z-10">
+                                            <svg class="w-3 lg:w-2.5 h-3 lg:h-2.5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                          </div>
+                                        </>
+                                      ) : (
                                         <img
-                                          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-                                          alt="Video thumbnail"
+                                          src={img}
+                                          alt={`${t(locale, service.titleKey as any)} - ${idx + 1}`}
                                           class="w-full h-full object-cover"
                                         />
-                                        <div class="absolute bottom-1.5 lg:bottom-1 left-1.5 lg:left-1 bg-black/70 rounded-full p-1 lg:p-0.5 z-10">
-                                          <svg class="w-3 lg:w-2.5 h-3 lg:h-2.5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                                        </div>
-                                      </>
-                                    ) : (
-                                      <img
-                                        src={img}
-                                        alt={`${t(locale, service.titleKey as any)} - ${idx + 1}`}
-                                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 lg:duration-300"
-                                      />
-                                    )}
-                                  </div>
-                                );
-                              })}
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
                             </div>
                           </div>
 
@@ -309,34 +345,69 @@ export default component$(() => {
                           {/* Portfolio Grid */}
                           <div class="mb-6 lg:mb-4">
                             <h4 class="text-lg lg:text-sm font-bold lg:font-semibold text-stone-800 mb-4 lg:mb-2">{t(locale, "service.portfolio")}</h4>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-2">
-                              {service.portfolioImages.map((img, idx) => {
-                                const isYouTube = img.startsWith('youtube:');
-                                const videoId = isYouTube ? img.replace('youtube:', '') : null;
+                            <div class="relative">
+                              {/* Expanded View */}
+                              {expandedGalleryItem.value?.card === 2 && (
+                                <div class="absolute inset-0 z-20 rounded-lg overflow-hidden animate-in fade-in duration-200">
+                                  <button
+                                    onClick$={() => expandedGalleryItem.value = null}
+                                    class="absolute top-2 right-2 z-30 p-1.5 rounded-full bg-black/50 hover:bg-black/70 transition-colors"
+                                  >
+                                    <LuX class="w-4 h-4 text-white" />
+                                  </button>
+                                  {service.portfolioImages.map((img, idx) => {
+                                    if (expandedGalleryItem.value?.item !== idx) return null;
+                                    const isYouTube = img.startsWith('youtube:');
+                                    const videoId = isYouTube ? img.replace('youtube:', '') : null;
+                                    return isYouTube && videoId ? (
+                                      <iframe
+                                        key={idx}
+                                        src={`https://www.youtube.com/embed/${videoId}?autoplay=1`}
+                                        title="Video"
+                                        class="w-full h-full"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullscreen
+                                      ></iframe>
+                                    ) : (
+                                      <img key={idx} src={img} alt="Gallery" class="w-full h-full object-cover" />
+                                    );
+                                  })}
+                                </div>
+                              )}
+                              {/* Grid */}
+                              <div class={`grid grid-cols-2 md:grid-cols-4 gap-3 lg:gap-2 ${expandedGalleryItem.value?.card === 2 ? 'invisible' : ''}`}>
+                                {service.portfolioImages.map((img, idx) => {
+                                  const isYouTube = img.startsWith('youtube:');
+                                  const videoId = isYouTube ? img.replace('youtube:', '') : null;
 
-                                return (
-                                  <div key={idx} class="aspect-video rounded-lg lg:rounded-md overflow-hidden border border-stone-300 lg:border-stone-200 shadow-sm lg:shadow-none relative">
-                                    {isYouTube && videoId ? (
-                                      <>
+                                  return (
+                                    <div
+                                      key={idx}
+                                      class="aspect-video rounded-lg lg:rounded-md overflow-hidden border border-stone-300 lg:border-stone-200 shadow-sm lg:shadow-none relative cursor-pointer hover:opacity-90 transition-opacity"
+                                      onClick$={() => expandedGalleryItem.value = { card: 2, item: idx }}
+                                    >
+                                      {isYouTube && videoId ? (
+                                        <>
+                                          <img
+                                            src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                                            alt="Video thumbnail"
+                                            class="w-full h-full object-cover"
+                                          />
+                                          <div class="absolute bottom-1.5 lg:bottom-1 left-1.5 lg:left-1 bg-black/70 rounded-full p-1 lg:p-0.5 z-10">
+                                            <svg class="w-3 lg:w-2.5 h-3 lg:h-2.5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                          </div>
+                                        </>
+                                      ) : (
                                         <img
-                                          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-                                          alt="Video thumbnail"
+                                          src={img}
+                                          alt={`${t(locale, service.titleKey as any)} - ${idx + 1}`}
                                           class="w-full h-full object-cover"
                                         />
-                                        <div class="absolute bottom-1.5 lg:bottom-1 left-1.5 lg:left-1 bg-black/70 rounded-full p-1 lg:p-0.5 z-10">
-                                          <svg class="w-3 lg:w-2.5 h-3 lg:h-2.5 text-white" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                                        </div>
-                                      </>
-                                    ) : (
-                                      <img
-                                        src={img}
-                                        alt={`${t(locale, service.titleKey as any)} - ${idx + 1}`}
-                                        class="w-full h-full object-cover hover:scale-105 transition-transform duration-500 lg:duration-300"
-                                      />
-                                    )}
-                                  </div>
-                                );
-                              })}
+                                      )}
+                                    </div>
+                                  );
+                                })}
+                              </div>
                             </div>
                           </div>
 
