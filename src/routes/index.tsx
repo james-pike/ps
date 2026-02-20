@@ -2,7 +2,6 @@ import { component$ } from "@builder.io/qwik";
 import { type DocumentHead } from "@builder.io/qwik-city";
 import { SITE } from "~/config.mjs";
 import Hero from "~/components/widgets/Hero";
-import LandingCards from "~/components/LandingCards";
 import { useI18n, t } from "~/context/i18n";
 
 export default component$(() => {
@@ -14,13 +13,8 @@ export default component$(() => {
       <div>
         <Hero />
 
-        {/* Services Section - Hidden on mobile since it's in Hero */}
-        <div class="hidden lg:block">
-          <LandingCards />
-        </div>
-
-        {/* Newsletter Section */}
-        <section class="relative pt-2 pb-4 px-2.5 overflow-hidden bg-stone-100">
+        {/* Newsletter Section - Mobile only, desktop is in footer */}
+        <section class="lg:hidden relative pt-2 pb-4 px-2.5 overflow-hidden bg-stone-100">
           <div class="relative max-w-xl mx-auto">
             {/* Outer container with darker textured border */}
             <div

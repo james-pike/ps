@@ -113,8 +113,8 @@ export const translations = {
     "service.livePerformanceDesc": "Bringing elegance and emotion to weddings, events, and concerts.",
     "service.livePerformanceFullDesc": "Create unforgettable moments with live violin performances. Specializing in weddings, corporate events, and intimate concerts, I craft musical experiences that resonate with your audience. From classical elegance to modern arrangements, each performance is tailored to your vision.",
     "service.myMusic": "My Music",
-    "service.myMusicDesc": "Listen to my original music and arrangements on Spotify.",
-    "service.myMusicFullDesc": "Discover unique violin arrangements and original compositions. I create custom transcriptions that breathe new life into beloved pieces and compose original works that showcase the violin's versatility. Each arrangement is crafted with musicality and technical excellence in mind.",
+    "service.myMusicDesc": "Listen on your favorite platform.",
+    "service.myMusicFullDesc": "Stream my original music and arrangements wherever you listen.",
     "service.portfolio": "Portfolio",
     "service.readyToElevate": "Ready to elevate your recording?",
     "service.readyToBook": "Ready to book your performance?",
@@ -148,6 +148,7 @@ export const translations = {
     "expanded.gallery": "Gallery",
     "expanded.listenOnSpotify": "Listen on Spotify",
     "expanded.listenToMyMusic": "Listen to My Music",
+    "expanded.listenOnPlatforms": "Listen on your favorite platform",
 
     // Artist Profile Card
     "hero.singer": "Singer",
@@ -259,8 +260,8 @@ export const translations = {
     "service.livePerformanceDesc": "Élégance et émotion pour mariages, événements et concerts.",
     "service.livePerformanceFullDesc": "Moments inoubliables avec le violon live. Mariages, événements corporatifs, concerts intimes—des expériences qui résonnent. Classique ou moderne, adapté à votre vision.",
     "service.myMusic": "Ma Musique",
-    "service.myMusicDesc": "Ma musique originale et arrangements sur Spotify.",
-    "service.myMusicFullDesc": "Arrangements uniques et compositions originales. Transcriptions qui donnent vie aux classiques et œuvres originales montrant la polyvalence du violon.",
+    "service.myMusicDesc": "Écoutez sur votre plateforme préférée.",
+    "service.myMusicFullDesc": "Écoutez ma musique originale et mes arrangements où vous voulez.",
     "service.portfolio": "Portfolio",
     "service.readyToElevate": "Prêt à élever votre projet?",
     "service.readyToBook": "Prêt à réserver?",
@@ -294,6 +295,7 @@ export const translations = {
     "expanded.gallery": "Galerie",
     "expanded.listenOnSpotify": "Écouter sur Spotify",
     "expanded.listenToMyMusic": "Écouter",
+    "expanded.listenOnPlatforms": "Écoutez sur votre plateforme préférée",
 
     // Artist Profile Card
     "hero.singer": "Chanteur",

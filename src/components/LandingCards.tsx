@@ -69,13 +69,11 @@ export default component$(() => {
     {
       titleKey: "service.myMusic",
       descriptionKey: "service.myMusicDesc",
-      fullDescriptionKey: "service.myMusicFullDesc",
-      link: "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa",
+      contentType: "myMusic",
+      link: "#my-music",
       image: "/images/ap1.jpg",
       accent: "stone",
-      portfolioImages: [],
-      isExternal: true,
-      buttonText: "Listen on Spotify"
+      portfolioImages: []
     }
   ];
 
@@ -125,7 +123,7 @@ export default component$(() => {
         >
         {/* Show cards grid when nothing is expanded */}
         {expandedCard.value === null ? (
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6 lg:gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-5 md:gap-6 lg:gap-4 lg:auto-rows-[180px]">
             {services.map((service, index) => {
               const accentStyles: Record<string, { border: string; overlay: string; button: string }> = {
                 stone: {
@@ -147,14 +145,22 @@ export default component$(() => {
 
               const style = accentStyles[service.accent];
 
+              // Bento grid spans for desktop
+              const bentoClasses = [
+                "lg:col-span-5 lg:row-span-2", // New Single - large left
+                "lg:col-span-4 lg:row-span-1", // Studio Sessions - medium top right
+                "lg:col-span-3 lg:row-span-2", // Artist Profile - tall right
+                "lg:col-span-4 lg:row-span-1", // My Music - medium bottom middle
+              ];
+
               return (
                 <button
                   key={index}
                   onClick$={(e) => handleCardClick(index, e, service.link, (service as any).isExternal)}
-                  class={`group relative rounded-xl overflow-hidden border-2 lg:border ${style.border} transition-all duration-300 hover:scale-[1.02] lg:hover:scale-100 hover:shadow-2xl lg:hover:shadow-lg text-left w-full cursor-pointer bg-white`}
+                  class={`group relative rounded-xl overflow-hidden border-2 lg:border ${style.border} transition-all duration-300 hover:scale-[1.02] lg:hover:scale-[1.01] hover:shadow-2xl lg:hover:shadow-xl text-left w-full cursor-pointer bg-white ${bentoClasses[index]}`}
                 >
-                  {/* Image - tall on mobile, compact on desktop */}
-                  <div class="aspect-[4/3] md:aspect-[4/5] lg:aspect-[4/3] relative overflow-hidden">
+                  {/* Image - tall on mobile, fills bento cell on desktop */}
+                  <div class="aspect-[4/3] md:aspect-[4/5] lg:aspect-auto lg:absolute lg:inset-0 relative overflow-hidden">
                     <img
                       src={service.image}
                       alt={(service as any).title || t(locale, (service as any).titleKey as any)}
@@ -230,8 +236,97 @@ export default component$(() => {
 
                     {/* Content */}
                     <div class="p-5 md:p-8 lg:p-5">
-                      {/* Artist Profile Content */}
-                      {(service as any).contentType === 'artistProfile' ? (
+                      {/* My Music Content - Streaming Links */}
+                      {(service as any).contentType === 'myMusic' ? (
+                        <>
+                          <p class="text-stone-600 leading-relaxed lg:text-sm mb-5 lg:mb-4">
+                            {t(locale, "expanded.listenOnPlatforms")}
+                          </p>
+
+                          {/* Streaming Links */}
+                          <div class="space-y-3 lg:space-y-2">
+                            {/* Spotify */}
+                            <a
+                              href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa?si=gJGmImiyRO-q6Y0bQLmzOg"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="flex items-center gap-4 w-full px-5 lg:px-4 py-4 lg:py-3 bg-gradient-to-r from-green-500 to-emerald-600 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                            >
+                              <svg class="w-7 lg:w-6 h-7 lg:h-6" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                              </svg>
+                              <span class="text-lg lg:text-base">Spotify</span>
+                              <svg class="w-5 h-5 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                              </svg>
+                            </a>
+
+                            {/* Apple Music */}
+                            <a
+                              href="https://music.apple.com/ca/artist/phineas-stewart/1717275618"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="flex items-center gap-4 w-full px-5 lg:px-4 py-4 lg:py-3 bg-gradient-to-r from-pink-500 to-rose-600 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                            >
+                              <svg class="w-7 lg:w-6 h-7 lg:h-6" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.994 6.124a9.23 9.23 0 0 0-.24-2.132c-.317-1.336-1.085-2.477-2.17-3.331A9.064 9.064 0 0 0 19.578.199a9.23 9.23 0 0 0-2.591-.198h-9.974a9.23 9.23 0 0 0-2.591.198A9.064 9.064 0 0 0 2.416.661C1.331 1.515.563 2.656.246 3.992A9.23 9.23 0 0 0 .006 6.124v11.752a9.23 9.23 0 0 0 .24 2.132c.317 1.336 1.085 2.477 2.17 3.331.317.257.652.476 1.006.662a9.23 9.23 0 0 0 2.591.198h9.974a9.23 9.23 0 0 0 2.591-.198c.354-.186.689-.405 1.006-.662 1.085-.854 1.853-1.995 2.17-3.331a9.23 9.23 0 0 0 .24-2.132V6.124zM19.096 15.088c0 .586-.086 1.077-.258 1.474-.172.398-.43.73-.774.997a2.497 2.497 0 0 1-1.2.48 2.855 2.855 0 0 1-1.223-.083 2.497 2.497 0 0 1-1.086-.663 2.855 2.855 0 0 1-.663-1.086 2.497 2.497 0 0 1-.083-1.223v-6.613l-5.098 1.378v6.943c0 .586-.086 1.077-.258 1.474-.172.398-.43.73-.774.997a2.497 2.497 0 0 1-1.2.48 2.855 2.855 0 0 1-1.223-.083 2.497 2.497 0 0 1-1.086-.663 2.855 2.855 0 0 1-.663-1.086 2.497 2.497 0 0 1-.083-1.223c0-.586.086-1.077.258-1.474.172-.398.43-.73.774-.997a2.497 2.497 0 0 1 1.2-.48c.172-.014.344-.014.516 0 .172.014.344.043.516.086v-8.28l8.28-2.24v8.28z"/>
+                              </svg>
+                              <span class="text-lg lg:text-base">Apple Music</span>
+                              <svg class="w-5 h-5 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                              </svg>
+                            </a>
+
+                            {/* YouTube Music */}
+                            <a
+                              href="https://music.youtube.com/channel/UCg9YF9SN504fQCvjf0ra_XQ?si=zethm1ZVPTYsRqHU"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="flex items-center gap-4 w-full px-5 lg:px-4 py-4 lg:py-3 bg-gradient-to-r from-red-500 to-red-600 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                            >
+                              <svg class="w-7 lg:w-6 h-7 lg:h-6" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L15.816 12l-6.132 3.54z"/>
+                              </svg>
+                              <span class="text-lg lg:text-base">YouTube Music</span>
+                              <svg class="w-5 h-5 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                              </svg>
+                            </a>
+
+                            {/* Amazon Music */}
+                            <a
+                              href="https://music.amazon.com/artists/B09XX8QJDN/phineas-stewart"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="flex items-center gap-4 w-full px-5 lg:px-4 py-4 lg:py-3 bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                            >
+                              <svg class="w-7 lg:w-6 h-7 lg:h-6" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M13.958 10.09c0 1.232.029 2.256-.591 3.351-.502.891-1.301 1.438-2.186 1.438-1.214 0-1.922-.924-1.922-2.292 0-2.692 2.415-3.182 4.7-3.182v.685zm3.186 7.705a.659.659 0 0 1-.753.072c-1.06-.879-1.25-1.286-1.831-2.121-1.748 1.784-2.988 2.318-5.254 2.318-2.683 0-4.77-1.656-4.77-4.968 0-2.586 1.401-4.347 3.403-5.209 1.735-.755 4.159-.891 6.011-1.099v-.411c0-.755.058-1.646-.385-2.298-.385-.58-1.124-.82-1.772-.82-1.205 0-2.276.618-2.539 1.897-.054.284-.262.564-.548.578l-3.068-.332c-.259-.058-.545-.266-.473-.66.71-3.735 4.088-4.863 7.112-4.863 1.547 0 3.568.411 4.786 1.581 1.547 1.437 1.399 3.352 1.399 5.437v4.923c0 1.48.616 2.13 1.196 2.929.203.288.247.63-.011.843-.647.541-1.799 1.545-2.432 2.107l-.072-.067zM21.779 20.332c-1.414 1.104-3.456 1.685-5.209 1.685-2.465 0-4.682-.912-6.359-2.429-.131-.119-.014-.281.144-.189 1.812 1.054 4.056 1.686 6.372 1.686 1.563 0 3.282-.324 4.863-.995.239-.102.439.157.189.242zM22.8 18.999c-.179-.228-1.178-.108-1.629-.054-.136.017-.157-.102-.034-.189.798-.559 2.107-.398 2.26-.211.151.189-.041 1.499-.788 2.125-.114.096-.224.044-.173-.082.168-.421.545-1.36.364-1.589z"/>
+                              </svg>
+                              <span class="text-lg lg:text-base">Amazon Music</span>
+                              <svg class="w-5 h-5 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                              </svg>
+                            </a>
+
+                            {/* Tidal */}
+                            <a
+                              href="https://tidal.com/artist/43916985/u"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              class="flex items-center gap-4 w-full px-5 lg:px-4 py-4 lg:py-3 bg-gradient-to-r from-stone-800 to-stone-900 text-white font-semibold rounded-xl shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                            >
+                              <svg class="w-7 lg:w-6 h-7 lg:h-6" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12.012 3.992L8.008 7.996 4.004 3.992 0 7.996 4.004 12l4.004-4.004L12.012 12l-4.004 4.004 4.004 4.004 4.004-4.004L12.012 12l4.004-4.004-4.004-4.004zm4.004 4.004l4.004-4.004L24.024 7.996l-4.004 4.004-4.004-4.004z"/>
+                              </svg>
+                              <span class="text-lg lg:text-base">Tidal</span>
+                              <svg class="w-5 h-5 ml-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                              </svg>
+                            </a>
+                          </div>
+                        </>
+                      ) : (service as any).contentType === 'artistProfile' ? (
                         <>
                           {/* Artist Description */}
                           <p class="text-stone-600 leading-relaxed lg:text-sm mb-3 lg:mb-2">
