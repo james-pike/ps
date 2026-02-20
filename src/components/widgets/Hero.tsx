@@ -702,14 +702,14 @@ export default component$(() => {
                                 </div>
                               </div>
 
-                              {/* Listen on Spotify Button */}
+                              {/* Listen to My Music Button */}
                               <a
                                 href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 class={`relative z-10 flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
-                                {t(locale, "expanded.listenOnSpotify")}
+                                {t(locale, "expanded.listenToMyMusic")}
                                 <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
                               </a>
                             </>
@@ -1158,7 +1158,7 @@ export default component$(() => {
                                 rel="noopener noreferrer"
                                 class={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${backStyle.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
-                                {t(locale, "expanded.listenOnSpotify")}
+                                {t(locale, "expanded.listenToMyMusic")}
                                 <LuChevronRight class="w-5 h-5" />
                               </a>
                             </div>
@@ -1311,7 +1311,7 @@ export default component$(() => {
                       heroImage: "/images/ap1.jpg",
                       thumbImages: ["/images/ap2.jpg", "/images/ap3.JPEG", "https://img.youtube.com/vi/06YplsNk_ro/hqdefault.jpg"],
                       videoIndexes: [2],
-                      ctaText: "expanded.listenOnSpotify",
+                      ctaText: "expanded.listenToMyMusic",
                       ctaLink: "https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa",
                       gradientFrom: "from-slate-200",
                       isExternal: true
@@ -1592,7 +1592,7 @@ export default component$(() => {
                           rel="noopener noreferrer"
                           class="inline-flex items-center gap-2 px-4 py-2 bg-stone-800 hover:bg-stone-900 text-white text-sm font-medium rounded-lg transition-colors"
                         >
-                          {t(locale, "expanded.listenOnSpotify")}
+                          {t(locale, "expanded.listenToMyMusic")}
                           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                           </svg>
