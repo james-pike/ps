@@ -417,18 +417,16 @@ export default component$(() => {
                             </div>
                           </div>
 
-                          {/* CTA */}
-                          <a
-                            href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
-                            target="_blank"
-                            rel="noopener noreferrer"
+                          {/* CTA - Opens My Music streaming links */}
+                          <button
+                            onClick$={() => { expandedCard.value = 3; }}
                             class="inline-flex items-center justify-center gap-2 px-6 lg:px-4 py-3 lg:py-2 bg-stone-700 lg:bg-stone-800 hover:bg-stone-800 lg:hover:bg-stone-900 text-white font-semibold lg:font-medium text-base lg:text-sm rounded-lg shadow-lg lg:shadow-none transition-all duration-300 lg:transition-colors hover:scale-105 lg:hover:scale-100"
                           >
                             {t(locale, "expanded.listenToMyMusic")}
                             <svg class="w-4 lg:w-3.5 h-4 lg:h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                             </svg>
-                          </a>
+                          </button>
                         </>
                       ) : (
                         <>

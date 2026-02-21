@@ -10,11 +10,14 @@ export const useNewsletterSignup = globalAction$(
     const url = `https://${MAILCHIMP_DC}.api.mailchimp.com/3.0/lists/${MAILCHIMP_AUDIENCE_ID}/members`;
 
     try {
+      // Use Buffer for base64 encoding (Node.js compatible)
+      const authString = Buffer.from(`anystring:${MAILCHIMP_API_KEY}`).toString("base64");
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Basic ${btoa(`anystring:${MAILCHIMP_API_KEY}`)}`,
+          Authorization: `Basic ${authString}`,
         },
         body: JSON.stringify({
           email_address: data.email,
