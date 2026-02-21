@@ -108,7 +108,7 @@ export default component$(() => {
                   </p>
                   <div class="flex items-center gap-3">
                     <form
-                      action="https://phineasstewart.us4.list-manage.com/subscribe/post?u=YOUR_USER_ID&amp;id=c4a46eab58"
+                      action="https://gmail.us4.list-manage.com/subscribe/post?u=a300183dc5bde45ee11c457d7&amp;id=c4a46eab58&amp;f_id=0014e0e9f0"
                       method="post"
                       class="flex w-full max-w-md"
                       target="_blank"
