@@ -36,6 +36,9 @@ export default component$(() => {
   // Desktop bento card expanded state: 'none' | 'studio' | 'artist' | 'music'
   const desktopBentoExpanded = useSignal<'none' | 'studio' | 'artist' | 'music'>('none');
 
+  // Desktop expanded image state: stores the image/video URL and type
+  const desktopExpandedMedia = useSignal<{ src: string; isVideo: boolean; videoId?: string } | null>(null);
+
   // Desktop header state
   const i18n = useI18n();
   const showLangDropdown = useSignal(false);
@@ -1271,8 +1274,8 @@ export default component$(() => {
         <div class="hidden lg:block w-full max-w-7xl mx-auto px-4 py-8">
           <div class="grid grid-cols-12 gap-4">
             {/* Left: Stacked Hero Cards */}
-            <div class="col-span-5">
-              <div class="relative" style="min-height: 580px;">
+            <div class="col-span-5 flex flex-col">
+              <div class="relative flex-1" style="min-height: 520px;">
                 {/* Card Stack */}
                 {heroCards.map((card, index) => {
                   const cardStyles = [
@@ -1357,33 +1360,51 @@ export default component$(() => {
 
                             <p class={`text-sm ${style.description} mb-4 line-clamp-3`}>{card.description}</p>
 
-                            <a
-                              href={style.ctaLink}
-                              target={style.isExternal ? "_blank" : undefined}
-                              rel={style.isExternal ? "noopener noreferrer" : undefined}
-                              class={`group/btn inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r ${style.button} text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105`}
-                            >
-                              {t(locale, style.ctaText as any)}
-                              <span class="transition-transform group-hover/btn:translate-x-1">→</span>
-                            </a>
+                            {/* Only show CTA for Session Violinist card (index 0) */}
+                            {index === 0 && (
+                              <a
+                                href={style.ctaLink}
+                                target={style.isExternal ? "_blank" : undefined}
+                                rel={style.isExternal ? "noopener noreferrer" : undefined}
+                                class={`group/btn inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r ${style.button} text-white text-sm font-semibold rounded-lg shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105`}
+                              >
+                                {t(locale, style.ctaText as any)}
+                                <span class="transition-transform group-hover/btn:translate-x-1">→</span>
+                              </a>
+                            )}
                           </div>
                         </div>
 
                         {/* Thumbnails */}
                         <div class="px-5 pb-5">
                           <div class="grid grid-cols-3 gap-2">
-                            {style.thumbImages.map((img, imgIdx) => (
-                              <div key={imgIdx} class="aspect-video rounded-lg overflow-hidden border border-white/20 shadow-sm relative group/thumb">
-                                <img src={img} alt="" class="w-full h-full object-cover group-hover/thumb:scale-110 transition-transform duration-500" loading="eager" />
-                                {style.videoIndexes.includes(imgIdx) && (
-                                  <div class="absolute inset-0 flex items-center justify-center bg-black/20">
-                                    <div class="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center shadow">
-                                      <svg class="w-2.5 h-2.5 text-stone-700 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                            {style.thumbImages.map((img, imgIdx) => {
+                              const isVideo = style.videoIndexes.includes(imgIdx);
+                              // Extract video ID from YouTube thumbnail URL
+                              const videoId = isVideo ? img.match(/\/vi\/([^/]+)\//)?.[1] : undefined;
+                              return (
+                                <button
+                                  key={imgIdx}
+                                  class="aspect-video rounded-lg overflow-hidden border border-white/20 shadow-sm relative group/thumb cursor-pointer"
+                                  onClick$={() => {
+                                    desktopExpandedMedia.value = {
+                                      src: img,
+                                      isVideo,
+                                      videoId
+                                    };
+                                  }}
+                                >
+                                  <img src={img} alt="" class="w-full h-full object-cover group-hover/thumb:scale-110 transition-transform duration-500" loading="eager" />
+                                  {isVideo && (
+                                    <div class="absolute inset-0 flex items-center justify-center bg-black/20">
+                                      <div class="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center shadow">
+                                        <svg class="w-2.5 h-2.5 text-stone-700 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                                      </div>
                                     </div>
-                                  </div>
-                                )}
-                              </div>
-                            ))}
+                                  )}
+                                </button>
+                              );
+                            })}
                           </div>
                         </div>
                       </div>
@@ -1393,23 +1414,23 @@ export default component$(() => {
               </div>
 
               {/* Pagination Controls */}
-              <div class="flex items-center justify-center gap-3 mt-3">
+              <div class="flex items-center justify-center gap-4 mt-4 py-3">
                 <button
                   onClick$={() => { currentSlideIndex.value = (currentSlideIndex.value - 1 + heroCards.length) % heroCards.length; }}
-                  class="p-1.5 rounded-full bg-stone-200/80 border border-stone-300 hover:bg-stone-300 transition-all duration-300 hover:scale-110"
+                  class="p-2 rounded-full bg-stone-200 border border-stone-300 hover:bg-stone-300 transition-all duration-300 hover:scale-110 shadow-sm"
                 >
-                  <svg class="w-4 h-4 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-5 h-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                   </svg>
                 </button>
 
-                <div class="flex items-center gap-1.5">
+                <div class="flex items-center gap-2">
                   {heroCards.map((_, idx) => (
                     <button
                       key={idx}
                       onClick$={() => { currentSlideIndex.value = idx; }}
-                      class={`h-1.5 rounded-full transition-all duration-300 ${
-                        idx === currentSlideIndex.value ? "w-5 bg-stone-700" : "w-1.5 bg-stone-400/50 hover:bg-stone-400"
+                      class={`h-2 rounded-full transition-all duration-300 ${
+                        idx === currentSlideIndex.value ? "w-6 bg-stone-700" : "w-2 bg-stone-400/60 hover:bg-stone-500"
                       }`}
                     />
                   ))}
@@ -1417,9 +1438,9 @@ export default component$(() => {
 
                 <button
                   onClick$={() => { currentSlideIndex.value = (currentSlideIndex.value + 1) % heroCards.length; }}
-                  class="p-1.5 rounded-full bg-stone-200/80 border border-stone-300 hover:bg-stone-300 transition-all duration-300 hover:scale-110"
+                  class="p-2 rounded-full bg-stone-200 border border-stone-300 hover:bg-stone-300 transition-all duration-300 hover:scale-110 shadow-sm"
                 >
-                  <svg class="w-4 h-4 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg class="w-5 h-5 text-stone-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
@@ -1506,30 +1527,30 @@ export default component$(() => {
                           {t(locale, "service.studioSessionsFullDesc")}
                         </p>
                         <div class="grid grid-cols-3 gap-2 mb-4">
-                          <div class="aspect-video rounded-lg overflow-hidden border border-stone-200">
+                          <button
+                            class="aspect-video rounded-lg overflow-hidden border border-stone-200 cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick$={() => { desktopExpandedMedia.value = { src: "/images/sv2.JPG", isVideo: false }; }}
+                          >
                             <img src="/images/sv2.JPG" alt="Studio" class="w-full h-full object-cover" />
-                          </div>
-                          <div class="aspect-video rounded-lg overflow-hidden border border-stone-200">
+                          </button>
+                          <button
+                            class="aspect-video rounded-lg overflow-hidden border border-stone-200 cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick$={() => { desktopExpandedMedia.value = { src: "/images/sv3.JPG", isVideo: false }; }}
+                          >
                             <img src="/images/sv3.JPG" alt="Studio" class="w-full h-full object-cover" />
-                          </div>
-                          <div class="aspect-video rounded-lg overflow-hidden border border-stone-200 relative">
+                          </button>
+                          <button
+                            class="aspect-video rounded-lg overflow-hidden border border-stone-200 relative cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick$={() => { desktopExpandedMedia.value = { src: "https://img.youtube.com/vi/dl6sZEikzz0/hqdefault.jpg", isVideo: true, videoId: "dl6sZEikzz0" }; }}
+                          >
                             <img src="https://img.youtube.com/vi/dl6sZEikzz0/hqdefault.jpg" alt="Video" class="w-full h-full object-cover" />
                             <div class="absolute inset-0 flex items-center justify-center bg-black/20">
                               <div class="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center">
                                 <svg class="w-3 h-3 text-stone-700 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                               </div>
                             </div>
-                          </div>
+                          </button>
                         </div>
-                        <a
-                          href="mailto:book@phineasstewart.com"
-                          class="inline-flex items-center gap-2 px-4 py-2 bg-stone-800 hover:bg-stone-900 text-white text-sm font-medium rounded-lg transition-colors"
-                        >
-                          {t(locale, "service.bookSessionViolinist")}
-                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
-                        </a>
                       </div>
                     </>
                   )}
@@ -1568,35 +1589,36 @@ export default component$(() => {
                           </span>
                         </div>
                         <div class="grid grid-cols-4 gap-2 mb-4">
-                          <div class="aspect-video rounded-lg overflow-hidden border border-stone-200">
+                          <button
+                            class="aspect-video rounded-lg overflow-hidden border border-stone-200 cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick$={() => { desktopExpandedMedia.value = { src: "/images/ap1.jpg", isVideo: false }; }}
+                          >
                             <img src="/images/ap1.jpg" alt="Artist" class="w-full h-full object-cover" />
-                          </div>
-                          <div class="aspect-video rounded-lg overflow-hidden border border-stone-200">
+                          </button>
+                          <button
+                            class="aspect-video rounded-lg overflow-hidden border border-stone-200 cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick$={() => { desktopExpandedMedia.value = { src: "/images/ap2.jpg", isVideo: false }; }}
+                          >
                             <img src="/images/ap2.jpg" alt="Artist" class="w-full h-full object-cover" />
-                          </div>
-                          <div class="aspect-video rounded-lg overflow-hidden border border-stone-200">
+                          </button>
+                          <button
+                            class="aspect-video rounded-lg overflow-hidden border border-stone-200 cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick$={() => { desktopExpandedMedia.value = { src: "/images/ap3.JPEG", isVideo: false }; }}
+                          >
                             <img src="/images/ap3.JPEG" alt="Artist" class="w-full h-full object-cover" />
-                          </div>
-                          <div class="aspect-video rounded-lg overflow-hidden border border-stone-200 relative">
+                          </button>
+                          <button
+                            class="aspect-video rounded-lg overflow-hidden border border-stone-200 relative cursor-pointer hover:opacity-90 transition-opacity"
+                            onClick$={() => { desktopExpandedMedia.value = { src: "https://img.youtube.com/vi/06YplsNk_ro/hqdefault.jpg", isVideo: true, videoId: "06YplsNk_ro" }; }}
+                          >
                             <img src="https://img.youtube.com/vi/06YplsNk_ro/hqdefault.jpg" alt="Video" class="w-full h-full object-cover" />
                             <div class="absolute inset-0 flex items-center justify-center bg-black/20">
                               <div class="w-6 h-6 rounded-full bg-white/90 flex items-center justify-center">
                                 <svg class="w-3 h-3 text-stone-700 ml-0.5" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                               </div>
                             </div>
-                          </div>
+                          </button>
                         </div>
-                        <a
-                          href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          class="inline-flex items-center gap-2 px-4 py-2 bg-stone-800 hover:bg-stone-900 text-white text-sm font-medium rounded-lg transition-colors"
-                        >
-                          {t(locale, "expanded.listenToMyMusic")}
-                          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                          </svg>
-                        </a>
                       </div>
                     </>
                   )}
@@ -1718,6 +1740,43 @@ export default component$(() => {
               </a>
             </div>
           </div>
+
+          {/* Desktop Expanded Media Overlay */}
+          {desktopExpandedMedia.value && (
+            <div
+              class="fixed inset-0 z-50 bg-black/90 flex items-center justify-center animate-in fade-in duration-200"
+              onClick$={() => { desktopExpandedMedia.value = null; }}
+            >
+              <button
+                class="absolute top-6 right-6 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors z-50"
+                onClick$={(e) => { e.stopPropagation(); desktopExpandedMedia.value = null; }}
+              >
+                <LuX class="w-6 h-6 text-white" />
+              </button>
+              <div
+                class="relative max-w-4xl max-h-[85vh] w-full mx-4"
+                onClick$={(e) => { e.stopPropagation(); }}
+              >
+                {desktopExpandedMedia.value.isVideo && desktopExpandedMedia.value.videoId ? (
+                  <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-2xl">
+                    <iframe
+                      src={`https://www.youtube.com/embed/${desktopExpandedMedia.value.videoId}?autoplay=1`}
+                      title="Video"
+                      class="w-full h-full"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullscreen
+                    ></iframe>
+                  </div>
+                ) : (
+                  <img
+                    src={desktopExpandedMedia.value.src}
+                    alt="Expanded view"
+                    class="w-full h-auto max-h-[85vh] object-contain rounded-xl shadow-2xl"
+                  />
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
