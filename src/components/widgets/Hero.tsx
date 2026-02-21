@@ -705,16 +705,14 @@ export default component$(() => {
                                 </div>
                               </div>
 
-                              {/* Listen to My Music Button */}
-                              <a
-                                href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                              {/* My Music Button */}
+                              <button
+                                onClick$={() => { flipTarget.value = 'my-music'; }}
                                 class={`relative z-10 flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
                                 {t(locale, "expanded.listenToMyMusic")}
                                 <span class="inline-block transition-transform group-hover:translate-x-1">→</span>
-                              </a>
+                              </button>
                             </>
                           )}
                         </div>
@@ -1155,15 +1153,13 @@ export default component$(() => {
                               </div>
 
                               {/* CTA */}
-                              <a
-                                href="https://open.spotify.com/artist/6NdP70O55lwG5h9FTZPXKa"
-                                target="_blank"
-                                rel="noopener noreferrer"
+                              <button
+                                onClick$={() => { flipTarget.value = 'my-music'; }}
                                 class={`flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${backStyle.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
                                 {t(locale, "expanded.listenToMyMusic")}
                                 <LuChevronRight class="w-5 h-5" />
-                              </a>
+                              </button>
                             </div>
                           )}
 

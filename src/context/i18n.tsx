@@ -147,7 +147,7 @@ export const translations = {
     "expanded.basedInMontreal": "Montreal based",
     "expanded.gallery": "Gallery",
     "expanded.listenOnSpotify": "Listen on Spotify",
-    "expanded.listenToMyMusic": "Listen to My Music",
+    "expanded.listenToMyMusic": "My Music",
     "expanded.listenOnPlatforms": "Listen on your favorite platform",
 
     // Artist Profile Card
@@ -294,7 +294,7 @@ export const translations = {
     "expanded.basedInMontreal": "Montréal",
     "expanded.gallery": "Galerie",
     "expanded.listenOnSpotify": "Écouter sur Spotify",
-    "expanded.listenToMyMusic": "Écouter",
+    "expanded.listenToMyMusic": "Ma Musique",
     "expanded.listenOnPlatforms": "Écoutez sur votre plateforme préférée",
 
     // Artist Profile Card

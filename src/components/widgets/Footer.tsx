@@ -1,5 +1,6 @@
-import { component$, useSignal, $,  } from "@builder.io/qwik";
-import { Link } from "@builder.io/qwik-city";
+import { component$, useSignal, $ } from "@builder.io/qwik";
+import { Link, Form } from "@builder.io/qwik-city";
+import { useNewsletterSignup } from "~/routes/newsletter-action";
 import {
   LuInstagram,
   LuYoutube,
@@ -12,6 +13,8 @@ export default component$(() => {
   const i18n = useI18n();
   const locale = i18n.locale.value;
   const showLangDropdown = useSignal(false);
+  const newsletterAction = useNewsletterSignup();
+  const footerEmail = useSignal("");
 
   const handleSetLanguage = $((lang: Language) => {
     i18n.locale.value = lang;
@@ -107,31 +110,35 @@ export default component$(() => {
                     {t(locale, "newsletter.description")}
                   </p>
                   <div class="flex items-center gap-3">
-                    <form
-                      action="#"
-                      method="post"
-                      class="flex w-full max-w-md"
-                      target="_self"
-                      noValidate
-                    >
-                      <input
-                        type="email"
-                        name="EMAIL"
-                        class="flex-1 px-4 py-2.5 text-sm border border-stone-300 rounded-l-xl bg-white text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                        placeholder={t(locale, "newsletter.placeholder")}
-                        aria-label={t(locale, "newsletter.placeholder")}
-                        required
-                        value=""
-                      />
-                      <input
-                        type="submit"
-                        name="subscribe"
-                        class="px-5 py-2.5 bg-gradient-to-r from-stone-500 to-stone-600 text-white text-sm font-medium rounded-r-xl hover:from-stone-400 hover:to-stone-500 transition-all duration-200 cursor-pointer"
-                        value={t(locale, "newsletter.subscribe")}
-                        role="button"
-                        aria-label={t(locale, "newsletter.subscribe")}
-                      />
-                    </form>
+                    {newsletterAction.value?.success ? (
+                      <div class="flex-1 max-w-md py-2.5 px-4 bg-green-50 border border-green-200 rounded-xl">
+                        <p class="text-green-700 text-sm font-medium">{newsletterAction.value.message}</p>
+                      </div>
+                    ) : (
+                      <Form action={newsletterAction} class="flex flex-col w-full max-w-md gap-1">
+                        <div class="flex w-full">
+                          <input
+                            type="email"
+                            name="email"
+                            bind:value={footerEmail}
+                            class="flex-1 px-4 py-2.5 text-sm border border-stone-300 rounded-l-xl bg-white text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            placeholder={t(locale, "newsletter.placeholder")}
+                            aria-label={t(locale, "newsletter.placeholder")}
+                            required
+                          />
+                          <button
+                            type="submit"
+                            class="px-5 py-2.5 bg-gradient-to-r from-stone-500 to-stone-600 text-white text-sm font-medium rounded-r-xl hover:from-stone-400 hover:to-stone-500 transition-all duration-200 cursor-pointer disabled:opacity-50"
+                            disabled={newsletterAction.isRunning}
+                          >
+                            {newsletterAction.isRunning ? "..." : t(locale, "newsletter.subscribe")}
+                          </button>
+                        </div>
+                        {newsletterAction.value?.success === false && (
+                          <p class="text-red-600 text-xs">{newsletterAction.value.message}</p>
+                        )}
+                      </Form>
+                    )}
 
                     {/* Language Switcher */}
                     <div class="relative">
