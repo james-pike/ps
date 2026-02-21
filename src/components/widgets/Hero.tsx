@@ -707,7 +707,7 @@ export default component$(() => {
 
                               {/* My Music Button */}
                               <button
-                                onClick$={() => { flipTarget.value = 'my-music'; }}
+                                onClick$={() => handleFlip('my-music')}
                                 class={`relative z-10 flex items-center justify-center gap-2 w-full px-6 py-3 bg-gradient-to-r ${style.button} font-semibold rounded-lg shadow-lg text-center transition-all duration-300 hover:scale-105`}
                               >
                                 {t(locale, "expanded.listenToMyMusic")}
@@ -1356,7 +1356,7 @@ export default component$(() => {
 
                             <p class={`text-sm ${style.description} mb-4 line-clamp-3`}>{card.description}</p>
 
-                            {/* Only show CTA for Session Violinist card (index 0) */}
+                            {/* Only show CTA for Session Violinist card (index 0) on desktop */}
                             {index === 0 && (
                               <a
                                 href={style.ctaLink}
