@@ -1,15 +1,12 @@
-import { component$, useSignal } from "@builder.io/qwik";
-import { type DocumentHead, Form } from "@builder.io/qwik-city";
+import { component$ } from "@builder.io/qwik";
+import { type DocumentHead } from "@builder.io/qwik-city";
 import { SITE } from "~/config.mjs";
 import Hero from "~/components/widgets/Hero";
 import { useI18n, t } from "~/context/i18n";
-import { useNewsletterSignup } from "./newsletter-action";
 
 export default component$(() => {
   const i18n = useI18n();
   const locale = i18n.locale.value;
-  const newsletterAction = useNewsletterSignup();
-  const mobileEmail = useSignal("");
 
   return (
     <>
@@ -45,35 +42,30 @@ export default component$(() => {
                 </div>
                 <div id="mc_embed_shell_mobile">
                   <div id="mc_embed_signup_mobile">
-                    {newsletterAction.value?.success ? (
-                      <div class="text-center py-3 px-4 bg-green-50 border border-green-200 rounded-xl">
-                        <p class="text-green-700 font-medium">{newsletterAction.value.message}</p>
+                    <form
+                      action="https://phineasstewart.us4.list-manage.com/subscribe/post?u=YOUR_USER_ID&amp;id=c4a46eab58"
+                      method="post"
+                      class="validate flex w-full"
+                      target="_blank"
+                      noValidate
+                    >
+                      <div class="flex w-full">
+                        <input
+                          type="email"
+                          name="EMAIL"
+                          class="required email flex-1 px-4 py-2.5 text-sm border border-stone-300 rounded-l-xl bg-white text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                          placeholder={t(locale, "newsletter.placeholder")}
+                          aria-label={t(locale, "newsletter.placeholder")}
+                          required
+                        />
+                        <input
+                          type="submit"
+                          name="subscribe"
+                          class="px-5 py-2.5 bg-gradient-to-r from-stone-500 to-stone-600 text-white text-sm font-medium rounded-r-xl hover:from-stone-400 hover:to-stone-500 transition-all duration-200 cursor-pointer"
+                          value={t(locale, "newsletter.subscribe")}
+                        />
                       </div>
-                    ) : (
-                      <Form action={newsletterAction} class="flex flex-col w-full gap-2">
-                        <div class="flex w-full">
-                          <input
-                            type="email"
-                            name="email"
-                            bind:value={mobileEmail}
-                            class="required email flex-1 px-4 py-2.5 text-sm border border-stone-300 rounded-l-xl bg-white text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-500"
-                            placeholder={t(locale, "newsletter.placeholder")}
-                            aria-label={t(locale, "newsletter.placeholder")}
-                            required
-                          />
-                          <button
-                            type="submit"
-                            class="px-5 py-2.5 bg-gradient-to-r from-stone-500 to-stone-600 text-white text-sm font-medium rounded-r-xl hover:from-stone-400 hover:to-stone-500 transition-all duration-200 disabled:opacity-50"
-                            disabled={newsletterAction.isRunning}
-                          >
-                            {newsletterAction.isRunning ? "..." : t(locale, "newsletter.subscribe")}
-                          </button>
-                        </div>
-                        {newsletterAction.value?.success === false && (
-                          <p class="text-red-600 text-xs text-center">{newsletterAction.value.message}</p>
-                        )}
-                      </Form>
-                    )}
+                    </form>
                   </div>
                 </div>
               </div>
